@@ -1,0 +1,12 @@
+[submodule "src/github.com/cloudfoundry-incubator/containerizer"]
+	path = src/github.com/cloudfoundry-incubator/containerizer
+	url = https://github.com/cloudfoundry-incubator/containerizer
+[submodule "src/github.com/cloudfoundry-incubator/rep"]
+	path = src/github.com/cloudfoundry-incubator/rep
+	url = https://github.com/cloudfoundry-incubator/rep
+[submodule "src/github.com/cloudfoundry-incubator/executor"]
+	path = src/github.com/cloudfoundry-incubator/executor
+	url = https://github.com/cloudfoundry-incubator/executor
+[submodule "src/github.com/cloudfoundry-incubator/garden-windows"]
+	path = src/github.com/cloudfoundry-incubator/garden-windows
+	url = https://github.com/cloudfoundry-incubator/garden-windows
