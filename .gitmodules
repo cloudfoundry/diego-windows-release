@@ -109,3 +109,6 @@
 [submodule "src/github.com/cloudfoundry-incubator/windows_app_lifecycle"]
 	path = src/github.com/cloudfoundry-incubator/windows_app_lifecycle
 	url = https://github.com/cloudfoundry-incubator/windows_app_lifecycle.git
+[submodule "src/github.com/pivotal-cf-experimental/nora"]
+	path = src/github.com/pivotal-cf-experimental/nora
+	url = https://github.com/pivotal-cf-experimental/nora.git

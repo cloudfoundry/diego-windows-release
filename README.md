@@ -19,6 +19,13 @@ nuget restore
 packages/nspec.0.9.68/tools/NSpecRunner.exe Containerizer.Tests/bin/Debug/Containerizer.Tests.dll
 popd
 
+pushd src/github.com/pivotal-cf-experimental/nora
+curl https://api.nuget.org/downloads/nuget.exe -o nuget.exe
+nuget restore
+/c/Windows/Microsoft.NET/Framework/v4.0.30319/MSBuild.exe Nora.sln
+packages/nspec.0.9.68/tools/NSpecRunner.exe Nora.Tests/bin/Debug/Nora.Tests.dll
+popd
+
 pushd src/github.com/cloudfoundry-incubator/windows_app_lifecycle
 curl https://api.nuget.org/downloads/nuget.exe -o nuget.exe
 nuget restore
