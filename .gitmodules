@@ -97,3 +97,12 @@
 [submodule "src/github.com/vito/go-sse"]
 	path = src/github.com/vito/go-sse
 	url = http://github.com/vito/go-sse
+[submodule "src/github.com/gorilla/mux"]
+	path = src/github.com/gorilla/mux
+	url = https://github.com/gorilla/mux
+[submodule "src/github.com/gorilla/context"]
+	path = src/github.com/gorilla/context
+	url = https://github.com/gorilla/context
+[submodule "src/github.com/hydrogen18/stoppableListener"]
+	path = src/github.com/hydrogen18/stoppableListener
+	url = https://github.com/hydrogen18/stoppableListener
