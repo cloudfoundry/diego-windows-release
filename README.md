@@ -1,5 +1,7 @@
 # diego-windows-msi
 
+### Consul agent is in bin/consul.exe
+
 ## Testing
 
 go get github.com/onsi/ginkgo/ginkgo
