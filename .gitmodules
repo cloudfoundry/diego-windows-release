@@ -10,3 +10,96 @@
 [submodule "src/github.com/cloudfoundry-incubator/garden-windows"]
 	path = src/github.com/cloudfoundry-incubator/garden-windows
 	url = https://github.com/cloudfoundry-incubator/garden-windows
+[submodule "src/github.com/cloudfoundry-incubator/auction"]
+	path = src/github.com/cloudfoundry-incubator/auction
+	url = https://github.com/cloudfoundry-incubator/auction
+[submodule "src/github.com/cloudfoundry-incubator/auctioneer"]
+	path = src/github.com/cloudfoundry-incubator/auctioneer
+	url = https://github.com/cloudfoundry-incubator/auctioneer
+[submodule "src/github.com/cloudfoundry-incubator/cf-debug-server"]
+	path = src/github.com/cloudfoundry-incubator/cf-debug-server
+	url = https://github.com/cloudfoundry-incubator/cf-debug-server
+[submodule "src/github.com/cloudfoundry-incubator/cf-lager"]
+	path = src/github.com/cloudfoundry-incubator/cf-lager
+	url = https://github.com/cloudfoundry-incubator/cf-lager
+[submodule "src/github.com/cloudfoundry-incubator/cf_http"]
+	path = src/github.com/cloudfoundry-incubator/cf_http
+	url = https://github.com/cloudfoundry-incubator/cf_http
+[submodule "src/github.com/cloudfoundry-incubator/garden"]
+	path = src/github.com/cloudfoundry-incubator/garden
+	url = https://github.com/cloudfoundry-incubator/garden
+[submodule "src/github.com/cloudfoundry-incubator/runtime-schema"]
+	path = src/github.com/cloudfoundry-incubator/runtime-schema
+	url = https://github.com/cloudfoundry-incubator/runtime-schema
+[submodule "src/github.com/bmizerany/pat"]
+	path = src/github.com/bmizerany/pat
+	url = https://github.com/bmizerany/pat
+[submodule "src/github.com/cloudfoundry/dropsonde"]
+	path = src/github.com/cloudfoundry/dropsonde
+	url = http://github.com/cloudfoundry/dropsonde
+[submodule "src/github.com/cloudfoundry/gosteno"]
+	path = src/github.com/cloudfoundry/gosteno
+	url = http://github.com/cloudfoundry/gosteno
+[submodule "src/github.com/cloudfoundry/gunk"]
+	path = src/github.com/cloudfoundry/gunk
+	url = http://github.com/cloudfoundry/gunk
+[submodule "src/github.com/cloudfoundry/storeadapter"]
+	path = src/github.com/cloudfoundry/storeadapter
+	url = http://github.com/cloudfoundry/storeadapter
+[submodule "src/github.com/coreos/etcd"]
+	path = src/github.com/coreos/etcd
+	url = http://github.com/coreos/etcd
+[submodule "src/github.com/coreos/go-etcd"]
+	path = src/github.com/coreos/go-etcd
+	url = http://github.com/coreos/go-etcd
+[submodule "src/github.com/gogo/protobuf"]
+	path = src/github.com/gogo/protobuf
+	url = http://github.com/gogo/protobuf
+[submodule "src/github.com/gorilla/websocket"]
+	path = src/github.com/gorilla/websocket
+	url = http://github.com/gorilla/websocket
+[submodule "src/github.com/hashicorp/go-multierror"]
+	path = src/github.com/hashicorp/go-multierror
+	url = http://github.com/hashicorp/go-multierror
+[submodule "src/github.com/nu7hatch/gouuid"]
+	path = src/github.com/nu7hatch/gouuid
+	url = http://github.com/nu7hatch/gouuid
+[submodule "src/github.com/onsi/ginkgo"]
+	path = src/github.com/onsi/ginkgo
+	url = http://github.com/onsi/ginkgo
+[submodule "src/github.com/onsi/gomega"]
+	path = src/github.com/onsi/gomega
+	url = http://github.com/onsi/gomega
+[submodule "src/github.com/pivotal-golang/archiver"]
+	path = src/github.com/pivotal-golang/archiver
+	url = http://github.com/pivotal-golang/archiver
+[submodule "src/github.com/pivotal-golang/bytefmt"]
+	path = src/github.com/pivotal-golang/bytefmt
+	url = http://github.com/pivotal-golang/bytefmt
+[submodule "src/github.com/pivotal-golang/cacheddownloader"]
+	path = src/github.com/pivotal-golang/cacheddownloader
+	url = http://github.com/pivotal-golang/cacheddownloader
+[submodule "src/github.com/pivotal-golang/clock"]
+	path = src/github.com/pivotal-golang/clock
+	url = http://github.com/pivotal-golang/clock
+[submodule "src/github.com/pivotal-golang/eventhub"]
+	path = src/github.com/pivotal-golang/eventhub
+	url = http://github.com/pivotal-golang/eventhub
+[submodule "src/github.com/pivotal-golang/lager"]
+	path = src/github.com/pivotal-golang/lager
+	url = http://github.com/pivotal-golang/lager
+[submodule "src/github.com/pivotal-golang/localip"]
+	path = src/github.com/pivotal-golang/localip
+	url = http://github.com/pivotal-golang/localip
+[submodule "src/github.com/pivotal-golang/operationq"]
+	path = src/github.com/pivotal-golang/operationq
+	url = http://github.com/pivotal-golang/operationq
+[submodule "src/github.com/tedsuo/ifrit"]
+	path = src/github.com/tedsuo/ifrit
+	url = http://github.com/tedsuo/ifrit
+[submodule "src/github.com/tedsuo/rata"]
+	path = src/github.com/tedsuo/rata
+	url = http://github.com/tedsuo/rata
+[submodule "src/github.com/vito/go-sse"]
+	path = src/github.com/vito/go-sse
+	url = http://github.com/vito/go-sse
