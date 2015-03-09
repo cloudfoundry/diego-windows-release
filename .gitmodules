@@ -106,3 +106,6 @@
 [submodule "src/github.com/hydrogen18/stoppableListener"]
 	path = src/github.com/hydrogen18/stoppableListener
 	url = https://github.com/hydrogen18/stoppableListener
+[submodule "src/github.com/cloudfoundry-incubator/windows_app_lifecycle"]
+	path = src/github.com/cloudfoundry-incubator/windows_app_lifecycle
+	url = https://github.com/cloudfoundry-incubator/windows_app_lifecycle.git
