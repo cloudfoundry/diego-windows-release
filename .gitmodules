@@ -112,3 +112,6 @@
 [submodule "src/github.com/pivotal-cf-experimental/nora"]
 	path = src/github.com/pivotal-cf-experimental/nora
 	url = https://github.com/pivotal-cf-experimental/nora.git
+[submodule "src/github.com/onsi/ginkgo"]
+	path = src/github.com/onsi/ginkgo
+	url = https://github.com/onsi/ginkgo
