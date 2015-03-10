@@ -1,38 +1,11 @@
 # diego-windows-msi
 
-### Consul agent is in bin/consul.exe
+## Dependencies
+- Visual Studio 2013
+- [Visual Studio Installer Projects Extension](https://visualstudiogallery.msdn.microsoft.com/9abe329c-9bba-44a1-be59-0fbf6151054d)
+- Go 1.4 (tested with version go1.4.2 windows/amd64)
+- 64 bit version of Windows (tested with Windows Server 2012 R2 Standard)
 
-## Testing
 
-go get github.com/onsi/ginkgo/ginkgo
-go get github.com/onsi/gomega
-go install github.com/coreos/etcd
-export GOROOT=
-export GOPATH=$PWD
-export PATH=$GOPATH/bin:$PATH
-ginkgo -r -noColor src/github.com/cloudfoundry-incubator/garden-windows
-ginkgo -r -noColor src/github.com/cloudfoundry-incubator/executor
-ginkgo -r -noColor src/github.com/cloudfoundry-incubator/rep
-
-pushd src/github.com/cloudfoundry-incubator/containerizer
-curl https://api.nuget.org/downloads/nuget.exe -o nuget.exe
-nuget restore
-/c/Windows/Microsoft.NET/Framework/v4.0.30319/MSBuild.exe Containerizer.sln
-packages/nspec.0.9.68/tools/NSpecRunner.exe Containerizer.Tests/bin/Debug/Containerizer.Tests.dll
-popd
-
-pushd src/github.com/pivotal-cf-experimental/nora
-curl https://api.nuget.org/downloads/nuget.exe -o nuget.exe
-nuget restore
-/c/Windows/Microsoft.NET/Framework/v4.0.30319/MSBuild.exe Nora.sln
-packages/nspec.0.9.68/tools/NSpecRunner.exe Nora.Tests/bin/Debug/Nora.Tests.dll
-popd
-
-pushd src/github.com/cloudfoundry-incubator/windows_app_lifecycle
-curl https://api.nuget.org/downloads/nuget.exe -o nuget.exe
-nuget restore
-/c/Windows/Microsoft.NET/Framework/v4.0.30319/MSBuild.exe WindowsCircus.sln
-packages/nspec.0.9.68/tools/NSpecRunner.exe Builder.Tests/bin/Debug/BuilderTests.dll
-packages/nspec.0.9.68/tools/NSpecRunner.exe Launcher.Tests/bin/Debug/LauncherTests.dll
-packages/nspec.0.9.68/tools/NSpecRunner.exe WebAppServer.Tests/bin/Debug/WebAppServer.Tests.dll
-popd
+## Producing an MSI
+Run `make.bat`, the MSI and Windows Circus tgz file will be output into the `output` directory.
