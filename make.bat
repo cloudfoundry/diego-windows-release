@@ -48,7 +48,7 @@ popd || exit /b 1
 
 pushd src\github.com\pivotal-cf-experimental\nora || exit /b 1
 	nuget restore || exit /b 1
-	msbuild Nora.sln || exit /b 1
+	devenv Nora.sln /build "Release" || exit /b 1
 	packages\nspec.0.9.68\tools\NSpecRunner.exe Nora.Tests\bin\Release\Nora.Tests.dll || exit /b 1
 popd || exit /b 1
 
@@ -58,7 +58,7 @@ pushd src\github.com\cloudfoundry-incubator\windows_app_lifecycle || exit /b 1
 	packages\nspec.0.9.68\tools\NSpecRunner.exe Builder.Tests\bin\Release\BuilderTests.dll || exit /b 1
 	packages\nspec.0.9.68\tools\NSpecRunner.exe Launcher.Tests\bin\Release\LauncherTests.dll || exit /b 1
 	packages\nspec.0.9.68\tools\NSpecRunner.exe WebAppServer.Tests\bin\Release\WebAppServer.Tests.dll || exit /b 1
-	bsdtar -czvf windows_app_lifecycle.tgz -C Builder\bin\Release . -C ..\..\..\Launcher\bin\Release . -C ..\..\..\Healthcheck\bin\Release . -C ..\..\..\WebAppServer\bin\Release .|| exit /b 1
+	bsdtar -czvf windows_app_lifecycle.tgz -C Builder\bin . -C ..\..\..\Launcher\bin\Release . -C ..\..\..\Healthcheck\bin . -C ..\..\..\WebAppServer\bin . || exit /b 1
 	copy windows_app_lifecycle.tgz ..\..\..\..\output || exit /b 1
 popd || exit /b 1
 
