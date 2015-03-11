@@ -40,7 +40,7 @@ pushd src\github.com\cloudfoundry-incubator\containerizer || exit /b 1
 	devenv Containerizer.Tests\Containerizer.Tests.csproj /build "Release" || exit /b 1
 	packages\nspec.0.9.68\tools\NSpecRunner.exe Containerizer.Tests\bin\Release\Containerizer.Tests.dll || exit /b 1
 	devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || exit /b 1
-	copy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\..\..\..\output || exit /b 1
+	xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\..\..\..\output\ || exit /b 1
 popd || exit /b 1
 
 pushd src\github.com\pivotal-cf-experimental\nora || exit /b 1
@@ -56,6 +56,6 @@ pushd src\github.com\cloudfoundry-incubator\windows_app_lifecycle || exit /b 1
 	packages\nspec.0.9.68\tools\NSpecRunner.exe Launcher.Tests\bin\Release\LauncherTests.dll || exit /b 1
 	packages\nspec.0.9.68\tools\NSpecRunner.exe WebAppServer.Tests\bin\Release\WebAppServer.Tests.dll || exit /b 1
 	bsdtar -czvf windows_app_lifecycle.tgz -C Builder\bin . -C ..\..\Launcher\bin . -C ..\..\Healthcheck\bin . -C ..\..\WebAppServer\bin . || exit /b 1
-	copy windows_app_lifecycle.tgz ..\..\..\output || exit /b 1
+	xcopy windows_app_lifecycle.tgz ..\..\..\output\ || exit /b 1
 popd || exit /b 1
 
