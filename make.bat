@@ -20,7 +20,8 @@ pushd src\github.com\cloudfoundry-incubator\garden-windows || exit /b 1
 	godep restore || exit /b 1
 popd || exit /b 1
 go install github.com/coreos/etcd || exit /b 1
-
+go install github.com/onsi/ginkgo/ginkgo || exit /b 1
+go install github.com/onsi/gomega || exit /b 1
 :: Run the tests
 
 ginkgo -r -noColor src/github.com/cloudfoundry-incubator/garden-windows || exit /b 1
