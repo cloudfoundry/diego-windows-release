@@ -24,7 +24,7 @@ go install github.com/onsi/gomega || exit /b 1
 ginkgo -r -noColor src/github.com/cloudfoundry-incubator/garden-windows || exit /b 1
 :: windows cmd doesn't like quoting arguments, use -skip=foo.bar instead of -skip='foo bar'
 :: we use the dot operator to match anything, -skip expects a regex
-ginkgo -skip=transition.to.running -r -noColor src/github.com/cloudfoundry-incubator/executor || exit /b 1
+ginkgo -skip=transition.to.running^|reports.garden.containers.as -r -noColor src/github.com/cloudfoundry-incubator/executor || exit /b 1
 ginkgo -skip=when.an.interrupt.signal.is.sent.to.the.representative^|should.not.exit,.but.keep.trying.to.maintain.presence.at.the.same.ID^|The.Rep.Evacuation.when.it.has.running.LRP.containers^|when.a.Ping.request.comes.in -noColor src/github.com/cloudfoundry-incubator/rep || exit /b 1
 
 :: Install the garden-windows, rep and executor in the MSI go-executables directory
