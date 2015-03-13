@@ -16,10 +16,11 @@ SET PATH=%GOBIN%;%GOROOT%;%PATH%
 REGEDIT.EXE  /S  "%~dp0\fix_visual_studio_building_msi.reg"
 
 :: enable some features
-dism /online /Enable-Feature /FeatureName:IIS-WebServer /All /NoRestart
-dism /online /Enable-Feature /FeatureName:IIS-WebSockets /All /NoRestart
-dism /online /Enable-Feature /FeatureName:Application-Server-WebServer-Support /FeatureName:AS-NET-Framework /All /NoRestart
-dism /online /Enable-Feature /FeatureName:IIS-HostableWebCore /All /NoRestart
+SET dism=%WINDIR%\SysNative\dism.exe
+%dism% /online /Enable-Feature /FeatureName:IIS-WebServer /All /NoRestart
+%dism% /online /Enable-Feature /FeatureName:IIS-WebSockets /All /NoRestart
+%dism% /online /Enable-Feature /FeatureName:Application-Server-WebServer-Support /FeatureName:AS-NET-Framework /All /NoRestart
+%dism% /online /Enable-Feature /FeatureName:IIS-HostableWebCore /All /NoRestart
 
 :: install the binaries in %GOBIN%
 go install github.com/coreos/etcd || exit /b 1
