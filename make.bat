@@ -16,7 +16,7 @@ SET GOBIN=%CD%\bin
 SET PATH=%GOBIN%;%GOROOT%;%PATH%
 
 :: https://visualstudiogallery.msdn.microsoft.com/9abe329c-9bba-44a1-be59-0fbf6151054d
-REGEDIT.EXE  /S  "%~dp0\fix_visual_studio_building_msi.reg"
+REGEDIT.EXE  /S  "%~dp0\fix_visual_studio_building_msi.reg" || exit /b 1
 
 :: enable some features
 SET dism=%WINDIR%\SysNative\dism.exe
