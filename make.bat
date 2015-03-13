@@ -45,6 +45,7 @@ go install github.com/cloudfoundry-incubator/rep/cmd/rep || exit /b 1
 copy bin\consul.exe %GOBIN%
 
 pushd src\github.com\cloudfoundry-incubator\containerizer || exit /b 1
+	del /F /Q packages\*
 	nuget restore || exit /b 1
 	devenv Containerizer\Containerizer.csproj /build "Release" || exit /b 1
 	devenv Containerizer.Tests\Containerizer.Tests.csproj /build "Release" || exit /b 1
@@ -54,12 +55,14 @@ pushd src\github.com\cloudfoundry-incubator\containerizer || exit /b 1
 popd || exit /b 1
 
 pushd src\github.com\pivotal-cf-experimental\nora || exit /b 1
+	del /F /Q packages\*
 	nuget restore || exit /b 1
 	devenv Nora.sln /build "Release" || exit /b 1
 	packages\nspec.0.9.68\tools\NSpecRunner.exe Nora.Tests\bin\Release\Nora.Tests.dll || exit /b 1
 popd || exit /b 1
 
 pushd src\github.com\cloudfoundry-incubator\windows_app_lifecycle || exit /b 1
+	del /F /Q packages\*
 	nuget restore || exit /b 1
 	devenv WindowsCircus.sln /build "Release" || exit /b 1
 	packages\nspec.0.9.68\tools\NSpecRunner.exe Builder.Tests\bin\Release\BuilderTests.dll || exit /b 1
