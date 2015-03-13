@@ -4,8 +4,11 @@
 
 :: Testing
 
-:: Msbuild must be in path
+:: Visual Studio must be in path
 
+where devenv
+if errorLevel 1 ( echo "devenv was not found on PATH" && exit /b 1 )
+ 
 del /F /Q output\*
 ::SET GOROOT= C:\Go
 SET GOPATH=%CD%;%CD%\src\github.com\cloudfoundry-incubator\garden-windows\Godeps\_workspace
