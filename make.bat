@@ -38,7 +38,7 @@ ginkgo -skip=transition.to.running^|reports.garden.containers.as -r -noColor src
 ginkgo -skip=when.an.interrupt.signal.is.sent.to.the.representative^|should.not.exit,.but.keep.trying.to.maintain.presence.at.the.same.ID^|The.Rep.Evacuation.when.it.has.running.LRP.containers^|when.a.Ping.request.comes.in -noColor src/github.com/cloudfoundry-incubator/rep || exit /b 1
 
 :: Install the garden-windows, rep and executor in the MSI go-executables directory
-SET GOBIN=%CD%\src\github.com\cloudfoundry-incubator\containerizer\DiegoWindowsMSI\go-executables
+SET GOBIN=%CD%\DiegoWindowsMSI\DiegoWindowsMSI\go-executables
 go install github.com/cloudfoundry-incubator/garden-windows || exit /b 1
 go install github.com/cloudfoundry-incubator/executor/cmd/executor || exit /b 1
 go install github.com/cloudfoundry-incubator/rep/cmd/rep || exit /b 1
@@ -50,8 +50,14 @@ pushd src\github.com\cloudfoundry-incubator\containerizer || exit /b 1
 	devenv Containerizer\Containerizer.csproj /build "Release" || exit /b 1
 	devenv Containerizer.Tests\Containerizer.Tests.csproj /build "Release" || exit /b 1
 	packages\nspec.0.9.68\tools\NSpecRunner.exe Containerizer.Tests\bin\Release\Containerizer.Tests.dll || exit /b 1
+popd || exit /b 1
+
+
+pushd DiegoWindowsMSI || exit /b 1
+	del /F /Q packages\*
+	nuget restore || exit /b 1
 	devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || exit /b 1
-	xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\..\..\..\output\ || exit /b 1
+	xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\output\ || exit /b 1
 popd || exit /b 1
 
 pushd src\github.com\pivotal-cf-experimental\nora || exit /b 1
