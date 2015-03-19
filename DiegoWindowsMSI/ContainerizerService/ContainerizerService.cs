@@ -32,7 +32,7 @@ namespace ContainerizerService
             {
                 StartInfo =
                 {
-                    FileName =  @"bin\Containerizer.exe",
+                    FileName =  @"Containerizer.exe",
                     Arguments =  externalIp + " 1788",
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
