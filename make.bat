@@ -6,6 +6,8 @@
 
 :: Visual Studio must be in path
 
+@Echo off
+
 where devenv
 if errorLevel 1 ( echo "devenv was not found on PATH" && exit /b 1 )
  
@@ -46,22 +48,39 @@ go install github.com/cloudfoundry-incubator/rep/cmd/rep || exit /b 1
 copy bin\consul.exe %GOBIN%
 
 pushd src\github.com\cloudfoundry-incubator\containerizer || exit /b 1
-	make.bat || exit /b 1
-popd || exit /b 1
+	cmd /c make.bat
+	call :CHECK_FAIL && exit /b %errorLevel%
+popd
 
 pushd DiegoWindowsMSI || exit /b 1
 	del /F /Q packages\*
 	nuget restore || exit /b 1
 	devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || exit /b 1
 	xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\output\ || exit /b 1
-popd || exit /b 1
+popd
 
 pushd src\github.com\pivotal-cf-experimental\nora || exit /b 1
-	make.bat || exit /b 1
-popd || exit /b 1
+	cmd /c make.bat
+	call :CHECK_FAIL && exit /b %errorLevel%
+popd
 
 pushd src\github.com\cloudfoundry-incubator\windows_app_lifecycle || exit /b 1
-	make.bat || exit /b 1
-	xcopy windows_app_lifecycle.tgz ..\..\..\..\output\ || exit /b 1
-popd || exit /b 1
+	cmd /c make.bat
+	call :CHECK_FAIL && exit /b %errorLevel%
+	xcopy windows_app_lifecycle.tgz ..\..\..\..\output\
+	call :CHECK_FAIL && exit /b %errorLevel%
+popd
 
+
+GOTO :EOF
+
+:CHECK_FAIL
+@echo off
+if NOT ["%errorlevel%"]==["0"] (
+	SET lastExitCode=%errorLevel%
+	echo ' '
+	powershell -Command Write-Host "Build Failed" -foreground "Red"
+	echo ' '
+	popd
+	exit /b %lastExitCode%
+)
