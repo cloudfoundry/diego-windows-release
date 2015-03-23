@@ -9,7 +9,8 @@
 where devenv
 if errorLevel 1 ( echo "devenv was not found on PATH" && exit /b 1 )
  
-del /F /Q output\*
+rmdir /S /Q output
+mkdir output
 ::SET GOROOT= C:\Go
 SET GOPATH=%CD%;%CD%\src\github.com\cloudfoundry-incubator\garden-windows\Godeps\_workspace
 SET GOBIN=%CD%\bin
