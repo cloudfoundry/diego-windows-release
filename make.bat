@@ -6,8 +6,6 @@
 
 :: Visual Studio must be in path
 
-@Echo off
-
 where devenv
 if errorLevel 1 ( echo "devenv was not found on PATH" && exit /b 1 )
  
@@ -22,11 +20,10 @@ SET PATH=%GOBIN%;%GOROOT%;%PATH%
 REGEDIT.EXE  /S  "%~dp0\fix_visual_studio_building_msi.reg" || exit /b 1
 
 :: enable some features
-SET dism=%WINDIR%\SysNative\dism.exe
-%dism% /online /Enable-Feature /FeatureName:IIS-WebServer /All /NoRestart
-%dism% /online /Enable-Feature /FeatureName:IIS-WebSockets /All /NoRestart
-%dism% /online /Enable-Feature /FeatureName:Application-Server-WebServer-Support /FeatureName:AS-NET-Framework /All /NoRestart
-%dism% /online /Enable-Feature /FeatureName:IIS-HostableWebCore /All /NoRestart
+dism /online /Enable-Feature /FeatureName:IIS-WebServer /All /NoRestart
+dism /online /Enable-Feature /FeatureName:IIS-WebSockets /All /NoRestart
+dism /online /Enable-Feature /FeatureName:Application-Server-WebServer-Support /FeatureName:AS-NET-Framework /All /NoRestart
+dism /online /Enable-Feature /FeatureName:IIS-HostableWebCore /All /NoRestart
 
 :: install the binaries in %GOBIN%
 go install github.com/coreos/etcd || exit /b 1
@@ -48,39 +45,21 @@ go install github.com/cloudfoundry-incubator/rep/cmd/rep || exit /b 1
 copy bin\consul.exe %GOBIN%
 
 pushd src\github.com\cloudfoundry-incubator\containerizer || exit /b 1
-	cmd /c make.bat
-	call :CHECK_FAIL && exit /b %errorLevel%
+	cmd /c make.bat || exit /b 1
 popd
 
 pushd DiegoWindowsMSI || exit /b 1
-	del /F /Q packages\*
+	del /F /Q packages\* || exit /b 1
 	nuget restore || exit /b 1
 	devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || exit /b 1
 	xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\output\ || exit /b 1
 popd
 
 pushd src\github.com\pivotal-cf-experimental\nora || exit /b 1
-	cmd /c make.bat
-	call :CHECK_FAIL && exit /b %errorLevel%
+	cmd /c make.bat || exit /b 1
 popd
 
 pushd src\github.com\cloudfoundry-incubator\windows_app_lifecycle || exit /b 1
-	cmd /c make.bat
-	call :CHECK_FAIL && exit /b %errorLevel%
-	xcopy windows_app_lifecycle.tgz ..\..\..\..\output\
-	call :CHECK_FAIL && exit /b %errorLevel%
+	cmd /c make.bat || exit /b 1
+	xcopy windows_app_lifecycle-*.tgz ..\..\..\..\output\ || exit /b 1
 popd
-
-
-GOTO :EOF
-
-:CHECK_FAIL
-@echo off
-if NOT ["%errorlevel%"]==["0"] (
-	SET lastExitCode=%errorLevel%
-	echo ' '
-	powershell -Command Write-Host "Build Failed" -foreground "Red"
-	echo ' '
-	popd
-	exit /b %lastExitCode%
-)
