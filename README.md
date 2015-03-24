@@ -248,8 +248,10 @@ It may take a minute to connect the first time as Windows sets up your user acco
 to enable the required Windows features and configure the DNS settings that the cell will need.
 ![enable features script](https://github.com/cloudfoundry-incubator/diego-windows-msi/blob/master/README_images/enable_features.png)
 
-1. After you [build the MSI](https://github.com/cloudfoundry-incubator/diego-windows-msi#building-the-msi), copy it onto the instance.
-Follow the instructions to [install the MSI](https://github.com/cloudfoundry-incubator/diego-windows-msi#installing-the-msi).
+1. Either [build the MSI](https://github.com/cloudfoundry-incubator/diego-windows-msi#building-the-msi)
+   or download one from [the S3 bucket](https://s3.amazonaws.com/diego-windows-msi/).
+   Copy it onto the instance, and follow the instructions to [install the
+   MSI](https://github.com/cloudfoundry-incubator/diego-windows-msi#installing-the-msi).
   - The CONTAINERIZER_USERNAME is "Administrator"
   - The CONTAINERIZER_PASSWORD is the same as the one you copied from Amazon
   - The EXTERNAL_IP is the private IP of the instance (in our case 10.10.5.80)
