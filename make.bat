@@ -55,6 +55,11 @@ pushd DiegoWindowsMSI || exit /b 1
 	xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\output\ || exit /b 1
 popd
 
+for /f "tokens=*" %%a in ('git rev-parse --short HEAD') do (
+		set VERSION=%%a
+)
+move /Y output\DiegoWindowsMSI.msi output\DiegoWindowsMSI-%VERSION%.msi || exit /b 1
+
 pushd src\github.com\pivotal-cf-experimental\nora || exit /b 1
 	cmd /c make.bat || exit /b 1
 popd
