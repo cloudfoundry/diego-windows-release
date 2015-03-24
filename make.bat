@@ -14,7 +14,7 @@ mkdir output
 ::SET GOROOT= C:\Go
 SET GOPATH=%CD%;%CD%\src\github.com\cloudfoundry-incubator\garden-windows\Godeps\_workspace
 SET GOBIN=%CD%\bin
-SET PATH=%GOBIN%;%GOROOT%;%PATH%
+SET PATH=%WINDIR%\SysNative\;%GOBIN%;%GOROOT%;%PATH%
 
 :: https://visualstudiogallery.msdn.microsoft.com/9abe329c-9bba-44a1-be59-0fbf6151054d
 REGEDIT.EXE  /S  "%~dp0\fix_visual_studio_building_msi.reg" || exit /b 1
