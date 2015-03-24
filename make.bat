@@ -49,7 +49,7 @@ pushd src\github.com\cloudfoundry-incubator\containerizer || exit /b 1
 popd
 
 pushd DiegoWindowsMSI || exit /b 1
-	del /F /Q packages\* || exit /b 1
+	rmdir /S /Q packages
 	nuget restore || exit /b 1
 	devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || exit /b 1
 	xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\output\ || exit /b 1
