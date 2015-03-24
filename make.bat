@@ -45,7 +45,7 @@ go install github.com/cloudfoundry-incubator/rep/cmd/rep || exit /b 1
 copy bin\consul.exe %GOBIN%
 
 pushd src\github.com\cloudfoundry-incubator\containerizer || exit /b 1
-	cmd /c make.bat || exit /b 1
+	call make.bat || exit /b 1
 popd
 
 pushd DiegoWindowsMSI || exit /b 1
@@ -61,10 +61,10 @@ for /f "tokens=*" %%a in ('git rev-parse --short HEAD') do (
 move /Y output\DiegoWindowsMSI.msi output\DiegoWindowsMSI-%VERSION%.msi || exit /b 1
 
 pushd src\github.com\pivotal-cf-experimental\nora || exit /b 1
-	cmd /c make.bat || exit /b 1
+	call make.bat || exit /b 1
 popd
 
 pushd src\github.com\cloudfoundry-incubator\windows_app_lifecycle || exit /b 1
-	cmd /c make.bat || exit /b 1
+	call make.bat || exit /b 1
 	xcopy windows_app_lifecycle-*.tgz ..\..\..\..\output\ || exit /b 1
 popd
