@@ -10,6 +10,7 @@ as services and logging to windows events.
 - Go 1.4 (tested with version go1.4.2 windows/amd64)
 - 64 bit version of Windows (tested with Windows Server 2012 R2 Standard)
 
+
 ## Building the MSI
 
 ### Additional Build Dependencies
@@ -22,7 +23,7 @@ as services and logging to windows events.
 
 ## Installing the MSI
 
-After you have built the MSI:
+After you have built the MSI (as above), or downloaded it from [the S3 bucket](https://s3.amazonaws.com/diego-windows-msi/)
 
 ```
 msiexec /norestart /i output\DiegoWindowsMSI.msi ^
