@@ -12,7 +12,6 @@ namespace ConsulService
         public ProjectInstaller()
         {
             InitializeComponent();
-            this.AfterInstall += new InstallEventHandler(ProjectInstaller_AfterInstall);
         }
 
         protected override void OnBeforeInstall(IDictionary savedState)
@@ -42,12 +41,17 @@ namespace ConsulService
             System.IO.File.WriteAllText(System.IO.Path.Combine(configDir, "config.json"), jsonString);
         }
 
-        void ProjectInstaller_AfterInstall(object sender, InstallEventArgs e)
+        protected override void OnAfterInstall(IDictionary savedState)
         {
             using (ServiceController pc = new ServiceController(this.serviceInstaller.ServiceName))
             {
                 pc.Start();
             }
+        }
+
+        protected override void OnCommitted(IDictionary savedState)
+        {
+            ServiceConfigurator.SetRecoveryOptions(this.serviceInstaller.ServiceName);
         }
     }
 }

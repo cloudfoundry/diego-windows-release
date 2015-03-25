@@ -15,15 +15,19 @@ namespace ExecutorService
         public ProjectInstaller()
         {
             InitializeComponent();
-            this.AfterInstall += new InstallEventHandler(ProjectInstaller_AfterInstall);
         }
 
-        void ProjectInstaller_AfterInstall(object sender, InstallEventArgs e)
+        protected override void OnAfterInstall(IDictionary savedState)
         {
             using (ServiceController pc = new ServiceController(this.serviceInstaller.ServiceName))
             {
                 pc.Start();
             }
+        }
+
+        protected override void OnCommitted(IDictionary savedState)
+        {
+            ServiceConfigurator.SetRecoveryOptions(this.serviceInstaller.ServiceName);
         }
     }
 }

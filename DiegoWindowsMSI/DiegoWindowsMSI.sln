@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepService", "RepService\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Containerizer", "..\src\github.com\cloudfoundry-incubator\containerizer\Containerizer\Containerizer.csproj", "{B512432C-BDE1-4108-8DCF-5EDB78FAC454}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceConfigurator", "ServiceConfigurator\ServiceConfigurator.csproj", "{37CE20E8-7999-4F16-BC9F-C97566107BDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -156,6 +158,20 @@ Global
 		{B512432C-BDE1-4108-8DCF-5EDB78FAC454}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B512432C-BDE1-4108-8DCF-5EDB78FAC454}.Release|x64.ActiveCfg = Release|Any CPU
 		{B512432C-BDE1-4108-8DCF-5EDB78FAC454}.Release|x86.ActiveCfg = Release|Any CPU
+		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Release|ARM.ActiveCfg = Release|Any CPU
+		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Release|x64.ActiveCfg = Release|Any CPU
+		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

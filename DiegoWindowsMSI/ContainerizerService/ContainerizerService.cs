@@ -55,7 +55,7 @@ namespace ContainerizerService
         {
             EventLog.WriteEntry(eventSource, "Exiting", EventLogEntryType.Error, 0);
             this.ExitCode = 0XDEAD;
-            this.Stop();
+            System.Environment.Exit(this.ExitCode);
         }
 
         protected override void OnStop()

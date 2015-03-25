@@ -15,7 +15,6 @@ namespace ContainerizerService
         public ProjectInstaller()
         {
             InitializeComponent();
-            this.AfterInstall += new InstallEventHandler(ProjectInstaller_AfterInstall);
         }
 
         protected override void OnBeforeInstall(IDictionary savedState)
@@ -27,27 +26,17 @@ namespace ContainerizerService
             base.OnBeforeInstall(savedState);
         }
 
-        public override void Install(IDictionary stateSaver)
-        {
-            base.Install(stateSaver);
-
-
-            /*
-            var externalIP = this.Context.Parameters["EXTERNAL_IP"];
-            if (externalIP == null)
-            {
-                throw new Exception("Must supply property EXTERNAL_IP");
-            }
-            */
-
-        }
-
-        void ProjectInstaller_AfterInstall(object sender, InstallEventArgs e)
+        protected override void OnAfterInstall(IDictionary savedState)
         {
             using (ServiceController pc = new ServiceController(this.serviceInstaller.ServiceName))
             {
                 pc.Start();
             }
+        }
+
+        protected override void OnCommitted(IDictionary savedState)
+        {
+            ServiceConfigurator.SetRecoveryOptions(this.serviceInstaller.ServiceName);
         }
     }
 }

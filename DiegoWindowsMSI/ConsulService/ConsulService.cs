@@ -18,6 +18,7 @@ namespace ConsulService
 
         public ConsulService()
         {
+
             InitializeComponent();
 
             if (!EventLog.SourceExists(eventSource))
@@ -55,7 +56,7 @@ namespace ConsulService
         {
             EventLog.WriteEntry(eventSource, "Exiting", EventLogEntryType.Error, 0);
             this.ExitCode = 0XDEAD;
-            this.Stop();
+            System.Environment.Exit(this.ExitCode);
         }
 
         protected override void OnStop()
