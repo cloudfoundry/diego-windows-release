@@ -10,7 +10,7 @@ mkdir output
 SET GOPATH=%CD%;%CD%\src\github.com\cloudfoundry-incubator\garden-windows\Godeps\_workspace
 SET GOBIN=%CD%\bin
 SET DEVENV_PATH=%programfiles(x86)%\Microsoft Visual Studio 12.0\Common7\IDE
-SET PATH=%WINDIR%\SysNative\;%GOBIN%;%GOROOT%;%PATH%;%DEVENV_PATH%
+SET PATH=%GOBIN%;%GOROOT%;%PATH%;%DEVENV_PATH%
 
 :: Visual Studio must be in path
 where devenv
@@ -18,12 +18,6 @@ if errorLevel 1 ( echo "devenv was not found on PATH" && exit /b 1 )
  
 :: https://visualstudiogallery.msdn.microsoft.com/9abe329c-9bba-44a1-be59-0fbf6151054d
 REGEDIT.EXE  /S  "%~dp0\fix_visual_studio_building_msi.reg" || exit /b 1
-
-:: enable some features
-dism /online /Enable-Feature /FeatureName:IIS-WebServer /All /NoRestart
-dism /online /Enable-Feature /FeatureName:IIS-WebSockets /All /NoRestart
-dism /online /Enable-Feature /FeatureName:Application-Server-WebServer-Support /FeatureName:AS-NET-Framework /All /NoRestart
-dism /online /Enable-Feature /FeatureName:IIS-HostableWebCore /All /NoRestart
 
 :: install the binaries in %GOBIN%
 go install github.com/coreos/etcd || exit /b 1
