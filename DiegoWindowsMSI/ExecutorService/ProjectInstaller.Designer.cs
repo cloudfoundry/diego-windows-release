@@ -41,9 +41,6 @@
             // 
             this.serviceInstaller.DisplayName = "CF Executor";
             this.serviceInstaller.ServiceName = "Executor";
-            this.serviceInstaller.ServicesDependedOn = new string[] {
-        "Consul",
-        "GardenWindows"};
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller

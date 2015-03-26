@@ -41,9 +41,6 @@
             // 
             this.serviceInstaller.DisplayName = "CF Rep";
             this.serviceInstaller.ServiceName = "Rep";
-            this.serviceInstaller.ServicesDependedOn = new string[] {
-        "Consul",
-        "Executor"};
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller

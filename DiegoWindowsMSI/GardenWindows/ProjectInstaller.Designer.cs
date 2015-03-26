@@ -41,8 +41,6 @@
             // 
             this.serviceInstaller.DisplayName = "CF GardenWindows";
             this.serviceInstaller.ServiceName = "GardenWindows";
-            this.serviceInstaller.ServicesDependedOn = new string[] {
-        "Containerizer"};
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
