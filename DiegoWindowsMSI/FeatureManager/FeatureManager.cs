@@ -33,7 +33,9 @@ namespace FeatureManager
                 "EXTERNAL_IP",
                 "CONSUL_IPS",
                 "ETCD_CLUSTER",
+                "CF_ETCD_CLUSTER",
                 "MACHINE_NAME",
+                "LOGGREGATOR_SHARED_SECRET",
                 "ZONE",
                 "STACK"
             };

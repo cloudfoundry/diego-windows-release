@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Containerizer", "..\src\git
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceConfigurator", "ServiceConfigurator\ServiceConfigurator.csproj", "{37CE20E8-7999-4F16-BC9F-C97566107BDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetronService", "MetronService\MetronService.csproj", "{7ACF3253-98BB-44B2-8451-2089B6B95099}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -172,6 +174,20 @@ Global
 		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Release|x64.ActiveCfg = Release|Any CPU
 		{37CE20E8-7999-4F16-BC9F-C97566107BDC}.Release|x86.ActiveCfg = Release|Any CPU
+		{7ACF3253-98BB-44B2-8451-2089B6B95099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ACF3253-98BB-44B2-8451-2089B6B95099}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ACF3253-98BB-44B2-8451-2089B6B95099}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7ACF3253-98BB-44B2-8451-2089B6B95099}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7ACF3253-98BB-44B2-8451-2089B6B95099}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7ACF3253-98BB-44B2-8451-2089B6B95099}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7ACF3253-98BB-44B2-8451-2089B6B95099}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7ACF3253-98BB-44B2-8451-2089B6B95099}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ACF3253-98BB-44B2-8451-2089B6B95099}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ACF3253-98BB-44B2-8451-2089B6B95099}.Release|ARM.ActiveCfg = Release|Any CPU
+		{7ACF3253-98BB-44B2-8451-2089B6B95099}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7ACF3253-98BB-44B2-8451-2089B6B95099}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7ACF3253-98BB-44B2-8451-2089B6B95099}.Release|x64.ActiveCfg = Release|Any CPU
+		{7ACF3253-98BB-44B2-8451-2089B6B95099}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

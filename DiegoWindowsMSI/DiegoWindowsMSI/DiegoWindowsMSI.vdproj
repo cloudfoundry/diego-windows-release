@@ -33,6 +33,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1336AC84FF1D4CB2AB36D78AEE46DC7E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_1E9CBEF93D3E4B0BB0158362146458FF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -238,6 +244,12 @@
         "Entry"
         {
         "MsmKey" = "8:_5EE15F8DFAFB65BA42A50118CC07DB94"
+        "OwnerKey" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5EE15F8DFAFB65BA42A50118CC07DB94"
         "OwnerKey" = "8:_E5429DE114144198B0353157A124E74F"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -275,6 +287,12 @@
         {
         "MsmKey" = "8:_64C8A5A97063FE16F7408C21A934A7A8"
         "OwnerKey" = "8:_0FBCBAE901F64B579433173F1B518C1C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -670,6 +688,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_E5429DE114144198B0353157A124E74F"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1007,6 +1031,34 @@
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
             }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_0DC53265CC164855BA5D201DE773A58C"
+            {
+            "Name" = "8:Primary output from MetronService (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
+            "FileType" = "3:2"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:6"
+            "Identifier" = "8:_9C7FC221_596A_4368_9FAF_97683850979F"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_38F3DED5581A447CABC7515646184595"
+            {
+            "Name" = "8:Primary output from MetronService (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
+            "FileType" = "3:2"
+            "InstallAction" = "3:4"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:6"
+            "Identifier" = "8:_B6614768_3725_4574_B430_3BC4D80209B4"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_3F17F6AFC6464162AB44127400214178"
             {
             "Name" = "8:Primary output from GardenWindowsService (Active)"
@@ -1077,6 +1129,20 @@
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
             }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_5B9393AD243F491AB914FFB2892F0E8F"
+            {
+            "Name" = "8:Primary output from MetronService (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
+            "FileType" = "3:2"
+            "InstallAction" = "3:3"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:6"
+            "Identifier" = "8:_D012576E_B550_4A48_A462_D99D1A0FF190"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_62CABB43AE61420C9CECC8042A16BE5D"
             {
             "Name" = "8:Primary output from ContainerizerService (Active)"
@@ -1104,6 +1170,20 @@
             "Identifier" = "8:_EDB47A49_3E04_4BE2_AD13_9C5E8DAE9E06"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_7EA22F2041FD4E38A9909094DCB59918"
+            {
+            "Name" = "8:Primary output from MetronService (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
+            "FileType" = "3:2"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:7"
+            "Identifier" = "8:_5E452D4E_6670_4E5B_B1C9_304470940278"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:/CONTAINERIZER_USERNAME=[CONTAINERIZER_USERNAME] /CONTAINERIZER_PASSWORD=[CONTAINERIZER_PASSWORD] /EXTERNAL_IP=[EXTERNAL_IP] /CONSUL_IPS=[CONSUL_IPS] /ETCD_CLUSTER=[ETCD_CLUSTER] /MACHINE_NAME=[MACHINE_NAME] /STACK=[STACK] /ZONE=[ZONE] /LOGGREGATOR_SHARED_SECRET=[LOGGREGATOR_SHARED_SECRET] /CF_ETCD_CLUSTER=[CF_ETCD_CLUSTER]"
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_7F8E3B8201104C41A0CA80FAE1D24529"
             {
@@ -1173,7 +1253,7 @@
             "Sequence" = "3:1"
             "Identifier" = "8:_3063336D_FBFB_4779_9594_83921AFDAE94"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/CONTAINERIZER_USERNAME=[CONTAINERIZER_USERNAME] /CONTAINERIZER_PASSWORD=[CONTAINERIZER_PASSWORD] /EXTERNAL_IP=[EXTERNAL_IP] /CONSUL_IPS=[CONSUL_IPS] /ETCD_CLUSTER=[ETCD_CLUSTER] /MACHINE_NAME=[MACHINE_NAME] /STACK=[STACK] /ZONE=[ZONE]"
+            "CustomActionData" = "8:/CONTAINERIZER_USERNAME=[CONTAINERIZER_USERNAME] /CONTAINERIZER_PASSWORD=[CONTAINERIZER_PASSWORD] /EXTERNAL_IP=[EXTERNAL_IP] /CONSUL_IPS=[CONSUL_IPS] /ETCD_CLUSTER=[ETCD_CLUSTER] /MACHINE_NAME=[MACHINE_NAME] /STACK=[STACK] /ZONE=[ZONE] /LOGGREGATOR_SHARED_SECRET=[LOGGREGATOR_SHARED_SECRET] /CF_ETCD_CLUSTER=[CF_ETCD_CLUSTER]"
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_C59C5A9514614B888678DDE4F1FFADEC"
             {
@@ -1325,6 +1405,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1336AC84FF1D4CB2AB36D78AEE46DC7E"
+            {
+            "SourcePath" = "8:go-executables\\metron.exe"
+            "TargetName" = "8:metron.exe"
+            "Tag" = "8:"
+            "Folder" = "8:_ACA42DBD8EC64991ABB3254FB6DDBC0A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_229005EBBA5FB9F1869D6AEF012F9865"
@@ -2509,7 +2609,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DiegoWindows"
         "ProductCode" = "8:{07BD6A35-82CC-436F-9BBB-7A8E078D719E}"
-        "PackageCode" = "8:{AEF6B538-524F-4585-9DD0-804FCA243AB5}"
+        "PackageCode" = "8:{1C602A73-8DCA-410B-A786-9F3D7D403AE5}"
         "UpgradeCode" = "8:{C2E7A072-5486-4248-A743-6426722A9D96}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -3163,6 +3263,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{D7F28661-15DB-4C4C-8826-1D4506714B5D}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_66FF94DA72EE487E9D61444BEFDF4CBF"
+            {
+            "SourcePath" = "8:..\\MetronService\\obj\\Debug\\MetronService.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_ACA42DBD8EC64991ABB3254FB6DDBC0A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{7ACF3253-98BB-44B2-8451-2089B6B95099}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
