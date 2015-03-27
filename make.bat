@@ -11,7 +11,7 @@ SET GOBIN=%CD%\bin
 SET DEVENV_PATH=%programfiles(x86)%\Microsoft Visual Studio 12.0\Common7\IDE
 SET PATH=%GOBIN%;%GOROOT%;%PATH%;%DEVENV_PATH%
 :: TODO: get rid of godeps
-SET GOPATH=%CD%;%CD%\src\github.com\cloudfoundry-incubator\garden-windows\Godeps\_workspace
+SET GOPATH=%CD%
 
 :: Visual Studio must be in path
 where devenv

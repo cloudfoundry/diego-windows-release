@@ -43,7 +43,6 @@ src/github.com/jstemmer/
 src/github.com/nsf/
 src/github.com/pivotal-cf-experimental
 src/github.com/cloudfoundry-incubator/spiff
-src/github.com/onsi
 src/github.com/cloudfoundry-incubator/fezzik
 src/github.com/cloudfoundry-incubator/vizzini
 src/github.com/cloudfoundry-incubator/veritas
