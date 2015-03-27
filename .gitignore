@@ -33,6 +33,8 @@ blobs
 .bzr
 diego.sublime-workspace
 
+DiegoWindowsMSI/DiegoWindowsMSI/go-executables/*.exe
+
 # go tooling
 src/code.google.com/p/go.tools/
 src/code.google.com/p/goplan9/
