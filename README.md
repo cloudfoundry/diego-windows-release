@@ -32,9 +32,11 @@ msiexec /norestart /i output\DiegoWindowsMSI.msi ^
           EXTERNAL_IP=[External IP of box] ^
           CONSUL_IPS=[Comma-separated IP addresses of consul agents from bosh deploy of diego] ^
           ETCD_CLUSTER=[IP address of your etcd cluster from bosh deploy of diego] ^
+          CF_ETCD_CLUSTER=[IP address of your cf etcd cluster from bosh deploy of cf] ^
           MACHINE_NAME=[This machine's name (must be unique across your cluster)] ^
           STACK=[CF stack, eg. windows2012] ^
-          ZONE=[Bosh zone this cell is part of]
+          ZONE=[Bosh zone this cell is part of] ^
+          LOGGREGATOR_SHARED_SECRET=[loggregator secret from your bosh deploy of cf]
 ```
 
 An example would be
@@ -42,7 +44,8 @@ An example would be
 ```
 msiexec /norestart /i output\DiegoWindowsMSI.msi CONTAINERIZER_USERNAME=.\Administrator CONTAINERIZER_PASSWORD=secretpassword ^
   EXTERNAL_IP=10.10.5.4 CONSUL_IPS=10.10.5.11,10.10.6.11,10.10.7.11 ETCD_CLUSTER=http://10.10.5.10:4001 ^
-  MACHINE_NAME=WIN-RD649GEUDP1 STACK=windows2012 ZONE=z1
+  CF_ETCD_CLUSTER=http://10.244.0.42:4001 MACHINE_NAME=WIN-RD649GEUDP1 STACK=windows2012 ZONE=z1 ^
+  LOGGREGATOR_SHARED_SECRET=loggregator-secret
 ```
 
 ## Deploying Diego to a local BOSH-Lite instance
@@ -257,10 +260,12 @@ to enable the required Windows features and configure the DNS settings that the 
   - The CONTAINERIZER_PASSWORD is the same as the one you copied from Amazon
   - The EXTERNAL_IP is the private IP of the instance (in our case 10.10.5.80)
   - The CONSUL_IPS can be retrieved by running `bosh vms` and copying the `consul_z1/0` IP address (in our case "10.10.5.11")
-  - The ETCD_CLUSTER can be retrieved by running `bosh vms` and formatting the `etcd_z1/0` IP address as a URL with port 4001 (in our case "http://10.10.5.10:4001")
+  - The ETCD_CLUSTER can be retrieved by running `bosh vms` and formatting the `etcd_z1/0` (in the diego deployment) IP address as a URL with port 4001 (in our case "http://10.10.5.10:4001")
+  - The CF_ETCD_CLUSTER can be retrieved by running `bosh vms` and formatting the `etcd_z1/0` (in the cf deployment) IP address as a URL with port 4001 (in our case "http://10.244.0.42:4001")
   - The MACHINE_NAME can be retrieved by running `hostname` inside the Windows instance (ie "WIN-3Q38P0J78DF")
   - The STACK will be "windows2012R2"
   - The ZONE will be "z1"
+  - The LOGGREGATOR_SHARED_SECRET can be retrieved from the cf deployment manifest
 ![install MSI](https://github.com/cloudfoundry-incubator/diego-windows-msi/blob/master/README_images/install_msi.png)
 
 1. If everything has worked correctly, you should now see the following five services running in the Task Manager
