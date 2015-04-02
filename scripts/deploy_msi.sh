@@ -19,7 +19,11 @@ fi
 
 msi_download_url=$1
 
-ssh-add ${DEPLOYMENTS_RUNTIME}/keypair/id_rsa_bosh
+if ! ssh-add ${DEPLOYMENTS_RUNTIME}/keypair/id_rsa_bosh; then
+    # start ssh-agent and try again
+    eval `ssh-agent`
+    ssh-add ${DEPLOYMENTS_RUNTIME}/keypair/id_rsa_bosh
+fi
 
 function kill_ssh() {
     pkill -f 'ssh -N -f -L'
