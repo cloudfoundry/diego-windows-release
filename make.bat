@@ -30,7 +30,7 @@ go install github.com/onsi/gomega || exit /b 1
 ginkgo -r -noColor src/github.com/cloudfoundry-incubator/garden-windows || exit /b 1
 :: windows cmd doesn't like quoting arguments, use -skip=foo.bar instead of -skip='foo bar'
 :: we use the dot operator to match anything, -skip expects a regex
-ginkgo -r -noColor src/github.com/cloudfoundry-incubator/executor || exit /b 1
+ginkgo -skip=reports.garden.containers.as.-1  -r -noColor src/github.com/cloudfoundry-incubator/executor || exit /b 1
 ginkgo -skip=when.an.interrupt.signal.is.sent.to.the.representative^|should.not.exit,.but.keep.trying.to.maintain.presence.at.the.same.ID^|The.Rep.Evacuation.when.it.has.running.LRP.containers^|when.a.Ping.request.comes.in -noColor src/github.com/cloudfoundry-incubator/rep || exit /b 1
 
 SET GOBIN=%CD%\DiegoWindowsMSI\DiegoWindowsMSI\go-executables
