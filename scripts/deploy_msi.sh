@@ -18,11 +18,13 @@ if [ $# -ne 1 ]; then
 fi
 
 msi_download_url=$1
+private_key=${DEPLOYMENTS_RUNTIME}/keypair/id_rsa_bosh
+chmod 600 ${private_key}
 
-if ! ssh-add ${DEPLOYMENTS_RUNTIME}/keypair/id_rsa_bosh; then
+if ! ssh-add ${private_key}; then
     # start ssh-agent and try again
     eval `ssh-agent`
-    ssh-add ${DEPLOYMENTS_RUNTIME}/keypair/id_rsa_bosh
+    ssh-add ${private_key}
 fi
 
 function kill_ssh() {
