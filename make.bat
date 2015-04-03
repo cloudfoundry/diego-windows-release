@@ -53,16 +53,17 @@ pushd src\github.com\cloudfoundry-incubator\containerizer || exit /b 1
   call make.bat || exit /b 1
 popd
 
-pushd DiegoWindowsMSI || exit /b 1
-  rmdir /S /Q packages
-  nuget restore || exit /b 1
-  devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || exit /b 1
-  xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\output\ || exit /b 1
-popd
-
 for /f "tokens=*" %%a in ('git rev-parse --short HEAD') do (
     set VERSION=%%a
 )
+
+pushd DiegoWindowsMSI || exit /b 1
+  rmdir /S /Q packages
+  nuget restore || exit /b 1
+  echo SHA: %VERSION% > RELEASE_SHA
+  devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || exit /b 1
+  xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\output\ || exit /b 1
+popd
 move /Y output\DiegoWindowsMSI.msi output\DiegoWindowsMSI-%VERSION%.msi || exit /b 1
 
 pushd src\github.com\cloudfoundry-incubator\windows_app_lifecycle || exit /b 1

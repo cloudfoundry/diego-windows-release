@@ -237,42 +237,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5EE15F8DFAFB65BA42A50118CC07DB94"
-        "OwnerKey" = "8:_058509BE48154319ADD1A38CF2912FDB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5EE15F8DFAFB65BA42A50118CC07DB94"
-        "OwnerKey" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5EE15F8DFAFB65BA42A50118CC07DB94"
-        "OwnerKey" = "8:_E5429DE114144198B0353157A124E74F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5EE15F8DFAFB65BA42A50118CC07DB94"
-        "OwnerKey" = "8:_7E3DCD760C864A8390B1D9C0A7140298"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5EE15F8DFAFB65BA42A50118CC07DB94"
-        "OwnerKey" = "8:_613EAF226D874052A41D383D75B47E3D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5EE15F8DFAFB65BA42A50118CC07DB94"
-        "OwnerKey" = "8:_4314FBAEBE8249B9B3762A23F939FF83"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_61219F2CDA505D48D22DF64F65104D95"
         "OwnerKey" = "8:_0FBCBAE901F64B579433173F1B518C1C"
         "MsmSig" = "8:_UNDEFINED"
@@ -304,6 +268,12 @@
         "Entry"
         {
         "MsmKey" = "8:_7E3DCD760C864A8390B1D9C0A7140298"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7F633CF1EE4D491693A289976332279A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -688,12 +658,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_E5429DE114144198B0353157A124E74F"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -701,6 +665,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_7E3DCD760C864A8390B1D9C0A7140298"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -923,12 +893,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_058509BE48154319ADD1A38CF2912FDB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5EE15F8DFAFB65BA42A50118CC07DB94"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -1383,11 +1347,6 @@
             "AssemblyAsmDisplayName" = "8:IronFoundry.Container.Host, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_0A2C202620D8440FF897CC371E440628"
-                    {
-                    "Name" = "8:IronFoundry.Container.Host.exe"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:IronFoundry.Container.Host.exe"
             "TargetName" = "8:"
@@ -1620,11 +1579,6 @@
             "AssemblyAsmDisplayName" = "8:IronFoundry.Container, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_3B6709718FE8A5072C76EF336B5472BC"
-                    {
-                    "Name" = "8:IronFoundry.Container.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:IronFoundry.Container.dll"
             "TargetName" = "8:"
@@ -1881,37 +1835,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5EE15F8DFAFB65BA42A50118CC07DB94"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ServiceConfigurator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_5EE15F8DFAFB65BA42A50118CC07DB94"
-                    {
-                    "Name" = "8:ServiceConfigurator.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:ServiceConfigurator.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_ACA42DBD8EC64991ABB3254FB6DDBC0A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_61219F2CDA505D48D22DF64F65104D95"
             {
             "AssemblyRegister" = "3:1"
@@ -2003,6 +1926,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7F633CF1EE4D491693A289976332279A"
+            {
+            "SourcePath" = "8:..\\RELEASE_SHA"
+            "TargetName" = "8:RELEASE_SHA"
+            "Tag" = "8:"
+            "Folder" = "8:_ACA42DBD8EC64991ABB3254FB6DDBC0A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8193F22F8EB548BDA908B2D084891251"
@@ -2269,11 +2212,6 @@
             "AssemblyAsmDisplayName" = "8:IronFoundry.Container.Shared, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_DC8A789A2F6FB7FFFA7A669F1E03C9DC"
-                    {
-                    "Name" = "8:IronFoundry.Container.Shared.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:IronFoundry.Container.Shared.dll"
             "TargetName" = "8:"
