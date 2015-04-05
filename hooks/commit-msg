@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 1 ]; then
+    echo 'Expected one argument only'
+    exit 1
+fi
+
+line=`grep -En '^\[#[0-9]+\]$' $1 | tr -d '\n' | cut -d: -f1`
+
+if [ $? -ne 0 ] ; then
+    echo 'Missing pivotal story id in commit message'
+    exit 1
+fi
+
+if [ "x$line" != "x`wc -l $1 | awk '{print $1}'`" ]; then
+    echo 'Pivotal story id is expected to be on the last line'
+    exit 1
+fi
