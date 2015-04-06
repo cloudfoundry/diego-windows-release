@@ -19,6 +19,8 @@ fi
 
 msi_download_url=$1
 private_key=${DEPLOYMENTS_RUNTIME}/keypair/id_rsa_bosh
+# The following line expect the url to have the sha (e.g. https://s3/path/DiegoWindowsMSI-faf01f9.msi)
+expected_sha=`basename ${msi_download_url} | cut -d- -f2 | cut -d. -f1`
 chmod 600 ${private_key}
 
 if ! ssh-add ${private_key}; then
@@ -51,3 +53,10 @@ ${ssh_remote} "bitsadmin /transfer mydownloadjob /download /priority normal ${ms
 
 # install the msi
 ${ssh_remote} "msiexec /norestart /passive /i c:\diego.msi CONTAINERIZER_USERNAME=.\Administrator CONTAINERIZER_PASSWORD=${ADMIN_PASS} EXTERNAL_IP=${MACHINE_IP} CONSUL_IPS=${CONSUL_IPS} ETCD_CLUSTER=${ETCD_CLUSTER} CF_ETCD_CLUSTER=${CF_ETCD_CLUSTER} LOGGREGATOR_SHARED_SECRET=loggregator-secret MACHINE_NAME=${hostname} STACK=windows2012R2 ZONE=z1"
+
+actual_sha=`${ssh_remote} 'cmd /C type "C:\Program Files\CloudFoundry\DiegoWindows\RELEASE_SHA"' | awk '{print $2}'`
+if [ ${actual_sha} != ${expected_sha} ]; then
+    echo "Installation failed: expected ${actual_sha} == ${expected_sha}"
+    exit 1
+fi
+echo "Installation succeeded"
