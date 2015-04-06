@@ -2,6 +2,11 @@
 
 cd `dirname $0`
 
+if [ "x$ADMIN_PASS" == "x" ]; then
+    echo "Please set ADMIN_PASS env variable"
+    exit 1
+fi
+
 #JUMP_MACHINE_IP
 export ADMIN_PASS
 export MACHINE_IP=172.16.234.139
