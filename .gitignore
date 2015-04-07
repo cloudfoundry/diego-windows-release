@@ -36,6 +36,7 @@ diego.sublime-workspace
 DiegoWindowsMSI/DiegoWindowsMSI/go-executables/*.exe
 
 # go tooling
+src/9fans.net/go/
 src/code.google.com/p/go.tools/
 src/code.google.com/p/goplan9/
 src/code.google.com/p/rog-go/
