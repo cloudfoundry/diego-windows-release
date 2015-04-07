@@ -27,7 +27,7 @@ ssh_opts="-i ${private_key} -o StrictHostKeyChecking=no"
 local_port=2223
 msi_location="c:\diego.msi"
 # wget equivalent on windows
-wget="bitsadmin /transfer mydownloadjob /download /priority normal"
+wget="powershell /C wget"
 msi_install="msiexec /norestart /passive /i"
 msi_uninstall="msiexec /norestart /passive /x"
 
@@ -56,7 +56,7 @@ hostname=`${ssh_remote} "hostname" | tr -d '\r'`
 ${ssh_remote} "${msi_uninstall} ${msi_location}" || echo "Diego isn't installed on this machine"
 
 # download the msi
-${ssh_remote} "${wget} ${msi_download_url} ${msi_location}"
+${ssh_remote} "${wget} ${msi_download_url} -OutFile ${msi_location}"
 
 # install the msi
 ${ssh_remote} "${msi_install} ${msi_location} CONTAINERIZER_USERNAME=.\Administrator CONTAINERIZER_PASSWORD=${ADMIN_PASS} EXTERNAL_IP=${MACHINE_IP} CONSUL_IPS=${CONSUL_IPS} ETCD_CLUSTER=${ETCD_CLUSTER} CF_ETCD_CLUSTER=${CF_ETCD_CLUSTER} LOGGREGATOR_SHARED_SECRET=loggregator-secret MACHINE_NAME=${hostname} STACK=windows2012R2 ZONE=z1"
