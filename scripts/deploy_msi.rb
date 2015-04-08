@@ -24,7 +24,7 @@ options = {
 # Materials in the gocd job.
 def expected_sha
   if sha_env = ENV['GO_REVISION_DIEGO_WINDOWS_MSI']
-    sha_env
+    sha_env[0..6]
   elsif msi_download_url =~ /DiegoWindowsMSI-([0-9a-f]+).msi$/
     $1
   else
