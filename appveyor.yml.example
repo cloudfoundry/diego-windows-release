@@ -1,0 +1,18 @@
+version: 1.0.{build}
+os: Windows Server 2012 R2
+build_script:
+- git submodule update --init --recursive
+- make.bat
+artifacts:
+- path: output/*
+  name: diego-windows-msi
+deploy:
+- provider: S3
+  access_key_id: AWS_ACCESS_KEY_ID
+  secret_access_key:
+    secure: AWS_SECRET_ACCESS_KEY
+  region: us-east-1
+  bucket: diego-windows-msi
+  folder: 
+  artifact: diego-windows-msi
+  set_public: true
