@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7A1C69
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DiegoWindowsMSI", "DiegoWindowsMSI\DiegoWindowsMSI.vdproj", "{E59E28F3-8214-4EAF-B1E4-F6AAEA541235}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureManager", "FeatureManager\FeatureManager.csproj", "{47A78AC3-D749-46E2-B7B6-A7DC1A8C2B70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationManager", "ConfigurationManager\ConfigurationManager.csproj", "{47A78AC3-D749-46E2-B7B6-A7DC1A8C2B70}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GardenWindowsService", "GardenWindows\GardenWindowsService.csproj", "{9BE76F3D-09E5-4821-BB4C-658A27558948}"
 EndProject
