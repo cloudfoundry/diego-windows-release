@@ -21,7 +21,7 @@ as services and logging to windows events.
 
 ### Producing an MSI
 
-- Run `make.bat` as an Administrator, the MSI and Windows Circus tgz file will be output into the `output` directory.
+- Run `scripts\make.bat` as an Administrator, the MSI and Windows Circus tgz file will be output into the `output` directory.
 
 ## Installing the MSI
 
@@ -250,7 +250,7 @@ You will also need the private IP of your Windows instance:
 ![certificate warning](https://github.com/cloudfoundry-incubator/diego-windows-msi/blob/master/README_images/certificate_warning.png)
 It may take a minute to connect the first time as Windows sets up your user account.
 
-1. Download [this batch script](https://raw.githubusercontent.com/cloudfoundry-incubator/diego-windows-msi/master/setup.bat) and run it inside the instance 
+1. Download [this batch script](https://raw.githubusercontent.com/cloudfoundry-incubator/diego-windows-msi/master/scripts/setup.bat) and run it inside the instance 
 to enable the required Windows features and configure the DNS settings that the cell will need.
 ![enable features script](https://github.com/cloudfoundry-incubator/diego-windows-msi/blob/master/README_images/enable_features.png)
 
