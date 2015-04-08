@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/1tpbencvtf67ljqk/branch/master?svg=true)](https://ci.appveyor.com/project/greenhouse/diego-windows-msi/branch/master)
+
 # diego-windows-msi
 
 This repo contains submodules with all of the source requirements to run a
