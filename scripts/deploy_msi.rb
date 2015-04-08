@@ -41,8 +41,7 @@ def msi_download_url
   # return the argument if it was provided and is valid
   return url if url && url =~ /^http/
 
-  job_id = ENV['GO_DEPENDENCY_LABEL_DIEGOMSI'] or raise  "Usage: $0 http://path/to/msi"
-  "https://s3.amazonaws.com/diego-windows-msi/DiegoMSI/defaultStage/defaultJob/#{job_id}.1/DiegoWindowsMSI-#{expected_sha}.msi"
+  "https://s3.amazonaws.com/diego-windows-msi/output/DiegoWindowsMSI-#{expected_sha}.msi"
 end
 
 msi_location="c:\\diego.msi"
