@@ -1,18 +1,23 @@
-version: 1.0.{build}
 os: Windows Server 2012 R2
+environment:
+  URI: GOCD_WEBHOOK_URL
+  USERNAME: GOCD_USER
+  PASSWORD: GOCD_PASS
 build_script:
 - git submodule update --init --recursive
-- make.bat
+- scripts\make.bat
 artifacts:
 - path: output/*
   name: diego-windows-msi
 deploy:
 - provider: S3
-  access_key_id: AWS_ACCESS_KEY_ID
+  access_key_id: S3_KEY
   secret_access_key:
-    secure: AWS_SECRET_ACCESS_KEY
+    secure: S3_SECRET_KEY
   region: us-east-1
   bucket: diego-windows-msi
   folder: 
   artifact: diego-windows-msi
   set_public: true
+on_success:
+- ps: '& .\scripts\trigger_wats.ps1'
