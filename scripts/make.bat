@@ -65,7 +65,6 @@ pushd DiegoWindowsMSI || exit /b 1
   xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\output\ || exit /b 1
 popd
 move /Y output\DiegoWindowsMSI.msi output\DiegoWindowsMSI-%VERSION%.msi || exit /b 1
-move /Y output\DiegoWindowsMSI.msi output\DiegoWindowsMSI-latest.msi || exit /b 1
 
 pushd src\github.com\cloudfoundry-incubator\windows_app_lifecycle || exit /b 1
   call make.bat || exit /b 1
