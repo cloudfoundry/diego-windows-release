@@ -50,6 +50,7 @@ def bosh_password
 end
 
 def create_github_tag
+  puts "Creating release #{release} with sha #{revision}"
   github.create_tag repo,
                     release,
                     "Release #{release}",
