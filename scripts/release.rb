@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'octokit'
-require 'pry'
 require 'time'
 require 'open-uri'
 
