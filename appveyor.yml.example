@@ -16,7 +16,7 @@ deploy:
     secure: S3_SECRET_KEY
   region: us-east-1
   bucket: diego-windows-msi
-  folder: 
+  folder:
   artifact: diego-windows-msi
   set_public: true
 on_success:
