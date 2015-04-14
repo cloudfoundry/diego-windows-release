@@ -78,18 +78,26 @@ end
 
 def grab_cf_diego_release_sha
   puts "Grabbing cf/diego release shas from #{bosh_target}"
-  temp_file = "/tmp/cf_diego_release_sha.txt"
+  temp_file = "/tmp/cf_diego_release_sha.md"
   File.open(temp_file, "wb+") do |f|
     f.write `bosh -t #{bosh_target} -u #{bosh_user} -p #{bosh_password} releases`
   end
   temp_file
 end
 
+def content_type filename
+  if File.extname(filename) == ".md"
+    "text/x-markdown"
+  else
+    "application/octet-stream"
+  end
+end
+
 def upload_release_assets filepath, release
   filename = File.basename filepath
   github.upload_asset release[:url],
                       filepath,
-                      content_type: 'application/octet-stream',
+                      content_type: content_type(filename),
                       name: filename
 end
 
