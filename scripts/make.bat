@@ -12,6 +12,7 @@ SET DEVENV_PATH=%programfiles(x86)%\Microsoft Visual Studio 12.0\Common7\IDE
 SET PATH=%GOBIN%;%GOROOT%;%PATH%;%DEVENV_PATH%
 :: TODO: get rid of godeps
 SET GOPATH=%CD%
+SET CONTAINERIZER_BIN=%CD%\src\\github.com\cloudfoundry-incubator\containerizer\Containerizer\bin\Containerizer.exe
 
 :: Visual Studio must be in path
 where devenv
@@ -24,14 +25,6 @@ REGEDIT.EXE  /S  "%~dp0\fix_visual_studio_building_msi.reg" || exit /b 1
 go install github.com/coreos/etcd || exit /b 1
 go install github.com/onsi/ginkgo/ginkgo || exit /b 1
 go install github.com/onsi/gomega || exit /b 1
-
-:: Run the tests
-
-ginkgo -r -noColor src/github.com/cloudfoundry-incubator/garden-windows || exit /b 1
-:: windows cmd doesn't like quoting arguments, use -skip=foo.bar instead of -skip='foo bar'
-:: we use the dot operator to match anything, -skip expects a regex
-ginkgo -skip=reports.garden.containers.as.-1  -r -noColor src/github.com/cloudfoundry-incubator/executor || exit /b 1
-ginkgo -skip=when.an.interrupt.signal.is.sent.to.the.representative^|should.not.exit,.but.keep.trying.to.maintain.presence.at.the.same.ID^|The.Rep.Evacuation.when.it.has.running.LRP.containers^|when.a.Ping.request.comes.in -noColor src/github.com/cloudfoundry-incubator/rep || exit /b 1
 
 SET GOBIN=%CD%\DiegoWindowsMSI\DiegoWindowsMSI\go-executables
 
@@ -52,6 +45,15 @@ copy bin\consul.exe %GOBIN%
 pushd src\github.com\cloudfoundry-incubator\containerizer || exit /b 1
   call make.bat || exit /b 1
 popd
+
+:: Run the tests
+
+ginkgo -r -noColor src/github.com/cloudfoundry-incubator/garden-windows || exit /b 1
+:: windows cmd doesn't like quoting arguments, use -skip=foo.bar instead of -skip='foo bar'
+:: we use the dot operator to match anything, -skip expects a regex
+ginkgo -skip=reports.garden.containers.as.-1  -r -noColor src/github.com/cloudfoundry-incubator/executor || exit /b 1
+ginkgo -skip=when.an.interrupt.signal.is.sent.to.the.representative^|should.not.exit,.but.keep.trying.to.maintain.presence.at.the.same.ID^|The.Rep.Evacuation.when.it.has.running.LRP.containers^|when.a.Ping.request.comes.in -noColor src/github.com/cloudfoundry-incubator/rep || exit /b 1
+
 
 for /f "tokens=*" %%a in ('git rev-parse --short HEAD') do (
     set VERSION=%%a
