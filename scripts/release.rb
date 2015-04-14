@@ -13,7 +13,7 @@ def token
 end
 
 def revision
-  env_var 'GO_REVISION_diego_windows_msi'
+  env_var 'GO_REVISION_DIEGO_WINDOWS_MSI'
 end
 
 def release
@@ -53,18 +53,32 @@ def create_github_tag
                         body: "Diego windows MSI Release #{release}"
 end
 
-def upload_release_assets release
+def download_msi
   temp_file = "/tmp/DiegoWindowsMSI.msi"
-  File.open(temp_file, "wb") do |saved_file|
+  File.open(temp_file, "wb+") do |f|
     open(s3_url, "rb") do |read_file|
-      saved_file.write(read_file.read)
+      f.write(read_file.read)
     end
   end
-  github.upload_asset release[:url],
-                      temp_file,
-                      content_type: 'application/octet-stream',
-                      name: "DiegoWindowsMSI.msi"
+  temp_file
 end
 
+def upload_release_assets filepath, release
+  filename = File.basename filepath
+  github.upload_asset release[:url],
+                      filepath,
+                      content_type: 'application/octet-stream',
+                      name: filename
+end
+
+puts "Creating github release"
 res = create_github_tag
-upload_release_assets res
+puts "Created github release"
+
+puts "Downloading msi from s3"
+file = download_msi
+puts "Downloaded msi from s3"
+
+puts "Uploading msi to github release"
+upload_release_assets file, res
+puts "Uploaded msi to github release"
