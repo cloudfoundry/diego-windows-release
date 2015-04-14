@@ -1,9 +1,18 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.3.8)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
+    multipart-post (2.0.0)
     net-ssh (2.9.2)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
+    octokit (3.8.0)
+      sawyer (~> 0.6.0, >= 0.5.3)
+    sawyer (0.6.0)
+      addressable (~> 2.3.5)
+      faraday (~> 0.8, < 0.10)
 
 PLATFORMS
   ruby
@@ -11,3 +20,4 @@ PLATFORMS
 DEPENDENCIES
   net-ssh (>= 2.8.0)
   net-ssh-gateway
+  octokit
