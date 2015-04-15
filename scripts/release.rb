@@ -80,7 +80,9 @@ def grab_cf_diego_release_sha
   puts "Grabbing cf/diego release shas from #{bosh_target}"
   temp_file = "/tmp/cf_diego_release_sha.md"
   File.open(temp_file, "wb+") do |f|
-    f.write `bosh -t #{bosh_target} -u #{bosh_user} -p #{bosh_password} releases`
+    output = `bosh -t #{bosh_target} -u #{bosh_user} -p #{bosh_password} releases`
+    puts output
+    f.write output
   end
   temp_file
 end
