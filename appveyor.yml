@@ -1,0 +1,27 @@
+version: 0.{build}
+skip_tags: true
+environment:
+  URI: https://server.gocd.cf-app.com/go/api/pipelines/deploy-msi-ketchup/schedule
+  USERNAME:
+    secure: GMMfraXG/GbV7fKTx2wJyg==
+  PASSWORD:
+    secure: R28UqazSA7SVBXjihv9FoA==
+build_script:
+- git submodule update --init --recursive
+- scripts\make.bat
+artifacts:
+- path: output/*
+  name: diego-windows-msi
+deploy:
+- provider: S3
+  access_key_id: AKIAI3PXR2UQ2LL6HERQ
+  secret_access_key:
+    secure: rUCnxLPCU6wIgOmgJx+fdH6XzSpIWi9+fBzSQvtZx/Dw+b7U9mgIwu756jQx8kA7
+  region: us-east-1
+  bucket: diego-windows-msi
+  artifact: diego-windows-msi
+  set_public: true
+  on:
+    branch: master
+after_deploy:
+- ps: scripts\trigger_wats.ps1
