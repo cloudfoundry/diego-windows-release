@@ -6,6 +6,7 @@ environment:
     secure: GMMfraXG/GbV7fKTx2wJyg==
   PASSWORD:
     secure: R28UqazSA7SVBXjihv9FoA==
+cache: C:\Users\appveyor\AppData\Local\NuGet\Cache
 build_script:
 - git submodule update --init --recursive
 - scripts\make.bat
