@@ -11,6 +11,7 @@ as services and logging to windows events.
 ## Dependencies
 - Go 1.4 (tested with version go1.4.2 windows/amd64)
 - 64 bit version of Windows (tested with Windows Server 2012 R2 Standard)
+          - ISO SHA1: E0BD3827BD885E5E4E559158A64D650BCACA991E
 
 
 ## Building the MSI
