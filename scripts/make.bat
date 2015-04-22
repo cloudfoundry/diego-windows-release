@@ -12,7 +12,7 @@ SET DEVENV_PATH=%programfiles(x86)%\Microsoft Visual Studio 12.0\Common7\IDE
 SET PATH=%GOBIN%;%GOROOT%;%PATH%;%DEVENV_PATH%
 :: TODO: get rid of godeps
 SET GOPATH=%CD%
-SET CONTAINERIZER_BIN=%CD%\src\\github.com\cloudfoundry-incubator\containerizer\Containerizer\bin\Containerizer.exe
+SET CONTAINERIZER_BIN=%CD%\src\\github.com\cloudfoundry-incubator\garden-windows\containerizer\Containerizer\bin\Containerizer.exe
 
 :: Visual Studio must be in path
 where devenv
@@ -42,7 +42,7 @@ go install github.com/cloudfoundry-incubator/executor/cmd/executor || exit /b 1
 go install github.com/cloudfoundry-incubator/rep/cmd/rep || exit /b 1
 copy bin\consul.exe %GOBIN%
 
-pushd src\github.com\cloudfoundry-incubator\containerizer || exit /b 1
+pushd src\github.com\cloudfoundry-incubator\garden-windows\containerizer || exit /b 1
   call make.bat || exit /b 1
 popd
 
