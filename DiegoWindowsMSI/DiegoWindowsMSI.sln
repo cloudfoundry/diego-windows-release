@@ -24,19 +24,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsulService", "ConsulServ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepService", "RepService\RepService.csproj", "{10A2FD7D-81FB-4F85-BE35-DE41E9084F99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Containerizer", "..\src\github.com\cloudfoundry-incubator\containerizer\Containerizer\Containerizer.csproj", "{B512432C-BDE1-4108-8DCF-5EDB78FAC454}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Containerizer", "..\src\github.com\cloudfoundry-incubator\garden-windows\containerizer\Containerizer\Containerizer.csproj", "{B512432C-BDE1-4108-8DCF-5EDB78FAC454}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceConfigurator", "ServiceConfigurator\ServiceConfigurator.csproj", "{37CE20E8-7999-4F16-BC9F-C97566107BDC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetronService", "MetronService\MetronService.csproj", "{7ACF3253-98BB-44B2-8451-2089B6B95099}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "..\src\github.com\cloudfoundry-incubator\containerizer\Logger\Logger.csproj", "{642C3C03-E002-4A16-8117-5EBAE8ACB9A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "..\src\github.com\cloudfoundry-incubator\garden-windows\containerizer\Logger\Logger.csproj", "{642C3C03-E002-4A16-8117-5EBAE8ACB9A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronFrame", "..\src\github.com\cloudfoundry-incubator\containerizer\IronFrame\IronFrame\IronFrame.csproj", "{5DE07F79-B758-4A04-B908-626E7577313E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronFrame", "..\src\github.com\cloudfoundry-incubator\garden-windows\containerizer\IronFrame\IronFrame\IronFrame.csproj", "{5DE07F79-B758-4A04-B908-626E7577313E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronFrame.Host", "..\src\github.com\cloudfoundry-incubator\containerizer\IronFrame\IronFrame.Host\IronFrame.Host.csproj", "{6E4DD8FC-91E8-4C70-946D-4C37DF84C8CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronFrame.Host", "..\src\github.com\cloudfoundry-incubator\garden-windows\containerizer\IronFrame\IronFrame.Host\IronFrame.Host.csproj", "{6E4DD8FC-91E8-4C70-946D-4C37DF84C8CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronFrame.Shared", "..\src\github.com\cloudfoundry-incubator\containerizer\IronFrame\IronFrame.Shared\IronFrame.Shared.csproj", "{CB7BA555-21FD-4C57-A629-A925B6A83A31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronFrame.Shared", "..\src\github.com\cloudfoundry-incubator\garden-windows\containerizer\IronFrame\IronFrame.Shared\IronFrame.Shared.csproj", "{CB7BA555-21FD-4C57-A629-A925B6A83A31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
