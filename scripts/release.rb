@@ -78,13 +78,21 @@ end
 
 def grab_cf_diego_release_sha
   puts "Grabbing cf/diego release shas from #{bosh_target}"
-  temp_file = "/tmp/cf_diego_release_sha.md"
-  File.open(temp_file, "wb+") do |f|
+  releases = "/tmp/cf_diego_release_sha.md"
+  File.open(releases, "wb+") do |f|
     output = `bosh -t #{bosh_target} -u #{bosh_user} -p #{bosh_password} releases`
     puts output
     f.write output
   end
-  temp_file
+
+  puts "Grabbing cf/diego deployments from #{bosh_target}"
+  deployments = "/tmp/cf_diego_deployments_sha.md"
+  File.open(deployments, "wb+") do |f|
+    output = `bosh -t #{bosh_target} -u #{bosh_user} -p #{bosh_password} deployments`
+    puts output
+    f.write output
+  end
+  [releases, deployments]
 end
 
 def content_type filename
@@ -116,6 +124,6 @@ upload_release_assets file, res
 puts "Uploaded msi to github release"
 
 puts "Grabbing cf/diego release sha"
-file = grab_cf_diego_release_sha
-upload_release_assets file, res
+files = grab_cf_diego_release_sha
+files.each { |f| upload_release_assets f, res }
 puts "Grabbed and uploaded cf/diego release sha"
