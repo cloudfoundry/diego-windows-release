@@ -11,6 +11,7 @@ CONSUL_IPS = ENV['CONSUL_IPS'] or raise "Please set env var CONSUL_IPS"
 ETCD_CLUSTER = ENV['ETCD_CLUSTER'] or raise "Please set env var ETCD_CLUSTER"
 CF_ETCD_CLUSTER = ENV['CF_ETCD_CLUSTER'] or raise "Please set env var CF_ETCD_CLUSTER"
 ZONE = ENV['ZONE'] or raise "Please set env var ZONE"
+LOGGREGATOR_SHARED_SECRET = ENV['LOGGREGATOR_SHARED_SECRET'] or raise "Please set env var LOGGREGATOR_SHARED_SECRET"
 
 options = {
   auth_methods: ["publickey"],
@@ -57,7 +58,7 @@ block = ->(ssh) do
   puts ssh.exec!("powershell /C wget #{msi_download_url} -OutFile #{msi_location}")
 
   puts "Install"
-  puts ssh.exec!("msiexec /norestart /passive /i #{msi_location} CONTAINERIZER_USERNAME=.\\Administrator CONTAINERIZER_PASSWORD=#{ADMIN_PASS} EXTERNAL_IP=#{MACHINE_IP} CONSUL_IPS=#{CONSUL_IPS} ETCD_CLUSTER=#{ETCD_CLUSTER} CF_ETCD_CLUSTER=#{CF_ETCD_CLUSTER} LOGGREGATOR_SHARED_SECRET=loggregator-secret MACHINE_NAME=#{hostname} STACK=windows2012R2 ZONE=#{ZONE}")
+  puts ssh.exec!("msiexec /norestart /passive /i #{msi_location} CONTAINERIZER_USERNAME=.\\Administrator CONTAINERIZER_PASSWORD=#{ADMIN_PASS} EXTERNAL_IP=#{MACHINE_IP} CONSUL_IPS=#{CONSUL_IPS} ETCD_CLUSTER=#{ETCD_CLUSTER} CF_ETCD_CLUSTER=#{CF_ETCD_CLUSTER} LOGGREGATOR_SHARED_SECRET=#{LOGGREGATOR_SHARED_SECRET} MACHINE_NAME=#{hostname} STACK=windows2012R2 ZONE=#{ZONE}")
 
   output = ssh.exec!("powershell /C type $Env:ProgramW6432/CloudFoundry/DiegoWindows/RELEASE_SHA")
   actual_sha = output.chomp.split(/\s+/).last
