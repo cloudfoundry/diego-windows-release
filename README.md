@@ -25,7 +25,7 @@ as services and logging to windows events.
 
 ## Installing the MSI
 
-After you have built the MSI (as above), or downloaded it from [the S3 bucket](https://s3.amazonaws.com/diego-windows-msi/)
+After you have built the MSI (as above), or downloaded it from [the github release page](https://github.com/pivotal-cf/diego-windows-msi/releases)
 
 ```
 msiexec /norestart /i output\DiegoWindowsMSI.msi ^
@@ -176,7 +176,7 @@ to enable the required Windows features and configure the DNS settings that the 
 ![enable features script](https://github.com/cloudfoundry-incubator/diego-windows-msi/blob/master/README_images/enable_features.png)
 
 1. Either [build the MSI](https://github.com/cloudfoundry-incubator/diego-windows-msi#building-the-msi)
-   or download one from [the S3 bucket](https://s3.amazonaws.com/diego-windows-msi/).
+   or download one from [the github release page](https://github.com/pivotal-cf/diego-windows-msi/releases).
    Copy it onto the instance, and follow the instructions to [install the
    MSI](https://github.com/cloudfoundry-incubator/diego-windows-msi#installing-the-msi).
   - The CONTAINERIZER_USERNAME is "Administrator"
