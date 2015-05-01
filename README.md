@@ -50,6 +50,16 @@ msiexec /norestart /i output\DiegoWindowsMSI.msi CONTAINERIZER_USERNAME=.\Admini
   LOGGREGATOR_SHARED_SECRET=loggregator-secret
 ```
 
+Note: The zone is *not* an AWS zone (.e.g us-east-1) but is instead the same zone listed like
+
+```
+diego:
+  rep:
+    zone: my-zone
+```
+    
+in your diego deployment manifest.
+
 ## Deploying Diego to a local BOSH-Lite instance
 
 1. See: https://github.com/cloudfoundry-incubator/diego-release#deploying-diego-to-a-local-bosh-lite-instance with the caveat that you must add the windows2012R2 stack to the deployment manifest, i.e.
