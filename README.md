@@ -57,8 +57,13 @@ diego:
   rep:
     zone: my-zone
 ```
-    
+
 in your diego deployment manifest.
+
+Note: If using the Administrator for the CONTAINERIZER_USERNAME, the passed in username **must** be `.\Administrator` and not `Administrator`.
+
+Note: The ETCD_CLUSTER and CF_ETCD_CLUSTER values **must** be of the form `http://10.10.5.10:4001` and not `10.10.5.10:4001` (i.e. they must be URIs, not IP addresses).
+    
 
 ## Deploying Diego to a local BOSH-Lite instance
 
