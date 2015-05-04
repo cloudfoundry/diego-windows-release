@@ -49,6 +49,16 @@ namespace ConfigurationManager
                 throw new Exception("Please provide all of the following msiexec properties: " + string.Join(", ", missing));
             }
 
+            try
+            {
+                new Uri(Context.Parameters["ETCD_CLUSTER"]);
+                new Uri(Context.Parameters["CF_ETCD_CLUSTER"]);
+            }
+            catch (UriFormatException)
+            {
+                throw new Exception("ETCD_CLUSTER and CF_ETCD_CLUSTER values must be URIs (i.e. http://192.168.0.1:4001 instead of 192.168.0.1:4001).");
+            }
+
             writePropertiesToFile(required);
         }
 
