@@ -31,3 +31,4 @@ clone_folder: c:\dwm
 branches:
   only:
   - master
+  - /appveyor/
