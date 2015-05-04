@@ -36,7 +36,7 @@ namespace ConfigurationManager
                 "CF_ETCD_CLUSTER",
                 "MACHINE_NAME",
                 "LOGGREGATOR_SHARED_SECRET",
-                "ZONE",
+                "REDUNDANCY_ZONE",
                 "STACK"
             };
 

@@ -32,7 +32,7 @@ namespace MetronService
                 VarzPort = 0,
                 CollectorRegistrarIntervalMilliseconds = 60000,
                 EtcdQueryIntervalMilliseconds = 5000,
-                Zone = Context.Parameters["ZONE"],
+                Zone = Context.Parameters["REDUNDANCY_ZONE"],
                 LoggregatorLegacyPort = 3456,
                 LoggregatorDropsondePort = 3457
             };
