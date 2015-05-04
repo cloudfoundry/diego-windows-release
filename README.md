@@ -29,8 +29,8 @@ After you have built the MSI (as above), or downloaded it from [the github relea
 
 ```
 msiexec /norestart /i output\DiegoWindowsMSI.msi ^
-          CONTAINERIZER_USERNAME=[Username with admin privileges] ^
-          CONTAINERIZER_PASSWORD=[Previous user password] ^
+          ADMIN_USERNAME=[Username with admin privileges] ^
+          ADMIN_PASSWORD=[Previous user password] ^
           EXTERNAL_IP=[External IP of box] ^
           CONSUL_IPS=[Comma-separated IP addresses of consul agents from bosh deploy of diego] ^
           ETCD_CLUSTER=[IP address of your etcd cluster from bosh deploy of diego] ^
@@ -44,7 +44,7 @@ msiexec /norestart /i output\DiegoWindowsMSI.msi ^
 An example would be
 
 ```
-msiexec /norestart /i output\DiegoWindowsMSI.msi CONTAINERIZER_USERNAME=.\Administrator CONTAINERIZER_PASSWORD=secretpassword ^
+msiexec /norestart /i output\DiegoWindowsMSI.msi ADMIN_USERNAME=Administrator ADMIN_PASSWORD=secretpassword ^
   EXTERNAL_IP=10.10.5.4 CONSUL_IPS=10.10.5.11,10.10.6.11,10.10.7.11 ETCD_CLUSTER=http://10.10.5.10:4001 ^
   CF_ETCD_CLUSTER=http://10.244.0.42:4001 MACHINE_NAME=WIN-RD649GEUDP1 STACK=windows2012 ZONE=z1 ^
   LOGGREGATOR_SHARED_SECRET=loggregator-secret
@@ -59,8 +59,6 @@ diego:
 ```
 
 in your diego deployment manifest.
-
-Note: If using the Administrator for the CONTAINERIZER_USERNAME, the passed in username **must** be `.\Administrator` and not `Administrator`.
 
 Note: The ETCD_CLUSTER and CF_ETCD_CLUSTER values **must** be of the form `http://10.10.5.10:4001` and not `10.10.5.10:4001` (i.e. they must be URIs, not IP addresses).
     
@@ -179,8 +177,8 @@ to enable the required Windows features and configure the DNS settings that the 
    or download one from [the github release page](https://github.com/pivotal-cf/diego-windows-msi/releases).
    Copy it onto the instance, and follow the instructions to [install the
    MSI](https://github.com/cloudfoundry-incubator/diego-windows-msi#installing-the-msi).
-  - The CONTAINERIZER_USERNAME is "Administrator"
-  - The CONTAINERIZER_PASSWORD is the same as the one you copied from Amazon
+  - The ADMIN_USERNAME is "Administrator"
+  - The ADMIN_PASSWORD is the same as the one you copied from Amazon
   - The EXTERNAL_IP is the private IP of the instance (in our case 10.10.5.80)
   - The CONSUL_IPS can be retrieved by running `bosh vms` and copying the `consul_z1/0` IP address (in our case "10.10.5.11")
   - The ETCD_CLUSTER can be retrieved by running `bosh vms` and formatting the `etcd_z1/0` (in the diego deployment) IP address as a URL with port 4001 (in our case "http://10.10.5.10:4001")

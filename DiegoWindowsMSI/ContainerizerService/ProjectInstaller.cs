@@ -20,8 +20,8 @@ namespace ContainerizerService
         protected override void OnBeforeInstall(IDictionary savedState)
         {
             this.serviceProcessInstaller.Account = System.ServiceProcess.ServiceAccount.User;
-            this.serviceProcessInstaller.Username = Context.Parameters["CONTAINERIZER_USERNAME"];
-            this.serviceProcessInstaller.Password = Context.Parameters["CONTAINERIZER_PASSWORD"];
+            this.serviceProcessInstaller.Username = @".\" + Context.Parameters["ADMIN_USERNAME"];
+            this.serviceProcessInstaller.Password = Context.Parameters["ADMIN_PASSWORD"];
 
             base.OnBeforeInstall(savedState);
         }

@@ -28,8 +28,8 @@ namespace ConfigurationManager
             var missing = new List<string>();
 
             var required = new List<string>() {
-                "CONTAINERIZER_USERNAME",
-                "CONTAINERIZER_PASSWORD",
+                "ADMIN_USERNAME",
+                "ADMIN_PASSWORD",
                 "EXTERNAL_IP",
                 "CONSUL_IPS",
                 "ETCD_CLUSTER",
@@ -55,7 +55,7 @@ namespace ConfigurationManager
         private void writePropertiesToFile(List<string> keys)
         {
             var parameters = new Dictionary<string, string>();
-            foreach (string key in keys.Where(x => x != "CONTAINERIZER_PASSWORD"))
+            foreach (string key in keys.Where(x => x != "ADMIN_USERNAME"))
             {
                 parameters.Add(key, Context.Parameters[key]);
             }
