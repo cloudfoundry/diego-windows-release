@@ -16,9 +16,9 @@ artifacts:
   name: diego-windows-msi
 deploy:
 - provider: S3
-  access_key_id: AKIAI3PXR2UQ2LL6HERQ
+  access_key_id: AKIAJ3M5ORCAISPRT22Q
   secret_access_key:
-    secure: rUCnxLPCU6wIgOmgJx+fdH6XzSpIWi9+fBzSQvtZx/Dw+b7U9mgIwu756jQx8kA7
+    secure: lMbaCusTBxZpIbSzoILyHMBkz+sVH7EwgAqI3sAVYAM92OcIzlzq1IzcB8MmnRvZ
   region: us-east-1
   bucket: diego-windows-msi
   artifact: diego-windows-msi
