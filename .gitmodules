@@ -124,3 +124,6 @@
 [submodule "src/github.com/hashicorp/consul"]
 	path = src/github.com/hashicorp/consul
 	url = https://github.com/hashicorp/consul
+[submodule "src/golang.org/x/net"]
+	path = src/golang.org/x/net
+	url = https://github.com/golang/net

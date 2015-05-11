@@ -17,5 +17,4 @@ sc stop Dnscache
 :: increases desktop heap limit, see http://stackoverflow.com/questions/17472389/how-to-increase-the-maximum-number-of-child-processes-that-can-be-spawned-by-a-w/17472390#17472390
 REGEDIT.EXE  /S  "%~dp0\increase_desktop_heap_for_services.reg" || exit /b 1
 
-:: disable all windows firewall profiles
- NetSh Advfirewall set allprofiles state off
+powershell "& .\setup_firewall.ps1"
