@@ -9,8 +9,7 @@ environment:
 cache: C:\Users\appveyor\AppData\Local\NuGet\Cache
 build_script:
 - git submodule update --init --recursive
-- fsutil quota enforce C:
-- powershell "& .\scripts\setup_firewall.ps1"
+- scripts\setup.bat
 - scripts\make.bat
 test: off
 artifacts:
