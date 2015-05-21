@@ -39,6 +39,11 @@ namespace ConfigurationManager
                 "REDUNDANCY_ZONE",
                 "STACK"
             };
+            var optional = new List<string>
+            {
+                "SYSLOG_HOST_IP",
+                "SYSLOG_PORT"
+            };
 
             foreach (var key in required) {
                 if (Context.Parameters[key] == null || Context.Parameters[key] == "")
@@ -59,7 +64,7 @@ namespace ConfigurationManager
                 throw new Exception("ETCD_CLUSTER and CF_ETCD_CLUSTER values must be URIs (i.e. http://192.168.0.1:4001 instead of 192.168.0.1:4001).");
             }
 
-            writePropertiesToFile(required);
+            writePropertiesToFile(required.Concat(optional).ToList());
         }
 
         private void writePropertiesToFile(List<string> keys)

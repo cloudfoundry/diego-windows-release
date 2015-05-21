@@ -7,6 +7,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities;
 
 namespace ExecutorService
 {
@@ -44,8 +45,17 @@ namespace ExecutorService
             process.EnableRaisingEvents = true;
             process.Exited += process_Exited;
 
-            process.OutputDataReceived += (object sender, DataReceivedEventArgs e) => EventLog.WriteEntry(eventSource, e.Data, EventLogEntryType.Information, 0);
-            process.ErrorDataReceived += (object sender, DataReceivedEventArgs e) => EventLog.WriteEntry(eventSource, e.Data, EventLogEntryType.Warning, 0);
+            var syslog = Syslog.Build(Config.Params(), eventSource);
+            process.OutputDataReceived += (object sender, DataReceivedEventArgs e) =>
+            {
+                EventLog.WriteEntry(eventSource, e.Data, EventLogEntryType.Information, 0);
+                if (syslog != null) syslog.Send(e.Data, SyslogSeverity.Informational);
+            };
+            process.ErrorDataReceived += (object sender, DataReceivedEventArgs e) =>
+            {
+                EventLog.WriteEntry(eventSource, e.Data, EventLogEntryType.Warning, 0);
+                if (syslog != null) syslog.Send(e.Data, SyslogSeverity.Warning);
+            };
 
             EventLog.WriteEntry(eventSource, "Starting", EventLogEntryType.Information, 0);
             process.Start();

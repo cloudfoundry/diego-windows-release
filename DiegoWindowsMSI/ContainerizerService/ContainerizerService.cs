@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities;
 
 namespace ContainerizerService
 {
@@ -27,7 +30,8 @@ namespace ContainerizerService
 
         protected override void OnStart(string[] args)
         {
-            var externalIp = parameters()["EXTERNAL_IP"];
+            var externalIp = Config.Params()["EXTERNAL_IP"];
+            var syslog = Syslog.Build(Config.Params(), eventSource);
             process = new Process
             {
                 StartInfo =
@@ -42,10 +46,20 @@ namespace ContainerizerService
             process.EnableRaisingEvents = true;
             process.Exited += process_Exited;
 
-            process.OutputDataReceived += (object sender, DataReceivedEventArgs e) => EventLog.WriteEntry(eventSource, e.Data, EventLogEntryType.Information, 0);
-            process.ErrorDataReceived += (object sender, DataReceivedEventArgs e) => EventLog.WriteEntry(eventSource, e.Data, EventLogEntryType.Warning, 0);
+            process.OutputDataReceived += (object sender, DataReceivedEventArgs e) =>
+            {
+                EventLog.WriteEntry(eventSource, e.Data, EventLogEntryType.Information, 0);
+                if(syslog != null) syslog.Send(e.Data, SyslogSeverity.Informational);
+            };
+            process.ErrorDataReceived += (object sender, DataReceivedEventArgs e) =>
+            {
+                EventLog.WriteEntry(eventSource, e.Data, EventLogEntryType.Warning, 0);
+                if (syslog != null) syslog.Send(e.Data, SyslogSeverity.Warning);
+            };
 
             EventLog.WriteEntry(eventSource, "Starting", EventLogEntryType.Information, 0);
+            EventLog.WriteEntry(eventSource, ("Syslog is " + (syslog == null ? "NULL" : "ALIVE")), EventLogEntryType.Information, 0);
+
             process.Start();
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
@@ -65,13 +79,6 @@ namespace ContainerizerService
             {
                 process.Kill();
             }
-        }
-
-        protected Dictionary<string, string> parameters()
-        {
-            var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            var jsonString = System.IO.File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "parameters.json");
-            return javaScriptSerializer.Deserialize<Dictionary<string, string>>(jsonString);
         }
     }
 }

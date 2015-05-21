@@ -77,6 +77,10 @@
       <Project>{37ce20e8-7999-4f16-bc9f-c97566107bdc}</Project>
       <Name>ServiceConfigurator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{5BF61F53-923F-46C5-B160-D503B08B9B5A}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

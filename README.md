@@ -39,7 +39,9 @@ msiexec /norestart /i output\DiegoWindowsMSI.msi ^
           MACHINE_NAME=[This machine's name (must be unique across your cluster)] ^
           STACK=[CF stack, eg. windows2012] ^
           REDUNDANCY_ZONE=[Diego zone this cell is part of] ^
-          LOGGREGATOR_SHARED_SECRET=[loggregator secret from your bosh deploy of cf]
+          LOGGREGATOR_SHARED_SECRET=[loggregator secret from your bosh deploy of cf] ^
+          SYSLOG_HOST_IP=[(optional) Syslog host IP to send logs to] ^
+          SYSLOG_PORT=[(optional) Syslog port to send logs to]
 ```
 
 An example would be
@@ -48,7 +50,8 @@ An example would be
 msiexec /norestart /i output\DiegoWindowsMSI.msi ADMIN_USERNAME=Administrator ADMIN_PASSWORD=secretpassword ^
   EXTERNAL_IP=10.10.5.4 CONSUL_IPS=10.10.5.11,10.10.6.11,10.10.7.11 ETCD_CLUSTER=http://10.10.5.10:4001 ^
   CF_ETCD_CLUSTER=http://10.244.0.42:4001 MACHINE_NAME=WIN-RD649GEUDP1 STACK=windows2012 REDUNDANCY_ZONE=0c35dfe1cf34ec47e2a2 ^
-  LOGGREGATOR_SHARED_SECRET=loggregator-secret
+  LOGGREGATOR_SHARED_SECRET=loggregator-secret ^
+  SYSLOG_HOST_IP=syslog-server.example.com SYSLOG_PORT=514
 ```
 
 Note: The zone is *not* an AWS zone (e.g. us-east-1) but is instead the same zone listed like
@@ -62,6 +65,8 @@ diego:
 in your diego deployment manifest.
 
 Note: The ETCD_CLUSTER and CF_ETCD_CLUSTER values **must** be of the form `http://10.10.5.10:4001` and not `10.10.5.10:4001` (i.e. they must be URIs, not IP addresses).
+
+Note: SYSLOG_HOST_IP and SYSLOG_PORT are listed as SYSLOG_DAEMON_HOST and SYSLOG_DAEMON_PORT respectively in the bosh manifest
     
 
 ## Deploying Diego to a local BOSH-Lite instance

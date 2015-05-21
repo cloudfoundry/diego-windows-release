@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronFrame.Host", "..\src\gi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronFrame.Shared", "..\src\github.com\cloudfoundry-incubator\garden-windows\containerizer\IronFrame\IronFrame.Shared\IronFrame.Shared.csproj", "{CB7BA555-21FD-4C57-A629-A925B6A83A31}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{5BF61F53-923F-46C5-B160-D503B08B9B5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -252,6 +254,20 @@ Global
 		{CB7BA555-21FD-4C57-A629-A925B6A83A31}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CB7BA555-21FD-4C57-A629-A925B6A83A31}.Release|x64.ActiveCfg = Release|Any CPU
 		{CB7BA555-21FD-4C57-A629-A925B6A83A31}.Release|x86.ActiveCfg = Release|Any CPU
+		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Release|x64.ActiveCfg = Release|Any CPU
+		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
