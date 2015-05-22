@@ -58,7 +58,20 @@ block = ->(ssh) do
   puts ssh.exec!("powershell /C wget #{msi_download_url} -OutFile #{msi_location}")
 
   puts "Install"
-  puts ssh.exec!("msiexec /norestart /passive /i #{msi_location} ADMIN_USERNAME=Administrator ADMIN_PASSWORD=#{ADMIN_PASS} EXTERNAL_IP=#{MACHINE_IP} CONSUL_IPS=#{CONSUL_IPS} ETCD_CLUSTER=#{ETCD_CLUSTER} CF_ETCD_CLUSTER=#{CF_ETCD_CLUSTER} LOGGREGATOR_SHARED_SECRET=#{LOGGREGATOR_SHARED_SECRET} MACHINE_NAME=#{hostname} STACK=windows2012R2 REDUNDANCY_ZONE=#{REDUNDANCY_ZONE}")
+  puts ssh.exec!("msiexec /norestart /passive /i #{msi_location} "+
+                 "ADMIN_USERNAME=Administrator "+
+                 "ADMIN_PASSWORD=#{ADMIN_PASS} "+
+                 "EXTERNAL_IP=#{MACHINE_IP} "+
+                 "CONSUL_IPS=#{CONSUL_IPS} "+
+                 "ETCD_CLUSTER=#{ETCD_CLUSTER} "+
+                 "CF_ETCD_CLUSTER=#{CF_ETCD_CLUSTER} "+
+                 "LOGGREGATOR_SHARED_SECRET=#{LOGGREGATOR_SHARED_SECRET} "+
+                 "MACHINE_NAME=#{hostname} "+
+                 "STACK=windows2012R2 "+
+                 "REDUNDANCY_ZONE=#{REDUNDANCY_ZONE} "+
+                 (ENV["SYSLOG_HOST_IP"] ? "SYSLOG_HOST_IP=#{ENV["SYSLOG_HOST_IP"]} " : "")+
+                 (ENV["SYSLOG_PORT"] ? "SYSLOG_PORT=#{ENV["SYSLOG_PORT"]} " : "")
+                )
 
   output = ssh.exec!("powershell /C type $Env:ProgramW6432/CloudFoundry/DiegoWindows/RELEASE_SHA")
   actual_sha = output.chomp.split(/\s+/).last
