@@ -15,7 +15,7 @@ namespace Utilities
 
         public Syslog(string host, int port, string machineName, string sender)
         {
-            udp = new UdpClient(host, port); // "logs2.papertrailapp.com", 59978);
+            udp = new UdpClient(host, port);
             this.prefix = machineName + " " + sender + ": ";
         }
 
@@ -33,7 +33,6 @@ namespace Utilities
 
         public void Send(string message, SyslogSeverity priority)
         {
-            // const int priority = 4; // Warning
             var msg = Message(message, priority);
             udp.Send(msg, msg.Length);
         }
