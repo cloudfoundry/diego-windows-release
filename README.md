@@ -34,8 +34,8 @@ msiexec /norestart /i output\DiegoWindowsMSI.msi ^
           ADMIN_PASSWORD=[Previous user password] ^
           EXTERNAL_IP=[External IP of box] ^
           CONSUL_IPS=[Comma-separated IP addresses of consul agents from bosh deploy of diego] ^
-          ETCD_CLUSTER=[URI of your etcd cluster from bosh deploy of diego] ^
-          CF_ETCD_CLUSTER=[URI of your cf etcd cluster from bosh deploy of cf] ^
+          ETCD_CLUSTER=[URI of your Diego etcd cluster from bosh deploy] ^
+          CF_ETCD_CLUSTER=[URI of your Runtime cf etcd cluster from bosh deploy of cf] ^
           MACHINE_NAME=[This machine's name (must be unique across your cluster)] ^
           STACK=[CF stack, eg. windows2012] ^
           REDUNDANCY_ZONE=[Diego zone this cell is part of] ^
