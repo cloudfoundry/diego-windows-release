@@ -33,8 +33,12 @@ def short_sha
   revision[0..6]
 end
 
-def s3_url
+def msi_url
   "https://s3.amazonaws.com/diego-windows-msi/output/DiegoWindowsMSI-#{short_sha}.msi"
+end
+
+def install_instructions_url
+  "https://s3.amazonaws.com/diego-windows-msi/output/INSTALL-#{short_sha}.md"
 end
 
 def bosh_target
@@ -66,14 +70,13 @@ def create_github_tag
                         body: "Diego windows MSI Release #{release}"
 end
 
-def download_msi
-  temp_file = "/tmp/DiegoWindowsMSI.msi"
-  File.open(temp_file, "wb+") do |f|
-    open(s3_url, "rb") do |read_file|
+def download_from_s3 url, destination
+  File.open(destination, "wb+") do |f|
+    open(url, "rb") do |read_file|
       f.write(read_file.read)
     end
   end
-  temp_file
+  destination
 end
 
 def grab_cf_diego_release_sha
@@ -97,7 +100,7 @@ end
 
 def content_type filename
   if File.extname(filename) == ".md"
-    "text/x-markdown"
+    "text/plain"
   else
     "application/octet-stream"
   end
@@ -116,12 +119,20 @@ res = create_github_tag
 puts "Created github release"
 
 puts "Downloading msi from s3"
-file = download_msi
+file = download_from_s3 msi_url, "/tmp/DiegoWindowsMSI.msi"
 puts "Downloaded msi from s3"
 
 puts "Uploading msi to github release"
 upload_release_assets file, res
 puts "Uploaded msi to github release"
+
+puts "Downloading installation instructions from s3"
+file = download_from_s3 install_instructions_url, "/tmp/INSTALL.md"
+puts "Downloaded installation instructions from s3"
+
+puts "Uploading installation instructions to github release"
+upload_release_assets file, res
+puts "Uploaded installation instructions to github release"
 
 puts "Grabbing cf/diego release sha"
 files = grab_cf_diego_release_sha
