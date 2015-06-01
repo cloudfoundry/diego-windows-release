@@ -75,4 +75,3 @@ pushd src\github.com\cloudfoundry-incubator\windows_app_lifecycle || exit /b 1
   call make.bat || exit /b 1
   xcopy windows_app_lifecycle-*.tgz ..\..\..\..\output\ || exit /b 1
 popd
-k
