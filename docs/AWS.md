@@ -11,25 +11,35 @@ on AWS.
 
 ## Creating the windows cell
 
-1. Open the AWS console, and click on EC2.
+### Open the AWS console, and click on EC2.
+
    ![aws](../README_images/aws.png)
 
-1. Click on" Instances" in the EC2 home screen.
+### Click on" Instances" in the EC2 home screen.
+
    ![ec2](../README_images/ec2.png)
 
-1. Click on "Launch Instance" in the Instances screen.
+### Click on "Launch Instance" in the Instances screen.
+
    ![instances](../README_images/instances.png)
 
-1. Select Microsoft Windows Server 2012 R2 Base.
+### Select Microsoft Windows Server 2012 R2 Base.
+
    ![select ami](../README_images/select_ami.png)
 
-1. Select an instance type. It's not especially important what size we
-   choose. In this example, we will choose m3.xlarge. Then, click "next".
+### Select an instance type.
+
+   It's not especially important what size we choose. In this example,
+   we will choose m3.xlarge.
+
    ![instance type](../README_images/instance_type.png)
 
-1. Select a network and subnet. The network should the same VPC we
-   have our micro bosh deployed in.
+### Select a network and subnet.
+
+   The network should the same VPC we have our micro bosh deployed in.
+
    ![instance details](../README_images/instance_details.png)
+
    The subnet should be be the same mask as the ip address of the job
    running etcd. For example, if we run
    ```
@@ -71,53 +81,76 @@ on AWS.
    ```
    . Then, click "Configure Security Group".
 
-1. Create a new security group that allows traffic from anywhere. This
-   is not recommended for production deployments, but is sufficient
-   for development purposes. Then, click "review and launch".
+### Create a new security group
+
+   The security group will allow traffic from anywhere. This is not
+   recommended for production deployments, but is sufficient for
+   development purposes. Then, click "review and launch".
+
    ![instance type](../README_images/security_groups.png)
 
-1. Click "Launch".
+### Click "Launch".
+
    ![launch](../README_images/launch.png)
 
-1. You can select your existing "bosh" key pair, check the check box
+   You can select your existing "bosh" key pair, check the check box
    to acknowledge you have the private key, and click "Launch
    Instances".
+
    ![key pairs](../README_images/key_pair.png)
 
-1. It will take a minute or two for the instance to launch.
+### Take a break
 
-1. When the instance is ready, right click on it (in the list of
+   It will take a minute or two for the instance to launch.
+
+### Get the windows password
+
+   When the instance is ready, right click on it (in the list of
    instances) and select "Get Windows Password".  You can either
    upload your private key file or copy its contents into the dialog.
+
    ![retrieve password](../README_images/retrieve_password.png)
+
    ![retrieved password](../README_images/retrieve_password2.png)
 
 ## Connecting to your windows cell
 
-This step is optional, you'll need it if you will be manually
-installing the msi on the windows cell. Since the windows cell is
-inside a private subnet, you'll need SSH tunnelling in order to be
-able to RDP to the VM.
+This is optional, you'll need it if you will be manually installing
+the msi on the windows cell. Since the windows cell is inside a
+private subnet, you'll need SSH tunnelling in order to be able to RDP
+to the VM.
 
-1. Get the public IP of your bosh director, which you can find by
-   searching for an instance named "micro".
+### Get the public IP of your bosh director
+
+   which you can find by searching for an instance named "micro".
+
    ![director ip address](../README_images/director_ip.png)
 
-1. Get the private ip of the windows VM
+### Get the private ip of the windows VM
+
    ![instance ip address](../README_images/instance_ip.png)
 
-1. At the command line, enter `ssh -L 3389:INSTANCE_PRIVATE_IP:3389 vcap@DIRECTOR_IP`,
+### SSH forward the rdp port
+
+   At the command line, enter `ssh -L 3389:INSTANCE_PRIVATE_IP:3389 vcap@DIRECTOR_IP`,
    for example `ssh -L 3389:10.10.5.80:3389 vcap@52.20.21.23`.
 
-1. Open Microsoft Remote Desktop and create a new remote desktop with
-   the same properties shown, with the password you retrieved earlier
+### Open Microsoft Remote Desktop
+
+   create a new remote desktop with the same properties shown, with
+   the password you retrieved earlier
+
    ![remote desktop](../README_images/remote_desktop.png)
 
-1. Double click the remote desktop you just created to connect to
-   it. You may see a certificate warning which you can ignore by clicking
+### Connect to the VM
+
+   Double click the remote desktop you just created to connect to. You
+   may see a certificate warning which you can ignore by clicking
    "Continue".
+
    ![certificate warning](../README_images/certificate_warning.png)
 
+### Go get some coffee
 
-**NOTE** It may take a minute to connect the first time as Windows
-sets up your user account.
+   It may take a minute to connect the first time as Windows sets up
+   your user account.
