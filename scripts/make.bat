@@ -67,8 +67,12 @@ pushd DiegoWindowsMSI || exit /b 1
   xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\output\ || exit /b 1
 popd
 move /Y output\DiegoWindowsMSI.msi output\DiegoWindowsMSI-%VERSION%.msi || exit /b 1
-
+:: running the following command without the echo part will prompt
+:: the user to specify whether the destination is a directory (D) or
+:: file (F). we echo F to select file.
+echo F | xcopy docs\INSTALL.md output\INSTALL-%VERSION%.md || exit /b 1
 pushd src\github.com\cloudfoundry-incubator\windows_app_lifecycle || exit /b 1
   call make.bat || exit /b 1
   xcopy windows_app_lifecycle-*.tgz ..\..\..\..\output\ || exit /b 1
 popd
+k
