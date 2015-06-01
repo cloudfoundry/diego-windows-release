@@ -99,5 +99,15 @@ in your diego deployment manifest.
 ## Verify that all the services are up and running
 
 1. If everything has worked correctly, you should now see the
-   following five services running in the Task Manager
-![services](https://github.com/cloudfoundry-incubator/diego-windows-msi/blob/master/README_images/services.png)
+   following five services running in the Task Manager (it's easier to
+   sort the services using the `Description` column and look for
+   descriptions starting with `CF `):
+
+   | Name          | Description      | Status  |
+   |---------------|------------------|---------|
+   | Consul        | CF Consul        | Running |
+   | Containerizer | CF Containerizer | Running |
+   | Executor      | CF Executor      | Running |
+   | GardenWindows | CF GardenWindows | Running |
+   | Metron        | CF Metron        | Running |
+   | Rep           | CF Rep           | Running |
