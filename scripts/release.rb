@@ -41,6 +41,10 @@ def install_instructions_url
   "https://s3.amazonaws.com/diego-windows-msi/output/INSTALL-#{short_sha}.md"
 end
 
+def setup_url
+  "https://s3.amazonaws.com/diego-windows-msi/output/setup-#{short_sha}.ps1"
+end
+
 def bosh_target
   env_var 'BOSH_TARGET'
 end
@@ -133,6 +137,14 @@ puts "Downloaded installation instructions from s3"
 puts "Uploading installation instructions to github release"
 upload_release_assets file, res
 puts "Uploaded installation instructions to github release"
+
+puts "Downloading setup script from s3"
+file = download_from_s3 setup_url, "/tmp/setup.ps1"
+puts "Downloaded setup script from s3"
+
+puts "Uploading setup script to github release"
+upload_release_assets file, res
+puts "Uploaded setup script to github release"
 
 puts "Grabbing cf/diego release sha"
 files = grab_cf_diego_release_sha
