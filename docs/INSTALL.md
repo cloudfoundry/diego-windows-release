@@ -27,7 +27,7 @@ You can download our latest msi from
 TODO: enhance this section
 
 1. Download
-[this batch script](https://raw.githubusercontent.com/cloudfoundry-incubator/diego-windows-msi/master/scripts/setup.bat)
+[this script](https://raw.githubusercontent.com/cloudfoundry-incubator/diego-windows-msi/master/scripts/setup.ps1)
 and run it inside the instance to enable the required Windows features
 and configure the DNS settings that the cell will need.
 ![enable features script](https://github.com/cloudfoundry-incubator/diego-windows-msi/blob/master/README_images/enable_features.png)
