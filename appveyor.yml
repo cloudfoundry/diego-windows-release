@@ -9,7 +9,7 @@ environment:
 cache: C:\Users\appveyor\AppData\Local\NuGet\Cache
 build_script:
 - git submodule update --init --recursive
-- scripts\setup.bat
+- powershell "& .\scripts\setup.ps1"
 - scripts\make.bat
 test: off
 artifacts:
