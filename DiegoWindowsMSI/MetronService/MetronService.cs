@@ -27,8 +27,37 @@ namespace MetronService
             EventLog.WriteEntry(eventSource, "Service Initializing", EventLogEntryType.Information, 0);
         }
 
+        private void WriteConfigFile()
+        {
+            var hash = Config.Params();
+            var metronConfig = new
+            {
+                EtcdUrls = new List<string> { hash["CF_ETCD_CLUSTER"] },
+                EtcdMaxConcurrentRequests = 10,
+                SharedSecret = hash["LOGGREGATOR_SHARED_SECRET"],
+                LegacyIncomingMessagesPort = 3456,
+                DropsondeIncomingMessagesPort = 3457,
+                Index = 0,
+                Job = hash["MACHINE_NAME"],
+                VarzUser = "",
+                VarzPass = "",
+                VarzPort = 0,
+                CollectorRegistrarIntervalMilliseconds = 60000,
+                EtcdQueryIntervalMilliseconds = 5000,
+                Zone = hash["REDUNDANCY_ZONE"],
+                LoggregatorLegacyPort = 3456,
+                LoggregatorDropsondePort = 3457
+            };
+            var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            string jsonString = javaScriptSerializer.Serialize(metronConfig);
+            var configDir = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "metron"));
+            System.IO.Directory.CreateDirectory(configDir);
+            System.IO.File.WriteAllText(System.IO.Path.Combine(configDir, "config.json"), jsonString);
+        }
+
         protected override void OnStart(string[] args)
         {
+            WriteConfigFile();
             process = new Process
             {
                 StartInfo =

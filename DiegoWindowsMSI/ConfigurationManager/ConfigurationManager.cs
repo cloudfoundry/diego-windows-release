@@ -30,17 +30,17 @@ namespace ConfigurationManager
             var required = new List<string>() {
                 "ADMIN_USERNAME",
                 "ADMIN_PASSWORD",
-                "EXTERNAL_IP",
                 "CONSUL_IPS",
                 "ETCD_CLUSTER",
                 "CF_ETCD_CLUSTER",
-                "MACHINE_NAME",
                 "LOGGREGATOR_SHARED_SECRET",
                 "REDUNDANCY_ZONE",
                 "STACK"
             };
             var optional = new List<string>
             {
+                "EXTERNAL_IP",
+                "MACHINE_NAME",
                 "SYSLOG_HOST_IP",
                 "SYSLOG_PORT"
             };

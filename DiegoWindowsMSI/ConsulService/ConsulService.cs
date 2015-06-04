@@ -27,8 +27,36 @@ namespace ConsulService
             EventLog.WriteEntry(eventSource, "Service Initializing", EventLogEntryType.Information, 0);
         }
 
+        private void WriteConfigFile()
+        {
+            var config = Config.Params();
+            var consulIps = config["CONSUL_IPS"].Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries);
+            var consulConfig = new
+            {
+                datacenter = "dc1",
+                data_dir = "/tmp",
+                node_name = config["MACHINE_NAME"],
+                server = false,
+                ports = new { dns = 53 },
+                bind_addr = config["EXTERNAL_IP"],
+                rejoin_after_leave = true,
+                disable_remote_exec = true,
+                disable_update_check = true,
+                protocol = 2,
+                start_join = consulIps,
+                retry_join = consulIps
+            };
+
+            var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            string jsonString = javaScriptSerializer.Serialize(consulConfig);
+            var configDir = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "consul"));
+            System.IO.Directory.CreateDirectory(configDir);
+            System.IO.File.WriteAllText(System.IO.Path.Combine(configDir, "config.json"), jsonString);
+        }
+
         protected override void OnStart(string[] args)
         {
+            WriteConfigFile();
             process = new Process
             {
                 StartInfo =

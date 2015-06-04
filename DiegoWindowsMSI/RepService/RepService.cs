@@ -28,7 +28,7 @@ namespace RepService
 
         protected override void OnStart(string[] args)
         {
-            var hash = parameters();
+            var hash = Config.Params();
 
             process = new Process
             {
@@ -93,13 +93,6 @@ namespace RepService
             {
                 process.Kill();
             }
-        }
-
-        protected Dictionary<string, string> parameters()
-        {
-            var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            var jsonString = System.IO.File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "parameters.json");
-            return javaScriptSerializer.Deserialize<Dictionary<string, string>>(jsonString);
         }
     }
 }
