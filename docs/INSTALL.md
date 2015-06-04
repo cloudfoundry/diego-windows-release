@@ -24,9 +24,7 @@ You can download our latest msi from
 
 ## Setup the windows cell
 
-TODO: enhance this section
-
-1. Run the `setup.ps1` script inside the instance to enable the required Windows features
+1. Download the `setup.ps1` from our [latest release](https://github.com/pivotal-cf/diego-windows-msi/releases/latest). From inside File explorer right click on the file and click `Run with powershell`. The script will enable the required Windows features
 and configure the DNS settings that the cell will need.
 
 ## Install the MSI
