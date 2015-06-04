@@ -6,7 +6,6 @@ require 'net/ssh/gateway'
 DEPLOYMENTS_RUNTIME = ENV['DEPLOYMENTS_RUNTIME'] or raise "Please set env var DEPLOYMENTS_RUNTIME"
 ADMIN_PASS = ENV['ADMIN_PASS'] or raise "Please set env var ADMIN_PASS"
 JUMP_MACHINE_IP = ENV['JUMP_MACHINE_IP']
-MACHINE_IP = ENV['MACHINE_IP'] or raise "Please set env var MACHINE_IP"
 CONSUL_IPS = ENV['CONSUL_IPS'] or raise "Please set env var CONSUL_IPS"
 ETCD_CLUSTER = ENV['ETCD_CLUSTER'] or raise "Please set env var ETCD_CLUSTER"
 CF_ETCD_CLUSTER = ENV['CF_ETCD_CLUSTER'] or raise "Please set env var CF_ETCD_CLUSTER"
@@ -61,12 +60,10 @@ block = ->(ssh) do
   puts ssh.exec!("msiexec /norestart /passive /i #{msi_location} "+
                  "ADMIN_USERNAME=Administrator "+
                  "ADMIN_PASSWORD=#{ADMIN_PASS} "+
-                 "EXTERNAL_IP=#{MACHINE_IP} "+
                  "CONSUL_IPS=#{CONSUL_IPS} "+
                  "ETCD_CLUSTER=#{ETCD_CLUSTER} "+
                  "CF_ETCD_CLUSTER=#{CF_ETCD_CLUSTER} "+
                  "LOGGREGATOR_SHARED_SECRET=#{LOGGREGATOR_SHARED_SECRET} "+
-                 "MACHINE_NAME=#{hostname} "+
                  "STACK=windows2012R2 "+
                  "REDUNDANCY_ZONE=#{REDUNDANCY_ZONE} "+
                  (ENV["SYSLOG_HOST_IP"] ? "SYSLOG_HOST_IP=#{ENV["SYSLOG_HOST_IP"]} " : "")+
