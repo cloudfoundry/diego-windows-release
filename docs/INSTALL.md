@@ -36,7 +36,7 @@ msiexec /norestart /i c:\diego.msi ^
           ADMIN_USERNAME=[Username with admin privileges] ^
           ADMIN_PASSWORD=[Previous user password] ^
           EXTERNAL_IP=[External IP of box] ^
-          CONSUL_IPS=[Comma-separated IP addresses of consul agents from bosh deploy of diego] ^
+          CONSUL_IPS=[Comma-separated IP addresses of consul agents from bosh deploy of CF] ^
           ETCD_CLUSTER=[URI of your Diego etcd cluster from bosh deploy] ^
           CF_ETCD_CLUSTER=[URI of your Runtime cf etcd cluster from bosh deploy of cf] ^
           MACHINE_NAME=[This machine's name (must be unique across your cluster)] ^
