@@ -35,14 +35,14 @@ The following instructions assume that the msi was downloaded to `C:\diego.msi`
 msiexec /norestart /i c:\diego.msi ^
           ADMIN_USERNAME=[Username with admin privileges] ^
           ADMIN_PASSWORD=[Previous user password] ^
-          EXTERNAL_IP=[External IP of box] ^
           CONSUL_IPS=[Comma-separated IP addresses of consul agents from bosh deploy of CF] ^
           ETCD_CLUSTER=[URI of your Diego etcd cluster from bosh deploy] ^
           CF_ETCD_CLUSTER=[URI of your Runtime cf etcd cluster from bosh deploy of cf] ^
-          MACHINE_NAME=[This machine's name (must be unique across your cluster)] ^
-          STACK=[CF stack, eg. windows2012] ^
+          STACK=[CF stack, eg. windows2012R2] ^
           REDUNDANCY_ZONE=[Diego zone this cell is part of] ^
           LOGGREGATOR_SHARED_SECRET=[loggregator secret from your bosh deploy of cf] ^
+          EXTERNAL_IP=[(optional) External IP of box] ^
+          MACHINE_NAME=[(optional) This machine's name (must be unique across your cluster)] ^
           SYSLOG_HOST_IP=[(optional) Syslog host IP to send logs to] ^
           SYSLOG_PORT=[(optional) Syslog port to send logs to]
 ```
@@ -53,12 +53,10 @@ An example would be:
 msiexec /norestart /i c:\diego.msi ^
           ADMIN_USERNAME=Administrator ^
           ADMIN_PASSWORD=secretpassword ^
-          EXTERNAL_IP=10.10.5.4 ^
           CONSUL_IPS=10.10.5.11,10.10.6.11,10.10.7.11 ^
           ETCD_CLUSTER=http://10.10.5.10:4001 ^
           CF_ETCD_CLUSTER=http://10.244.0.42:4001 ^
-          MACHINE_NAME=WIN-RD649GEUDP1 ^
-          STACK=windows2012 ^
+          STACK=windows2012R2 ^
           REDUNDANCY_ZONE=0c35dfe1cf34ec47e2a2 ^
           LOGGREGATOR_SHARED_SECRET=loggregator-secret ^
           SYSLOG_HOST_IP=syslog-server.example.com ^
@@ -66,6 +64,7 @@ msiexec /norestart /i c:\diego.msi ^
 ```
 
 ### Notes:
+- Both `MACHINE_NAME` and `EXTERNAL_IP` are optional.
 - The `REDUNDANCY_ZONE` is *not* an AWS zone (e.g. us-east-1) but is
   instead the same zone listed like
 ```
