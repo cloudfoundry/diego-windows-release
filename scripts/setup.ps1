@@ -24,21 +24,30 @@
 
     Script SetupDNS {
       SetScript = {
-        Set-DnsClientServerAddress -InterfaceAlias Ethernet0 -ServerAddresses 127.0.0.1,8.8.4.4
+        $externalip = ([System.Net.Dns]::GetHostEntry([System.Net.Dns]::GetHostName()).AddressList | Where { $_.AddressFamily -eq [System.Net.Sockets.AddressFamily]::InterNetwork }).IPAddressToString
+        $ifindex = (Get-WmiObject Win32_NetworkAdapterConfiguration | Where { $_.IPAddress -AND $_.IPAddress.Contains($externalip) }).Index
+        $interface = (Get-WmiObject Win32_NetworkAdapter | Where { $_.DeviceID -eq $ifindex }).netconnectionid
+        Set-DnsClientServerAddress -InterfaceAlias $interface -ServerAddresses 127.0.0.1,8.8.4.4
       }
       GetScript = {
-        Get-DnsClientServerAddress -AddressFamily ipv4 -InterfaceAlias Ethernet0
+        $externalip = ([System.Net.Dns]::GetHostEntry([System.Net.Dns]::GetHostName()).AddressList | Where { $_.AddressFamily -eq [System.Net.Sockets.AddressFamily]::InterNetwork }).IPAddressToString
+        $ifindex = (Get-WmiObject Win32_NetworkAdapterConfiguration | Where { $_.IPAddress -AND $_.IPAddress.Contains($externalip) }).Index
+        $interface = (Get-WmiObject Win32_NetworkAdapter | Where { $_.DeviceID -eq $ifindex }).netconnectionid
+        Get-DnsClientServerAddress -AddressFamily ipv4 -InterfaceAlias $interface
       }
       TestScript = {
-        if(@(Compare-Object -ReferenceObject (Get-DnsClientServerAddress -InterfaceAlias Ethernet0 -AddressFamily ipv4 -ErrorAction Stop).ServerAddresses -DifferenceObject 127.0.0.1,8.8.4.4).Length -eq 0)
+        $externalip = ([System.Net.Dns]::GetHostEntry([System.Net.Dns]::GetHostName()).AddressList | Where { $_.AddressFamily -eq [System.Net.Sockets.AddressFamily]::InterNetwork }).IPAddressToString
+        $ifindex = (Get-WmiObject Win32_NetworkAdapterConfiguration | Where { $_.IPAddress -AND $_.IPAddress.Contains($externalip) }).Index
+        $global:interface = (Get-WmiObject Win32_NetworkAdapter | Where { $_.DeviceID -eq $ifindex }).netconnectionid
+        if(@(Compare-Object -ReferenceObject (Get-DnsClientServerAddress -InterfaceAlias $interface -AddressFamily ipv4 -ErrorAction Stop).ServerAddresses -DifferenceObject 127.0.0.1,8.8.4.4).Length -eq 0)
         {
           Write-Verbose -Message "DNS Servers are set correctly."
-            return $true
+          return $true
         }
         else
         {
           Write-Verbose -Message "DNS Servers not yet correct."
-            return $false
+          return $false
         }
       }
     }
@@ -67,7 +76,7 @@
       }
       TestScript = {
         $query = "select * from Win32_QuotaSetting where VolumePath='C:\\'"
-          return @(Get-WmiObject -query $query).State -eq 2
+        return @(Get-WmiObject -query $query).State -eq 2
       }
     }
 
