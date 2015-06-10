@@ -1,0 +1,14 @@
+---
+platform: linux
+image: docker:///golang#1.3
+inputs:
+  - name: diego-windows-msi
+run:
+  path: diego-windows-msi/src/github.com/pivotal-cf-experimental/nora/scripts/run_wats.sh
+params:
+  ADMIN_PASSWORD:
+  ADMIN_USER:
+  API:
+  APPS_DOMAIN:
+  DOPPLER_URL:
+  SOCKET_ADDRESS_FOR_SECURITY_GROUP_TEST:
