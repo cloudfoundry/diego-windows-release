@@ -3,7 +3,6 @@
 require 'net/ssh'
 require 'net/ssh/gateway'
 
-DEPLOYMENTS_RUNTIME = ENV['DEPLOYMENTS_RUNTIME'] or raise "Please set env var DEPLOYMENTS_RUNTIME"
 ADMIN_PASS = ENV['ADMIN_PASS'] or raise "Please set env var ADMIN_PASS"
 JUMP_MACHINE_IP = ENV['JUMP_MACHINE_IP']
 MACHINE_IP = ENV['MACHINE_IP'] or raise "Please set env var MACHINE_IP"
@@ -16,7 +15,7 @@ LOGGREGATOR_SHARED_SECRET = ENV['LOGGREGATOR_SHARED_SECRET'] or raise "Please se
 options = {
   auth_methods: ["publickey"],
   use_agent: false,
-  keys: ["#{DEPLOYMENTS_RUNTIME}/keypair/id_rsa_bosh"]
+  key_data: [ENV['JUMP_MACHINE_SSH_KEY']]
 }
 
 # Figure out the sha of the msi being installed using the download url
@@ -26,8 +25,8 @@ options = {
 def expected_sha
   if sha_env = ENV['GO_REVISION_DIEGO_WINDOWS_MSI']
     sha_env[0..6]
-  elsif msi_download_url =~ /DiegoWindowsMSI-([0-9a-f]+).msi$/
-    $1
+  elsif msi_download_url =~ /DiegoWindowsMSI-(.*)-([0-9a-f]+).msi$/
+    $2
   else
     raise "Pass either a download url or set GO_REVISION_DIEGO_WINDOWS_MSI"
   end
@@ -38,7 +37,7 @@ end
 # GO_DEPENDENCY_LABEL_DIEGOMSI environment variable (which is the gocd
 # job id of the last DiegoWindowsMSI build)
 def msi_download_url
-  url = ARGV[0]
+  url = File.read "#{ARGV[0]}/url"
   # return the argument if it was provided and is valid
   return url if url && url =~ /^http/
 
