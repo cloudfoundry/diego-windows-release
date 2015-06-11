@@ -8,12 +8,12 @@ run:
   path: diego-windows-msi/scripts/run_ruby.sh
   args: [diego-windows-msi/scripts/deploy_msi.rb msi-file]
 params:
-  ADMIN_PASS: 
-  CF_ETCD_CLUSTER: 
-  CONSUL_IPS: 
-  ETCD_CLUSTER: 
-  JUMP_MACHINE_IP: 
-  JUMP_MACHINE_SSH_KEY: 
-  LOGGREGATOR_SHARED_SECRET: 
-  MACHINE_IP: 
-  REDUNDANCY_ZONE: 
+  ADMIN_PASS:
+  CF_ETCD_CLUSTER:
+  CONSUL_IPS:
+  ETCD_CLUSTER:
+  JUMP_MACHINE_IP:
+  JUMP_MACHINE_SSH_KEY:
+  LOGGREGATOR_SHARED_SECRET:
+  MACHINE_IP:
+  REDUNDANCY_ZONE:
