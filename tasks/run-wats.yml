@@ -1,6 +1,6 @@
 ---
 platform: linux
-image: docker:///golang#1.3
+image: docker:///golang#1.4
 inputs:
   - name: diego-windows-msi
 run:
