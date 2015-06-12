@@ -54,7 +54,7 @@ block = ->(ssh) do
   ssh.exec!("del /Y #{msi_location}")
 
   puts "Downloading msi from #{msi_download_url}"
-  puts ssh.exec!("powershell /C wget #{msi_download_url} -OutFile #{msi_location}")
+  puts ssh.exec!("powershell /C wget '#{msi_download_url}' -OutFile #{msi_location}")
 
   puts "Install"
   puts ssh.exec!("msiexec /norestart /passive /i #{msi_location} "+
