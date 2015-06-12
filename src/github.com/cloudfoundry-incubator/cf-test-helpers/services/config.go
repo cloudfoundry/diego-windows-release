@@ -15,7 +15,6 @@ type Config struct {
 	CreatePermissiveSecurityGroup bool    `json:"create_permissive_security_group"`
 	SkipSSLValidation             bool    `json:"skip_ssl_validation"`
 	TimeoutScale                  float64 `json:"timeout_scale"`
-	OrgName                       string  `json:"org_name"`
 }
 
 func (c Config) ScaledTimeout(timeout time.Duration) time.Duration {

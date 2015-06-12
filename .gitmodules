@@ -67,9 +67,6 @@
 [submodule "src/github.com/pivotal-golang/bytefmt"]
 	path = src/github.com/pivotal-golang/bytefmt
 	url = http://github.com/pivotal-golang/bytefmt
-[submodule "src/github.com/pivotal-golang/cacheddownloader"]
-	path = src/github.com/pivotal-golang/cacheddownloader
-	url = http://github.com/pivotal-golang/cacheddownloader
 [submodule "src/github.com/pivotal-golang/clock"]
 	path = src/github.com/pivotal-golang/clock
 	url = http://github.com/pivotal-golang/clock
@@ -130,3 +127,9 @@
 [submodule "src/github.com/cloudfoundry/noaa"]
 	path = src/github.com/cloudfoundry/noaa
 	url = https://github.com/cloudfoundry/noaa
+[submodule "src/github.com/cloudfoundry-incubator/cacheddownloader"]
+	path = src/github.com/cloudfoundry-incubator/cacheddownloader
+	url = https://github.com/cloudfoundry-incubator/cacheddownloader
+[submodule "src/github.com/cloudfoundry/sonde-go"]
+	path = src/github.com/cloudfoundry/sonde-go
+	url = https://github.com/cloudfoundry/sonde-go

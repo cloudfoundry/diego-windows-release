@@ -49,9 +49,37 @@ namespace RepService
                 StartInfo =
                 {
                     FileName = "rep.exe",
-                    Arguments = " -etcdCluster=" + hash["ETCD_CLUSTER"] + " -debugAddr=0.0.0.0:17008 -preloadedRootFS=" + hash["STACK"] + ":/tmp/"+ hash["STACK"] + " -executorURL=http://127.0.0.1:1700 " +
-                                " -listenAddr=0.0.0.0:1800 -cellID=" + hash["MACHINE_NAME"] + " -zone=" + hash["REDUNDANCY_ZONE"] + " -pollingInterval=30s -evacuationTimeout=180s" +
-                                " -consulCluster=http://127.0.0.1:8500 -receptorTaskHandlerURL=http://receptor.service.consul:1169",
+                    // REMOVED //-rootFSProvider docker //-containerInodeLimit=200000
+                    Arguments = " -etcdCluster=" + hash["ETCD_CLUSTER"] +
+                                " -consulCluster=http://127.0.0.1:8500" +
+                                " -receptorTaskHandlerURL=http://receptor.service.consul:1169" +
+                                " -debugAddr=0.0.0.0:17008" +
+                                " -listenAddr=0.0.0.0:1800" +
+                                " -preloadedRootFS=" + hash["STACK"] + ":/tmp/"+ hash["STACK"] +
+                                " -cellID="+hash["MACHINE_NAME"] +
+                                " -zone="+hash["REDUNDANCY_ZONE"] +
+                                " -pollingInterval=30s" +
+                                " -evacuationPollingInterval=10s" +
+                                " -evacuationTimeout=600s" +
+                                " -skipCertVerify=true" +
+                                " -gardenNetwork=tcp" +
+                                " -gardenAddr=127.0.0.1:9241" +
+                                " -memoryMB=auto" +
+                                " -diskMB=auto" +
+                                " -containerMaxCpuShares=10000" +
+                                " -cachePath=/c/tmp/executor/cache" +
+                                " -maxCacheSizeInBytes=10000000000" +
+                                " -allowPrivileged=false" +
+                                " -exportNetworkEnvVars=true" +
+                                " -healthyMonitoringInterval=30s" +
+                                " -unhealthyMonitoringInterval=0.5s" +
+                                " -createWorkPoolSize=32" +
+                                " -deleteWorkPoolSize=32" +
+                                " -readWorkPoolSize=64" +
+                                " -metricsWorkPoolSize=8" +
+                                " -healthCheckWorkPoolSize=64" +
+                                " -tempDir=/c/tmp/executor/tmp" +
+                                " -logLevel=debug",
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,
