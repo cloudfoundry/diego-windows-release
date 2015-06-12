@@ -127,3 +127,6 @@
 [submodule "src/golang.org/x/net"]
 	path = src/golang.org/x/net
 	url = https://github.com/golang/net
+[submodule "src/github.com/cloudfoundry/noaa"]
+	path = src/github.com/cloudfoundry/noaa
+	url = https://github.com/cloudfoundry/noaa
