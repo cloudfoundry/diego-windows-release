@@ -164,3 +164,6 @@ DEPENDENCIES
   net-ssh (>= 2.8.0)
   net-ssh-gateway
   octokit
+
+BUNDLED WITH
+   1.10.3

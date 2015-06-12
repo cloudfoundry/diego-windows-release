@@ -32,7 +32,6 @@ def expected_sha
   end
 end
 
-
 # Return the msi download url, using either the first argument or the
 # GO_DEPENDENCY_LABEL_DIEGOMSI environment variable (which is the gocd
 # job id of the last DiegoWindowsMSI build)
