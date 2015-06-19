@@ -1,12 +1,12 @@
 ---
 platform: linux
-image: docker:///ruby#2.1
+image: docker:///pivotalgreenhouse/ruby
 inputs:
 - name: msi-file
 - name: diego-windows-msi
 run:
-  path: diego-windows-msi/scripts/run_ruby.sh
-  args: [diego-windows-msi/scripts/deploy_msi.rb msi-file]
+  path: diego-windows-msi/scripts/deploy_msi.rb
+  args: [msi-file]
 params:
   ADMIN_PASS:
   CF_ETCD_CLUSTER:

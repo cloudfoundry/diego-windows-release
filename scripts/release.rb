@@ -13,12 +13,18 @@ def token
 end
 
 def revision
-  env_var 'GO_REVISION_DIEGO_WINDOWS_MSI'
+  Dir.chdir(File.dirname(__FILE__)) do
+    `git rev-parse HEAD`
+  end
+end
+
+def msi_file
+  Dir::glob('./msi-file/DiegoWindowsMSI-*-*.msi').first
 end
 
 def release
-  label = env_var 'GO_PIPELINE_LABEL'
-  "v0.#{label}"
+  label = msi_file.match(/DiegoWindowsMSI-(\d+\.\d+\.\d+)-.*.msi/)[1]
+  "v#{label}"
 end
 
 def github
@@ -33,16 +39,12 @@ def short_sha
   revision[0..6]
 end
 
-def msi_url
-  "https://s3.amazonaws.com/diego-windows-msi/output/DiegoWindowsMSI-#{short_sha}.msi"
-end
-
 def install_instructions_url
-  "https://s3.amazonaws.com/diego-windows-msi/output/INSTALL-#{short_sha}.md"
+  "https://s3.amazonaws.com/diego-windows-msi/output/INSTALL-#{release}-#{short_sha}.md"
 end
 
 def setup_url
-  "https://s3.amazonaws.com/diego-windows-msi/output/setup-#{short_sha}.ps1"
+  "https://s3.amazonaws.com/diego-windows-msi/output/setup-#{release}-#{short_sha}.ps1"
 end
 
 def bosh_target
@@ -74,15 +76,6 @@ def create_github_tag
                         body: "Diego windows MSI Release #{release}"
 end
 
-def download_from_s3 url, destination
-  File.open(destination, "wb+") do |f|
-    open(url, "rb") do |read_file|
-      f.write(read_file.read)
-    end
-  end
-  destination
-end
-
 def grab_cf_diego_release_sha
   puts "Grabbing cf/diego release shas from #{bosh_target}"
   releases = "/tmp/cf_diego_release_sha.md"
@@ -110,8 +103,8 @@ def content_type filename
   end
 end
 
-def upload_release_assets filepath, release
-  filename = File.basename filepath
+def upload_release_assets filepath, release, filename
+  filename ||= File.basename filepath
   github.upload_asset release[:url],
                       filepath,
                       content_type: content_type(filename),
@@ -122,12 +115,8 @@ puts "Creating github release"
 res = create_github_tag
 puts "Created github release"
 
-puts "Downloading msi from s3"
-file = download_from_s3 msi_url, "/tmp/DiegoWindowsMSI.msi"
-puts "Downloaded msi from s3"
-
 puts "Uploading msi to github release"
-upload_release_assets file, res
+upload_release_assets msi_file, res, "DiegoWindowsMSI.msi"
 puts "Uploaded msi to github release"
 
 puts "Downloading installation instructions from s3"
