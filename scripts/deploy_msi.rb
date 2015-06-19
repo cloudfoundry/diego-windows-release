@@ -51,7 +51,11 @@ block = ->(ssh) do
 
   puts "Provisioning the machine"
   execute_my_scripts_please(ssh) do
-    puts ssh.exec!("powershell -Command & $env:windir/sysnative/WindowsPowerShell/v1.0/powershell.exe -Command #{SETUP_LOCATION}")
+    response = ssh.exec!("powershell -Command & $env:windir/sysnative/WindowsPowerShell/v1.0/powershell.exe -Command #{SETUP_LOCATION}")
+    puts response
+    if response.include?("PSSecurityException")
+      exit(1)
+    end
   end
 
   puts "Install"
