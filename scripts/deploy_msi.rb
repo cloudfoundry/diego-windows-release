@@ -12,9 +12,13 @@ CF_ETCD_CLUSTER = ENV['CF_ETCD_CLUSTER'] or raise "Please set env var CF_ETCD_CL
 REDUNDANCY_ZONE = ENV['REDUNDANCY_ZONE'] or raise "Please set env var REDUNDANCY_ZONE"
 LOGGREGATOR_SHARED_SECRET = ENV['LOGGREGATOR_SHARED_SECRET'] or raise "Please set env var LOGGREGATOR_SHARED_SECRET"
 MSI_FILE_DIR = ARGV[0] or raise "Please run with first arg as directory of MSI File"
+
 MSI_URL = File.read "#{MSI_FILE_DIR}/url"
 EXPECTED_SHA = MSI_URL.match(/DiegoWindowsMSI-(.*)-([0-9a-f]+).msi$/) { |x| x[2] } or raise "Please set a download url (in #{MSI_FILE_DIR}/url)"
 MSI_LOCATION = "c:\\diego.msi"
+
+SETUP_URL = MSI_URL.gsub("DiegoWindowsMSI", "setup").gsub(".msi", ".ps1")
+SETUP_LOCATION = "c:\\setup.ps1"
 
 options = {
   auth_methods: ["publickey"],
@@ -32,8 +36,14 @@ block = ->(ssh) do
   puts ssh.exec!("msiexec /norestart /passive /x #{MSI_LOCATION}")
   ssh.exec!("del /Y #{MSI_LOCATION}")
 
+  puts "Downloading setup script from #{SETUP_URL}"
+  puts ssh.exec!("powershell /C wget '#{SETUP_URL}' -OutFile #{SETUP_LOCATION}")
+
   puts "Downloading msi from #{MSI_URL}"
   puts ssh.exec!("powershell /C wget '#{MSI_URL}' -OutFile #{MSI_LOCATION}")
+
+  puts "Provisioning the machine"
+  puts ssh.exec!("powershell -Command & $env:windir/sysnative/WindowsPowerShell/v1.0/powershell.exe -Command #{SETUP_LOCATION}")
 
   puts "Install"
   puts ssh.exec!("msiexec /norestart /passive /i #{MSI_LOCATION} "+
