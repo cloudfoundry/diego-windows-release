@@ -26,6 +26,13 @@ options = {
   key_data: [ENV['JUMP_MACHINE_SSH_KEY']]
 }
 
+def execute_my_scripts_please(ssh)
+  current_execution_policy = ssh.exec!("powershell /C Get-ExecutionPolicy").chomp
+  ssh.exec!("powershell /C Set-ExecutionPolicy Bypass")
+  yield
+  ssh.exec!("powershell /C Set-ExecutionPolicy #{current_execution_policy}")
+end
+
 # Figure out the sha of the msi being installed using the download url.
 
 block = ->(ssh) do
@@ -43,7 +50,9 @@ block = ->(ssh) do
   puts ssh.exec!("powershell /C wget '#{MSI_URL}' -OutFile #{MSI_LOCATION}")
 
   puts "Provisioning the machine"
-  puts ssh.exec!("powershell -Command & $env:windir/sysnative/WindowsPowerShell/v1.0/powershell.exe -Command #{SETUP_LOCATION}")
+  execute_my_scripts_please(ssh) do
+    puts ssh.exec!("powershell -Command & $env:windir/sysnative/WindowsPowerShell/v1.0/powershell.exe -Command #{SETUP_LOCATION}")
+  end
 
   puts "Install"
   puts ssh.exec!("msiexec /norestart /passive /i #{MSI_LOCATION} "+

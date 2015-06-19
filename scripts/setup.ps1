@@ -132,9 +132,6 @@
   }
 }
 
-$current = Get-ExecutionPolicy
-Set-ExecutionPolicy Bypass
 Enable-PSRemoting -Force
 CFWindows
 Start-DscConfiguration -Wait -Path .\CFWindows -Force -Verbose
-Set-ExecutionPolicy $current
