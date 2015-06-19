@@ -11,6 +11,10 @@ ETCD_CLUSTER = ENV['ETCD_CLUSTER'] or raise "Please set env var ETCD_CLUSTER"
 CF_ETCD_CLUSTER = ENV['CF_ETCD_CLUSTER'] or raise "Please set env var CF_ETCD_CLUSTER"
 REDUNDANCY_ZONE = ENV['REDUNDANCY_ZONE'] or raise "Please set env var REDUNDANCY_ZONE"
 LOGGREGATOR_SHARED_SECRET = ENV['LOGGREGATOR_SHARED_SECRET'] or raise "Please set env var LOGGREGATOR_SHARED_SECRET"
+MSI_FILE_DIR = ARGV[0] or raise "Please run with first arg as directory of MSI File"
+MSI_URL = File.read "#{MSI_FILE_DIR}/url"
+EXPECTED_SHA = MSI_URL.match(/DiegoWindowsMSI-(.*)-([0-9a-f]+).msi$/) { |x| x[2] } or raise "Please set a download url (in #{MSI_FILE_DIR}/url)"
+MSI_LOCATION = "c:\\diego.msi"
 
 options = {
   auth_methods: ["publickey"],
@@ -18,45 +22,21 @@ options = {
   key_data: [ENV['JUMP_MACHINE_SSH_KEY']]
 }
 
-# Figure out the sha of the msi being installed using the download url
-# or GO_REVISION_DIEGO_WINDOWS_MSI environment variable. The env.
-# variable is set by gocd since diego-windows-msi is one of the
-# Materials in the gocd job.
-def expected_sha
-  if sha_env = ENV['GO_REVISION_DIEGO_WINDOWS_MSI']
-    sha_env[0..6]
-  elsif msi_download_url =~ /DiegoWindowsMSI-(.*)-([0-9a-f]+).msi$/
-    $2
-  else
-    raise "Pass either a download url or set GO_REVISION_DIEGO_WINDOWS_MSI"
-  end
-end
+# Figure out the sha of the msi being installed using the download url.
 
-# Return the msi download url, using either the first argument or the
-# GO_DEPENDENCY_LABEL_DIEGOMSI environment variable (which is the gocd
-# job id of the last DiegoWindowsMSI build)
-def msi_download_url
-  url = File.read "#{ARGV[0]}/url"
-  # return the argument if it was provided and is valid
-  return url if url && url =~ /^http/
-
-  "https://s3.amazonaws.com/diego-windows-msi/output/DiegoWindowsMSI-#{expected_sha}.msi"
-end
-
-msi_location="c:\\diego.msi"
 block = ->(ssh) do
   hostname = ssh.exec!("hostname").chomp
   puts "Hostname: #{hostname}"
 
   puts "Uninstall"
-  puts ssh.exec!("msiexec /norestart /passive /x #{msi_location}")
-  ssh.exec!("del /Y #{msi_location}")
+  puts ssh.exec!("msiexec /norestart /passive /x #{MSI_LOCATION}")
+  ssh.exec!("del /Y #{MSI_LOCATION}")
 
-  puts "Downloading msi from #{msi_download_url}"
-  puts ssh.exec!("powershell /C wget '#{msi_download_url}' -OutFile #{msi_location}")
+  puts "Downloading msi from #{MSI_URL}"
+  puts ssh.exec!("powershell /C wget '#{MSI_URL}' -OutFile #{MSI_LOCATION}")
 
   puts "Install"
-  puts ssh.exec!("msiexec /norestart /passive /i #{msi_location} "+
+  puts ssh.exec!("msiexec /norestart /passive /i #{MSI_LOCATION} "+
                  "ADMIN_USERNAME=Administrator "+
                  "ADMIN_PASSWORD=#{ADMIN_PASS} "+
                  "CONSUL_IPS=#{CONSUL_IPS} "+
@@ -73,11 +53,11 @@ block = ->(ssh) do
   actual_sha = output.chomp.split(/\s+/).last
   puts actual_sha.inspect
 
-  if actual_sha != expected_sha
-    puts "Installation failed: expected #{expected_sha}, got #{actual_sha}"
+  if actual_sha != EXPECTED_SHA
+    puts "Installation failed: expected #{EXPECTED_SHA}, got #{actual_sha}"
     exit(1)
   end
-  puts "Installation succeeded, #{expected_sha} == #{actual_sha}"
+  puts "Installation succeeded, #{EXPECTED_SHA} == #{actual_sha}"
 end
 
 if JUMP_MACHINE_IP

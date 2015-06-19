@@ -14,7 +14,7 @@ end
 
 def revision
   Dir.chdir(File.dirname(__FILE__)) do
-    `git rev-parse HEAD`
+    `git rev-parse HEAD`.chomp
   end
 end
 
