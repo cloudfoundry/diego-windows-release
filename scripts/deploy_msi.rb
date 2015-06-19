@@ -28,9 +28,9 @@ options = {
 
 def execute_my_scripts_please(ssh)
   current_execution_policy = ssh.exec!("powershell /C Get-ExecutionPolicy").chomp
-  ssh.exec!("powershell /C Set-ExecutionPolicy Bypass")
+  ssh.exec!("powershell /C Set-ExecutionPolicy Bypass -Scope CurrentUser")
   yield
-  ssh.exec!("powershell /C Set-ExecutionPolicy #{current_execution_policy}")
+  ssh.exec!("powershell /C Set-ExecutionPolicy #{current_execution_policy} -Scope CurrentUser")
 end
 
 # Figure out the sha of the msi being installed using the download url.
