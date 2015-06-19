@@ -26,8 +26,6 @@ deploy:
   set_public: true
   on:
     branch: master
-after_deploy:
-- ps: scripts\trigger_wats.ps1
 clone_folder: c:\dwm
 branches:
   only:
