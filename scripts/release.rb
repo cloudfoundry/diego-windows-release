@@ -120,6 +120,15 @@ def download_from_s3 url, destination
   destination
 end
 
+def release_already_created?(release)
+  github.releases.any? {|r| r.tag_name == release}
+end
+
+if release_already_created?(release)
+  puts "Release #{release} already created, skipping"
+  exit(0)
+end
+
 puts "Creating github release"
 res = create_github_tag
 puts "Created github release"
