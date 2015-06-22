@@ -111,6 +111,15 @@ def upload_release_assets filepath, release, filename
                       name: filename
 end
 
+def download_from_s3 url, destination
+  File.open(destination, "wb+") do |f|
+    open(url, "rb") do |read_file|
+      f.write(read_file.read)
+    end
+  end
+  destination
+end
+
 puts "Creating github release"
 res = create_github_tag
 puts "Created github release"
