@@ -41,6 +41,10 @@ go install github.com/cloudfoundry-incubator/garden-windows || exit /b 1
 go install github.com/cloudfoundry-incubator/rep/cmd/rep || exit /b 1
 copy bin\consul.exe %GOBIN%
 
+pushd src\github.com\cloudfoundry-incubator\garden-windows\greenhouse-security-fixtures || exit /b 1
+  call make.bat || exit /b 1
+popd
+
 pushd src\github.com\cloudfoundry-incubator\garden-windows\containerizer || exit /b 1
   call make.bat || exit /b 1
 popd
