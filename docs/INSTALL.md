@@ -9,8 +9,6 @@ in a working cf/diego deployment
 - windows cell
   - Recommended Windows ISO SHA1: B6F063436056510357CB19CB77DB781ED9C11DF3
 
-**NOTE** AWS specific instructions can be found [here](AWS.md)
-
 ## Retrieve the MSI
 
 ### Building from source
