@@ -1,11 +1,5 @@
 version: 0.{build}
 skip_tags: true
-environment:
-  URI: https://server.gocd.cf-app.com/go/api/pipelines/deploy-msi-ketchup/schedule
-  GOCD_USERNAME:
-    secure: GMMfraXG/GbV7fKTx2wJyg==
-  GOCD_PASSWORD:
-    secure: R28UqazSA7SVBXjihv9FoA==
 cache: C:\Users\appveyor\AppData\Local\NuGet\Cache
 build_script:
 - git submodule update --init --recursive
