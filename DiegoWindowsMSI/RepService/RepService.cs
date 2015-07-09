@@ -30,27 +30,61 @@ namespace RepService
         {
             var hash = Config.Params();
 
+            Func<Dictionary<string, string>, string, string> tryGetKey = (d, s) => d.ContainsKey(s) ? d[s] : "";
+
             process = new Process
             {
                 /*
-                 *  -cellID="": the ID used by the rep to identify itself to external systems - must be specified
- -communicationTimeout=10s: Timeout applied to all HTTP requests.
- -consulCluster="": comma-separated list of consul server URLs (scheme://ip:port)
- -evacuationPollingInterval=10s: the interval on which to scan the executor during evacuation
- -evacuationTimeout=10m0s: Timeout to wait for evacuation to complete
- -executorURL="http://127.0.0.1:1700": location of executor to represent
- -heartbeatRetryInterval=5s: interval to wait before retrying a failed lock acquisition
- -listenAddr="0.0.0.0:1800": host:port to serve auction and LRP stop requests on
- -lockTTL=1m0s: TTL for service lock
- -logLevel="info": log level: debug, info, error or fatal
- -receptorTaskHandlerURL="http://127.0.0.1:1169": location of receptor task handler
- -rootFSProvider=[]: List of RootFS providers
+  -allowPrivileged=false: allow execution of privileged run actions
+  -cachePath="/tmp/cache": location to cache assets
+  -cellID="": the ID used by the rep to identify itself to external systems - must be specified
+  -communicationTimeout=10s: Timeout applied to all HTTP requests.
+  -consulCluster="": comma-separated list of consul server URLs (scheme://ip:port)
+  -containerInodeLimit=200000: max number of inodes per container
+  -containerMaxCpuShares=0: cpu shares allocatable to a container
+  -containerOwnerName="executor": owner name with which to tag containers
+  -createWorkPoolSize=32: Number of concurrent create operations in garden
+  -debugAddr="": host:port for serving pprof debugging info
+  -deleteWorkPoolSize=32: Number of concurrent delete operations in garden
+  -diskMB="auto": the amount of disk the executor has available in megabytes
+  -etcdCaFile="": Location of the CA certificate for mutual auth
+  -etcdCertFile="": Location of the client certificate for mutual auth
+  -etcdCluster="http://127.0.0.1:4001": comma-separated list of etcd URLs (scheme://ip:port)
+  -etcdKeyFile="": Location of the client key for mutual auth
+  -evacuationPollingInterval=10s: the interval on which to scan the executor during evacuation
+  -evacuationTimeout=10m0s: Timeout to wait for evacuation to complete
+  -exportNetworkEnvVars=false: export network environment variables into container (e.g. CF_INSTANCE_IP, CF_INSTANCE_PORT)
+  -gardenAddr="/tmp/garden.sock": network address for garden server
+  -gardenNetwork="unix": network mode for garden server (tcp, unix)
+  -healthCheckWorkPoolSize=64: Number of concurrent ping operations in garden
+  -healthyMonitoringInterval=30s: interval on which to check healthy containers
+  -listenAddr="0.0.0.0:1800": host:port to serve auction and LRP stop requests on
+  -lockRetryInterval=5s: interval to wait before retrying a failed lock acquisition
+  -lockTTL=10s: TTL for service lock
+  -logLevel="info": log level: debug, info, error or fatal
+  -maxCacheSizeInBytes=10737418240: maximum size of the cache (in bytes) - you should include a healthy amount of overhead
+  -memoryMB="auto": the amount of memory the executor has available in megabytes
+  -metricsWorkPoolSize=8: Number of concurrent metrics operations in garden
+  -pollingInterval=30s: the interval on which to scan the executor
+  -preloadedRootFS=map[]: List of preloaded RootFSes
+  -pruneInterval=1m0s: amount of time during which a container can remain in the allocated state
+  -readWorkPoolSize=64: Number of concurrent read operations in garden
+  -receptorTaskHandlerURL="http://127.0.0.1:1169": location of receptor task handler
+  -rootFSProvider=[]: List of RootFS providers
+  -sessionName="rep": consul session name
+  -skipCertVerify=false: skip SSL certificate verification
+  -tempDir="/tmp": location to store temporary assets
+  -unhealthyMonitoringInterval=500ms: interval on which to check unhealthy containers
+  -zone="": the availability zone associated with the rep
                  */
                 StartInfo =
                 {
                     FileName = "rep.exe",
                     // REMOVED //-rootFSProvider docker //-containerInodeLimit=200000
                     Arguments = " -etcdCluster=" + hash["ETCD_CLUSTER"] +
+                                " -etcdCaFile=" + tryGetKey(hash, "ETCD_CA_FILE") +
+                                " -etcdCertFile=" + tryGetKey(hash, "ETCD_CERT_FILE") +
+                                " -etcdKeyFile=" + tryGetKey(hash, "ETCD_KEY_FILE") +
                                 " -consulCluster=http://127.0.0.1:8500" +
                                 " -receptorTaskHandlerURL=http://receptor.service.consul:1169" +
                                 " -debugAddr=0.0.0.0:17008" +

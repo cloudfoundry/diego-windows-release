@@ -45,6 +45,13 @@ namespace ConfigurationManager
                 "SYSLOG_PORT"
             };
 
+            var etcdSslOptions = new List<string>
+            {
+                "ETCD_CERT_FILE",
+                "ETCD_KEY_FILE",
+                "ETCD_CA_FILE"
+            };
+
             foreach (var key in required) {
                 if (Context.Parameters[key] == null || Context.Parameters[key] == "")
                     missing.Add(key);
@@ -52,6 +59,12 @@ namespace ConfigurationManager
 
             if(missing.Count > 0) {
                 throw new Exception("Please provide all of the following msiexec properties: " + string.Join(", ", missing));
+            }
+
+            var etcdSslOptionsCount = etcdSslOptions.Count(keyName => !string.IsNullOrEmpty(Context.Parameters[keyName]));
+            if (etcdSslOptionsCount > 0 || etcdSslOptionsCount < etcdSslOptions.Count)
+            {
+                throw new Exception("Please provide all or nothing for the following property set: " + string.Join(", ", etcdSslOptions));
             }
 
             try

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Security.Policy;
@@ -47,6 +48,22 @@ namespace Utilities
                 }
             }
             return localIP;
+        }
+
+        private static void SetEtcdCluster(Dictionary<string, string> p)
+        {
+            if (!p.ContainsKey("ETCD_CLUSTER") || string.IsNullOrWhiteSpace(p["ETCD_CLUSTER"]))
+            {
+                var sslValues = new string[] {"ETCD_CERT_FILE", "ETCD_KEY_FILE", "ETCD_CA_FILE"};
+                if (sslValues.All(keyName => p.ContainsKey(keyName) && !string.IsNullOrWhiteSpace(keyName)))
+                {
+                    p["ETCD_CLUSTER"] = "https://etcd.service.consul:4001";
+                }
+                else
+                {
+                    p["ETCD_CLUSTER"] = "http://etcd.service.consul:4001";
+                }
+            }
         }
     }
 }
