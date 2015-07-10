@@ -39,14 +39,6 @@ def short_sha
   revision[0..6]
 end
 
-def install_instructions_url
-  "https://s3.amazonaws.com/diego-windows-msi/output/INSTALL-#{release}-#{short_sha}.md"
-end
-
-def setup_url
-  "https://s3.amazonaws.com/diego-windows-msi/output/setup-#{release}-#{short_sha}.ps1"
-end
-
 def bosh_target
   env_var 'BOSH_TARGET'
 end
@@ -137,20 +129,12 @@ puts "Uploading msi to github release"
 upload_release_assets msi_file, res, "DiegoWindowsMSI.msi"
 puts "Uploaded msi to github release"
 
-puts "Downloading installation instructions from s3"
-file = download_from_s3 install_instructions_url, "/tmp/INSTALL.md"
-puts "Downloaded installation instructions from s3"
-
 puts "Uploading installation instructions to github release"
-upload_release_assets file, res
+upload_release_assets "diego-windows-msi/docs/INSTALL.MD", res
 puts "Uploaded installation instructions to github release"
 
-puts "Downloading setup script from s3"
-file = download_from_s3 setup_url, "/tmp/setup.ps1"
-puts "Downloaded setup script from s3"
-
 puts "Uploading setup script to github release"
-upload_release_assets file, res
+upload_release_assets "diego-windows-msi/scripts/setup.ps1", res
 puts "Uploaded setup script to github release"
 
 puts "Grabbing cf/diego release sha"
