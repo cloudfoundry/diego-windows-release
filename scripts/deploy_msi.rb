@@ -2,6 +2,7 @@
 
 require 'net/ssh'
 require 'net/ssh/gateway'
+require 'base64'
 
 ADMIN_PASS = ENV['ADMIN_PASS'] or raise "Please set env var ADMIN_PASS"
 JUMP_MACHINE_IP = ENV['JUMP_MACHINE_IP']
