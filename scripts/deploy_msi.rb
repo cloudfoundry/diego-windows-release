@@ -47,7 +47,7 @@ block = ->(ssh) do
   puts ssh.exec!("powershell /C wget '#{SETUP_URL}' -OutFile #{SETUP_LOCATION}")
 
   puts "Downloading msi from #{MSI_URL}"
-  puts ssh.exec!("powershell  wget '/C wget '#{MSI_URL}' -OutFile #{MSI_LOCATION}")
+  puts ssh.exec!("powershell /C wget '#{MSI_URL}' -OutFile #{MSI_LOCATION}")
 
   etcd_ca_content = Base64.encode64(ENV["ETCD_CA_FILE"])
   etcd_cert_content = Base64.encode64(ENV["ETCD_CERT_FILE"])
