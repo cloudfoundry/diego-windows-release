@@ -35,7 +35,9 @@ namespace RepService
             process = new Process
             {
                 /*
+ Usage of c:\dwm\bin\rep.exe:
   -allowPrivileged=false: allow execution of privileged run actions
+  -bbsAddress="": Address to the BBS Server
   -cachePath="/tmp/cache": location to cache assets
   -cellID="": the ID used by the rep to identify itself to external systems - must be specified
   -communicationTimeout=10s: Timeout applied to all HTTP requests.
@@ -85,6 +87,7 @@ namespace RepService
                                 " -etcdCaFile=" + tryGetKey(hash, "ETCD_CA_FILE") +
                                 " -etcdCertFile=" + tryGetKey(hash, "ETCD_CERT_FILE") +
                                 " -etcdKeyFile=" + tryGetKey(hash, "ETCD_KEY_FILE") +
+                                " -bbsAddress=http://bbs.service.consul:8888" +
                                 " -consulCluster=http://127.0.0.1:8500" +
                                 " -receptorTaskHandlerURL=http://receptor.service.consul:1169" +
                                 " -debugAddr=0.0.0.0:17008" +
