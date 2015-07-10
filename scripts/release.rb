@@ -121,7 +121,7 @@ def download_from_s3 url, destination
 end
 
 def release_already_created?(release)
-  github.releases.any? {|r| r.tag_name == release}
+  github.releases(repo).any? {|r| r.tag_name == release}
 end
 
 if release_already_created?(release)
