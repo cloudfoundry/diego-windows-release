@@ -23,7 +23,7 @@ def msi_file
 end
 
 def release
-  label = msi_file.match(/DiegoWindowsMSI-(\d+\.\d+\.\d+)-.*.msi/)[1]
+  label = msi_file.match(/DiegoWindowsMSI-(\d+\.\d+)-.*.msi/)[1]
   "v#{label}"
 end
 
