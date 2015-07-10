@@ -95,7 +95,7 @@ def content_type filename
   end
 end
 
-def upload_release_assets filepath, release, filename
+def upload_release_assets(filepath, release, filename=nil)
   filename ||= File.basename filepath
   github.upload_asset release[:url],
                       filepath,
