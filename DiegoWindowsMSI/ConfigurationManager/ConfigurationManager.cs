@@ -69,7 +69,10 @@ namespace ConfigurationManager
 
             try
             {
-                new Uri(Context.Parameters["ETCD_CLUSTER"]);
+                if (!string.IsNullOrEmpty(Context.Parameters["ETCD_CLUSTER"]))
+                {
+                    new Uri(Context.Parameters["ETCD_CLUSTER"]);
+                }
                 new Uri(Context.Parameters["CF_ETCD_CLUSTER"]);
             }
             catch (UriFormatException)
@@ -77,7 +80,7 @@ namespace ConfigurationManager
                 throw new Exception("ETCD_CLUSTER and CF_ETCD_CLUSTER values must be URIs (i.e. http://192.168.0.1:4001 instead of 192.168.0.1:4001).");
             }
 
-            writePropertiesToFile(required.Concat(optional).ToList());
+            writePropertiesToFile(required.Concat(optional).Concat(etcdSslOptions).ToList());
         }
 
         private void writePropertiesToFile(List<string> keys)

@@ -16,6 +16,7 @@ namespace Utilities
             var hash = javaScriptSerializer.Deserialize<Dictionary<string, string>>(jsonString);
             SetExternalIP(hash);
             SetMachineName(hash);
+            SetEtcdCluster(hash);
             return hash;
         }
 

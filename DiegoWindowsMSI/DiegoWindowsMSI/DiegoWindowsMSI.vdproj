@@ -57,6 +57,36 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_191B798082B67EF5E239AD9F2A5F9027"
+        "OwnerKey" = "8:_4314FBAEBE8249B9B3762A23F939FF83"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_191B798082B67EF5E239AD9F2A5F9027"
+        "OwnerKey" = "8:_E5429DE114144198B0353157A124E74F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_191B798082B67EF5E239AD9F2A5F9027"
+        "OwnerKey" = "8:_7E3DCD760C864A8390B1D9C0A7140298"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_191B798082B67EF5E239AD9F2A5F9027"
+        "OwnerKey" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_191B798082B67EF5E239AD9F2A5F9027"
+        "OwnerKey" = "8:_613EAF226D874052A41D383D75B47E3D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_1C8F13BAE532BA5E5915F5BF18487B33"
         "OwnerKey" = "8:_DFFD56085C9D41D3F48585683BF40DFE"
         "MsmSig" = "8:_UNDEFINED"
@@ -251,6 +281,36 @@
         {
         "MsmKey" = "8:_4FDF85765CF5B7EA5DD93EAE86F715BC"
         "OwnerKey" = "8:_B8DD7B4B4EDF5F5B5A572437FF01CFC2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_528AA88D4EA176F9DE0E8EE037B6B994"
+        "OwnerKey" = "8:_4314FBAEBE8249B9B3762A23F939FF83"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_528AA88D4EA176F9DE0E8EE037B6B994"
+        "OwnerKey" = "8:_E5429DE114144198B0353157A124E74F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_528AA88D4EA176F9DE0E8EE037B6B994"
+        "OwnerKey" = "8:_7E3DCD760C864A8390B1D9C0A7140298"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_528AA88D4EA176F9DE0E8EE037B6B994"
+        "OwnerKey" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_528AA88D4EA176F9DE0E8EE037B6B994"
+        "OwnerKey" = "8:_613EAF226D874052A41D383D75B47E3D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -706,6 +766,18 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_191B798082B67EF5E239AD9F2A5F9027"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_528AA88D4EA176F9DE0E8EE037B6B994"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1E9CBEF93D3E4B0BB0158362146458FF"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1065,7 +1137,7 @@
             "Sequence" = "3:4"
             "Identifier" = "8:_5A4E8EB3_AE1E_4E40_8336_923B1F22A02C"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/ADMIN_USERNAME=[ADMIN_USERNAME] /ADMIN_PASSWORD=[ADMIN_PASSWORD] /EXTERNAL_IP=[EXTERNAL_IP] /CONSUL_IPS=[CONSUL_IPS] /ETCD_CLUSTER=[ETCD_CLUSTER] /MACHINE_NAME=[MACHINE_NAME] /STACK=[STACK] /REDUNDANCY_ZONE=[REDUNDANCY_ZONE] /LOGGREGATOR_SHARED_SECRET=[LOGGREGATOR_SHARED_SECRET] /CF_ETCD_CLUSTER=[CF_ETCD_CLUSTER] /SYSLOG_HOST_IP=[SYSLOG_HOST_IP] /SYSLOG_PORT=[SYSLOG_PORT]"
+            "CustomActionData" = "8:"
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_43F2B1D3361940209222D3B1BEC79478"
             {
@@ -1135,7 +1207,7 @@
             "Sequence" = "3:3"
             "Identifier" = "8:_4BF9947C_DAF0_499F_9EE0_1B583DC45010"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/ADMIN_USERNAME=[ADMIN_USERNAME] /ADMIN_PASSWORD=[ADMIN_PASSWORD] /EXTERNAL_IP=[EXTERNAL_IP] /CONSUL_IPS=[CONSUL_IPS] /ETCD_CLUSTER=[ETCD_CLUSTER] /MACHINE_NAME=[MACHINE_NAME] /STACK=[STACK] /REDUNDANCY_ZONE=[REDUNDANCY_ZONE] /LOGGREGATOR_SHARED_SECRET=[LOGGREGATOR_SHARED_SECRET] /CF_ETCD_CLUSTER=[CF_ETCD_CLUSTER] /SYSLOG_HOST_IP=[SYSLOG_HOST_IP] /SYSLOG_PORT=[SYSLOG_PORT]"
+            "CustomActionData" = "8:/ADMIN_USERNAME=[ADMIN_USERNAME] /ADMIN_PASSWORD=[ADMIN_PASSWORD]"
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_7EA22F2041FD4E38A9909094DCB59918"
             {
@@ -1149,7 +1221,7 @@
             "Sequence" = "3:6"
             "Identifier" = "8:_5E452D4E_6670_4E5B_B1C9_304470940278"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/ADMIN_USERNAME=[ADMIN_USERNAME] /ADMIN_PASSWORD=[ADMIN_PASSWORD] /EXTERNAL_IP=[EXTERNAL_IP] /CONSUL_IPS=[CONSUL_IPS] /ETCD_CLUSTER=[ETCD_CLUSTER] /MACHINE_NAME=[MACHINE_NAME] /STACK=[STACK] /REDUNDANCY_ZONE=[REDUNDANCY_ZONE] /LOGGREGATOR_SHARED_SECRET=[LOGGREGATOR_SHARED_SECRET] /CF_ETCD_CLUSTER=[CF_ETCD_CLUSTER] /SYSLOG_HOST_IP=[SYSLOG_HOST_IP] /SYSLOG_PORT=[SYSLOG_PORT]"
+            "CustomActionData" = "8:"
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_7F8E3B8201104C41A0CA80FAE1D24529"
             {
@@ -1177,7 +1249,7 @@
             "Sequence" = "3:2"
             "Identifier" = "8:_BBD182B3_EA0A_4797_9DE4_60FAB6B30AAD"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/ADMIN_USERNAME=[ADMIN_USERNAME] /ADMIN_PASSWORD=[ADMIN_PASSWORD] /EXTERNAL_IP=[EXTERNAL_IP] /CONSUL_IPS=[CONSUL_IPS] /ETCD_CLUSTER=[ETCD_CLUSTER] /MACHINE_NAME=[MACHINE_NAME] /STACK=[STACK] /REDUNDANCY_ZONE=[REDUNDANCY_ZONE] /LOGGREGATOR_SHARED_SECRET=[LOGGREGATOR_SHARED_SECRET] /CF_ETCD_CLUSTER=[CF_ETCD_CLUSTER] /SYSLOG_HOST_IP=[SYSLOG_HOST_IP] /SYSLOG_PORT=[SYSLOG_PORT]"
+            "CustomActionData" = "8:"
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_9C82EA89742B4E2ABFB8732C44E3F9FA"
             {
@@ -1205,7 +1277,7 @@
             "Sequence" = "3:1"
             "Identifier" = "8:_3063336D_FBFB_4779_9594_83921AFDAE94"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/ADMIN_USERNAME=[ADMIN_USERNAME] /ADMIN_PASSWORD=[ADMIN_PASSWORD] /EXTERNAL_IP=[EXTERNAL_IP] /CONSUL_IPS=[CONSUL_IPS] /ETCD_CLUSTER=[ETCD_CLUSTER] /MACHINE_NAME=[MACHINE_NAME] /STACK=[STACK] /REDUNDANCY_ZONE=[REDUNDANCY_ZONE] /LOGGREGATOR_SHARED_SECRET=[LOGGREGATOR_SHARED_SECRET] /CF_ETCD_CLUSTER=[CF_ETCD_CLUSTER] /SYSLOG_HOST_IP=[SYSLOG_HOST_IP] /SYSLOG_PORT=[SYSLOG_PORT]"
+            "CustomActionData" = "8:/ADMIN_USERNAME=[ADMIN_USERNAME] /ADMIN_PASSWORD=[ADMIN_PASSWORD] /EXTERNAL_IP=[EXTERNAL_IP] /CONSUL_IPS=[CONSUL_IPS] /ETCD_CLUSTER=[ETCD_CLUSTER] /MACHINE_NAME=[MACHINE_NAME] /STACK=[STACK] /REDUNDANCY_ZONE=[REDUNDANCY_ZONE] /LOGGREGATOR_SHARED_SECRET=[LOGGREGATOR_SHARED_SECRET] /CF_ETCD_CLUSTER=[CF_ETCD_CLUSTER] /SYSLOG_HOST_IP=[SYSLOG_HOST_IP] /SYSLOG_PORT=[SYSLOG_PORT] /ETCD_CA_FILE=[ETCD_CA_FILE] /ETCD_CERT_FILE=[ETCD_CERT_FILE] /ETCD_KEY_FILE=[ETCD_KEY_FILE]"
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_C59C5A9514614B888678DDE4F1FFADEC"
             {
@@ -1289,7 +1361,7 @@
             "Sequence" = "3:5"
             "Identifier" = "8:_88A8866D_2C3F_42A4_A87C_904F522E8376"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/ADMIN_USERNAME=[ADMIN_USERNAME] /ADMIN_PASSWORD=[ADMIN_PASSWORD] /EXTERNAL_IP=[EXTERNAL_IP] /CONSUL_IPS=[CONSUL_IPS] /ETCD_CLUSTER=[ETCD_CLUSTER] /MACHINE_NAME=[MACHINE_NAME] /STACK=[STACK] /REDUNDANCY_ZONE=[REDUNDANCY_ZONE] /LOGGREGATOR_SHARED_SECRET=[LOGGREGATOR_SHARED_SECRET] /CF_ETCD_CLUSTER=[CF_ETCD_CLUSTER] /SYSLOG_HOST_IP=[SYSLOG_HOST_IP] /SYSLOG_PORT=[SYSLOG_PORT] /ETCD_CA_FILE=[ETCD_CA_FILE] /ETCD_CERT_FILE=[ETCD_CERT_FILE] /ETCD_KEY_FILE=[ETCD_KEY_FILE]"
+            "CustomActionData" = "8:"
             }
         }
         "DefaultFeature"
@@ -1379,6 +1451,37 @@
                     }
                 }
             "SourcePath" = "8:System.Web.WebPages.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_ACA42DBD8EC64991ABB3254FB6DDBC0A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_191B798082B67EF5E239AD9F2A5F9027"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_191B798082B67EF5E239AD9F2A5F9027"
+                    {
+                    "Name" = "8:Utilities.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Utilities.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_ACA42DBD8EC64991ABB3254FB6DDBC0A"
@@ -1678,6 +1781,37 @@
                     }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_ACA42DBD8EC64991ABB3254FB6DDBC0A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_528AA88D4EA176F9DE0E8EE037B6B994"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:ServiceConfigurator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_528AA88D4EA176F9DE0E8EE037B6B994"
+                    {
+                    "Name" = "8:ServiceConfigurator.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:ServiceConfigurator.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_ACA42DBD8EC64991ABB3254FB6DDBC0A"
@@ -2578,7 +2712,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DiegoWindows"
         "ProductCode" = "8:{07BD6A35-82CC-436F-9BBB-7A8E078D719E}"
-        "PackageCode" = "8:{84908A13-6A20-49D4-BCA0-DFAE4115F48B}"
+        "PackageCode" = "8:{09004E20-052B-4738-8896-9651B5DF560A}"
         "UpgradeCode" = "8:{C2E7A072-5486-4248-A743-6426722A9D96}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
