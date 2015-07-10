@@ -136,3 +136,9 @@
 [submodule "src/github.com/mitchellh/go-ps"]
   path = src/github.com/mitchellh/go-ps
   url = https://github.com/mitchellh/go-ps
+[submodule "src/github.com/cloudfoundry-incubator/bbs"]
+	path = src/github.com/cloudfoundry-incubator/bbs
+	url = https://github.com/cloudfoundry-incubator/bbs
+[submodule "src/github.com/ugorji/go"]
+	path = src/github.com/ugorji/go
+	url = https://github.com/ugorji/go
