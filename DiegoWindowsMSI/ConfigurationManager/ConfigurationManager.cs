@@ -31,7 +31,6 @@ namespace ConfigurationManager
                 "ADMIN_USERNAME",
                 "ADMIN_PASSWORD",
                 "CONSUL_IPS",
-                "ETCD_CLUSTER",
                 "CF_ETCD_CLUSTER",
                 "LOGGREGATOR_SHARED_SECRET",
                 "REDUNDANCY_ZONE",
@@ -39,6 +38,7 @@ namespace ConfigurationManager
             };
             var optional = new List<string>
             {
+                "ETCD_CLUSTER",
                 "EXTERNAL_IP",
                 "MACHINE_NAME",
                 "SYSLOG_HOST_IP",
