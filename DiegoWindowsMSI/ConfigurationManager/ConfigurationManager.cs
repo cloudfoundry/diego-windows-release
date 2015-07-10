@@ -62,7 +62,7 @@ namespace ConfigurationManager
             }
 
             var etcdSslOptionsCount = etcdSslOptions.Count(keyName => !string.IsNullOrEmpty(Context.Parameters[keyName]));
-            if (etcdSslOptionsCount > 0 || etcdSslOptionsCount < etcdSslOptions.Count)
+            if (etcdSslOptionsCount > 0 && etcdSslOptionsCount < etcdSslOptions.Count)
             {
                 throw new Exception("Please provide all or nothing for the following property set: " + string.Join(", ", etcdSslOptions));
             }
