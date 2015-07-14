@@ -50,10 +50,16 @@ def create_github_tag
                     "greenhouse@pivotal.io", # tagger email isn't being used by the api
                     Time.now.utc.iso8601
 
-  github.create_release repo,
+  diego_release = File.read("./diego-release/version") rescue "UNKNOWN"
+  cf_release = File.read("./cf-release/version") rescue "UNKNOWN"
+  release_body = <<-BODY
+cloudfoundry-incubator/diego-release@#{diego_release}
+cloudfoundry/cf-release@#{cf_release}
+BODY
+  github.create_release(repo,
                         release,
                         name: release,
-                        body: "Diego windows MSI Release #{release}"
+                        body: release_body)
 end
 
 def content_type filename
