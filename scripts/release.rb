@@ -99,7 +99,7 @@ upload_release_assets msi_file, res, "DiegoWindowsMSI.msi"
 puts "Uploaded msi to github release"
 
 puts "Uploading installation instructions to github release"
-upload_release_assets "diego-windows-msi/docs/INSTALL.MD", res
+upload_release_assets "diego-windows-msi/docs/INSTALL.md", res
 puts "Uploaded installation instructions to github release"
 
 puts "Uploading setup script to github release"
