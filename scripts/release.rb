@@ -39,18 +39,6 @@ def short_sha
   revision[0..6]
 end
 
-def bosh_target
-  env_var 'BOSH_TARGET'
-end
-
-def bosh_user
-  env_var 'BOSH_USER'
-end
-
-def bosh_password
-  env_var 'BOSH_PASSWORD'
-end
-
 def create_github_tag
   puts "Creating release #{release} with sha #{revision}"
   github.create_tag repo,
@@ -66,25 +54,6 @@ def create_github_tag
                         release,
                         name: release,
                         body: "Diego windows MSI Release #{release}"
-end
-
-def grab_cf_diego_release_sha
-  puts "Grabbing cf/diego release shas from #{bosh_target}"
-  releases = "/tmp/cf_diego_release_sha.md"
-  File.open(releases, "wb+") do |f|
-    output = `bosh -t #{bosh_target} -u #{bosh_user} -p #{bosh_password} releases`
-    puts output
-    f.write output
-  end
-
-  puts "Grabbing cf/diego deployments from #{bosh_target}"
-  deployments = "/tmp/cf_diego_deployments_sha.md"
-  File.open(deployments, "wb+") do |f|
-    output = `bosh -t #{bosh_target} -u #{bosh_user} -p #{bosh_password} deployments`
-    puts output
-    f.write output
-  end
-  [releases, deployments]
 end
 
 def content_type filename
@@ -137,7 +106,4 @@ puts "Uploading setup script to github release"
 upload_release_assets "diego-windows-msi/scripts/setup.ps1", res
 puts "Uploaded setup script to github release"
 
-puts "Grabbing cf/diego release sha"
-files = grab_cf_diego_release_sha
-files.each { |f| upload_release_assets f, res }
-puts "Grabbed and uploaded cf/diego release sha"
+puts "FIXME: Put cf/diego shas in descriptions"
