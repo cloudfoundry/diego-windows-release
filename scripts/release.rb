@@ -4,16 +4,12 @@ require 'octokit'
 require 'time'
 require 'open-uri'
 
-def env_var var
-  ENV[var] or raise "Environment variable #{var} isn't set"
-end
-
 def token
-  env_var 'GITHUB_TOKEN'
+  ENV['GITHUB_TOKEN'] or raise "Environment variable #{var} isn't set"
 end
 
-def revision
-  Dir.chdir(File.dirname(__FILE__)) do
+def revision(dir = File.dirname(__FILE__))
+  Dir.chdir(dir) do
     `git rev-parse HEAD`.chomp
   end
 end
@@ -23,12 +19,11 @@ def msi_file
 end
 
 def release
-  label = msi_file.match(/DiegoWindowsMSI-(\d+\.\d+)-.*.msi/)[1]
-  "v#{label}"
+  "v#{File.read('./msi-file/version').chomp}"
 end
 
 def github
-  @github ||= Octokit::Client.new :login => 'jvshahid', :access_token => token
+  @github ||= Octokit::Client.new access_token: token
 end
 
 def repo
@@ -46,12 +41,12 @@ def create_github_tag
                     "Release #{release}",
                     revision,
                     "commit",
-                    "Greenhouse", # tagger name isn't being used by the api
-                    "greenhouse@pivotal.io", # tagger email isn't being used by the api
+                    "greenhouse-ci ", # tagger name isn't being used by the api
+                    "pivotal-netgarden-eng@pivotal.io", # tagger email isn't being used by the api
                     Time.now.utc.iso8601
 
-  diego_release = Dir.chdir("diego-release") { `git rev-parse --verify HEAD` } rescue "UNKNOWN"
-  cf_release = Dir.chdir("cf-release") { `git rev-parse --verify HEAD` } rescue "UNKNOWN"
+  diego_release = revision("diego-release") rescue "UNKNOWN"
+  cf_release = revision("cf-release") rescue "UNKNOWN"
   release_body = <<-BODY
 cloudfoundry-incubator/diego-release@#{diego_release}
 cloudfoundry/cf-release@#{cf_release}
