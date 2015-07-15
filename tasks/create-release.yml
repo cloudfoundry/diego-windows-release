@@ -5,6 +5,7 @@ inputs:
   - name: diego-windows-msi
   - name: msi-file
   - name: diego-release
+  - name: cf-release
 run:
   path: diego-windows-msi/scripts/release.rb
 params:
