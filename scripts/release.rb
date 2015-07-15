@@ -50,8 +50,8 @@ def create_github_tag
                     "greenhouse@pivotal.io", # tagger email isn't being used by the api
                     Time.now.utc.iso8601
 
-  diego_release = File.read("./diego-release/version") rescue "UNKNOWN"
-  cf_release = File.read("./cf-release/version") rescue "UNKNOWN"
+  diego_release = Dir.chdir("diego-release") { `git rev-parse --verify HEAD` } rescue "UNKNOWN"
+  cf_release = Dir.chdir("cf-release") { `git rev-parse --verify HEAD` } rescue "UNKNOWN"
   release_body = <<-BODY
 cloudfoundry-incubator/diego-release@#{diego_release}
 cloudfoundry/cf-release@#{cf_release}
@@ -78,15 +78,6 @@ def upload_release_assets(filepath, release, filename=nil)
                       name: filename
 end
 
-def download_from_s3 url, destination
-  File.open(destination, "wb+") do |f|
-    open(url, "rb") do |read_file|
-      f.write(read_file.read)
-    end
-  end
-  destination
-end
-
 def release_already_created?(release)
   github.releases(repo).any? {|r| r.tag_name == release}
 end
@@ -111,5 +102,3 @@ puts "Uploaded installation instructions to github release"
 puts "Uploading setup script to github release"
 upload_release_assets "diego-windows-msi/scripts/setup.ps1", res
 puts "Uploaded setup script to github release"
-
-puts "FIXME: Put cf/diego shas in descriptions"
