@@ -87,7 +87,7 @@ namespace RepService
                                 " -etcdCaFile=" + tryGetKey(hash, "ETCD_CA_FILE") +
                                 " -etcdCertFile=" + tryGetKey(hash, "ETCD_CERT_FILE") +
                                 " -etcdKeyFile=" + tryGetKey(hash, "ETCD_KEY_FILE") +
-                                " -bbsAddress=http://bbs.service.consul:8888" +
+                                " -bbsAddress=http://bbs.service.consul:8889" +
                                 " -consulCluster=http://127.0.0.1:8500" +
                                 " -receptorTaskHandlerURL=http://receptor.service.consul:1169" +
                                 " -debugAddr=0.0.0.0:17008" +
