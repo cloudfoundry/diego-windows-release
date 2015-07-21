@@ -12,12 +12,12 @@ echo $MSI_VERSION
 
 cd cf-diego-dwm-locker
 cd cf-release
-git co $CF_SHA
+git checkout $CF_SHA
 cd ../diego-release
-git co $DIEGO_SHA
+git checkout $DIEGO_SHA
 cd ../diego-windows-msi
-git co $DWM_SHA
+git checkout $DWM_SHA
 cd ../
 
-git ci -m "DiegoWindowsMSI Release v$MSI_VERSION" cf-release diego-release diego-windows-msi
+git commit -m "DiegoWindowsMSI Release v$MSI_VERSION" cf-release diego-release diego-windows-msi
 git push origin master
