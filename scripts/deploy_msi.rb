@@ -44,8 +44,8 @@ block = ->(ssh) do
 
   puts "Uninstall"
   puts ssh.exec!("msiexec /norestart /passive /x #{MSI_LOCATION}")
-  puts ssh.exec!("rd #{INSTALL_DIR} /s /q")
-  puts ssh.exec!("mkdir #{INSTALL_DIR}")
+  puts ssh.exec!("cmd /c rd #{INSTALL_DIR} /s /q")
+  puts ssh.exec!("cmd /c mkdir #{INSTALL_DIR}")
 
   puts "Downloading setup script from #{SETUP_URL}"
   puts ssh.exec!("powershell /C wget '#{SETUP_URL}' -OutFile #{SETUP_LOCATION}")
