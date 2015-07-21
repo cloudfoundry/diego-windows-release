@@ -35,6 +35,8 @@ diego.sublime-workspace
 
 DiegoWindowsMSI/DiegoWindowsMSI/go-executables/*.exe
 
+DiegoWindowsMSI/RELEASE_SHA
+
 # go tooling
 src/9fans.net/go/
 src/code.google.com/p/go.tools/

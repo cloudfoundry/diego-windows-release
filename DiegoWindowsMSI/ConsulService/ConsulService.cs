@@ -38,6 +38,7 @@ namespace ConsulService
                 node_name = config["MACHINE_NAME"],
                 server = false,
                 ports = new { dns = 53 },
+                domain = "cf.internal",
                 bind_addr = config["EXTERNAL_IP"],
                 rejoin_after_leave = true,
                 disable_remote_exec = true,

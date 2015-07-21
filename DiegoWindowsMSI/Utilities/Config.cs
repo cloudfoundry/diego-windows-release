@@ -9,6 +9,8 @@ namespace Utilities
 {
     public class Config
     {
+        public const string CONSUL_DNS_SUFFIX = ".cf.internal";
+
         public static Dictionary<string, string> Params()
         {
             var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
@@ -58,11 +60,11 @@ namespace Utilities
                 var sslValues = new string[] {"ETCD_CERT_FILE", "ETCD_KEY_FILE", "ETCD_CA_FILE"};
                 if (sslValues.All(keyName => p.ContainsKey(keyName) && !string.IsNullOrWhiteSpace(keyName)))
                 {
-                    p["ETCD_CLUSTER"] = "https://etcd.service.consul:4001";
+                    p["ETCD_CLUSTER"] = "https://etcd.service" + CONSUL_DNS_SUFFIX + ":4001";
                 }
                 else
                 {
-                    p["ETCD_CLUSTER"] = "http://etcd.service.consul:4001";
+                    p["ETCD_CLUSTER"] = "http://etcd.service" + CONSUL_DNS_SUFFIX + ":4001";
                 }
             }
         }
