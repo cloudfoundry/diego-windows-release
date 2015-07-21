@@ -7,18 +7,21 @@ require 'base64'
 ADMIN_PASS = ENV['ADMIN_PASS'] or raise "Please set env var ADMIN_PASS"
 JUMP_MACHINE_IP = ENV['JUMP_MACHINE_IP']
 MACHINE_IP = ENV['MACHINE_IP'] or raise "Please set env var MACHINE_IP"
-CONSUL_IPS = ENV['CONSUL_IPS'] or raise "Please set env var CONSUL_IPS"
-CF_ETCD_CLUSTER = ENV['CF_ETCD_CLUSTER'] or raise "Please set env var CF_ETCD_CLUSTER"
 REDUNDANCY_ZONE = ENV['REDUNDANCY_ZONE'] or raise "Please set env var REDUNDANCY_ZONE"
-LOGGREGATOR_SHARED_SECRET = ENV['LOGGREGATOR_SHARED_SECRET'] or raise "Please set env var LOGGREGATOR_SHARED_SECRET"
+BOSH_URL = ENV['BOSH_URL'] or raise "Please set env var BOSH_URL"
 MSI_FILE_DIR = ARGV[0] or raise "Please run with first arg as directory of MSI File"
 
 MSI_URL = File.read "#{MSI_FILE_DIR}/url"
 EXPECTED_SHA = MSI_URL.match(/DiegoWindowsMSI-(.*)-([0-9a-f]+).msi$/) { |x| x[2] } or raise "Please set a download url (in #{MSI_FILE_DIR}/url)"
-MSI_LOCATION = "c:\\diego.msi"
+
+INSTALL_DIR = "c:\\diego-install"
+MSI_LOCATION = "#{INSTALL_DIR}\\diego.msi"
+
+GENERATOR_URL = File.read("install-script-generator/url")
+GENERATOR_LOCATION = "#{INSTALL_DIR}\\generator.exe"
 
 SETUP_URL = MSI_URL.gsub("DiegoWindowsMSI", "setup").gsub(".msi", ".ps1")
-SETUP_LOCATION = "c:\\setup.ps1"
+SETUP_LOCATION = "#{INSTALL_DIR}\\setup.ps1"
 
 options = {
   auth_methods: ["publickey"],
@@ -41,7 +44,8 @@ block = ->(ssh) do
 
   puts "Uninstall"
   puts ssh.exec!("msiexec /norestart /passive /x #{MSI_LOCATION}")
-  ssh.exec!("del /Y #{MSI_LOCATION}")
+  puts ssh.exec!("rd #{INSTALL_DIR} /s /q")
+  puts ssh.exec!("mkdir #{INSTALL_DIR}")
 
   puts "Downloading setup script from #{SETUP_URL}"
   puts ssh.exec!("powershell /C wget '#{SETUP_URL}' -OutFile #{SETUP_LOCATION}")
@@ -49,15 +53,11 @@ block = ->(ssh) do
   puts "Downloading msi from #{MSI_URL}"
   puts ssh.exec!("powershell /C wget '#{MSI_URL}' -OutFile #{MSI_LOCATION}")
 
-  etcd_ca_content = Base64.encode64(ENV["ETCD_CA_FILE"])
-  etcd_cert_content = Base64.encode64(ENV["ETCD_CERT_FILE"])
-  etcd_key_content = Base64.encode64(ENV["ETCD_KEY_FILE"])
-  etcd_key_file = "C:\\etcd_key_file"
-  etcd_ca_file = "C:\\etcd_ca_file"
-  etcd_cert_file = "C:\\etcd_cert_file"
-  puts ssh.exec!(%{powershell /c "[System.Text.Encoding]::ASCII.GetString( [System.Convert]::FromBase64String('#{etcd_ca_content}') ) | out-file #{etcd_ca_file} -encoding ascii})
-  puts ssh.exec!(%{powershell /c "[System.Text.Encoding]::ASCII.GetString( [System.Convert]::FromBase64String('#{etcd_cert_content}') ) | out-file #{etcd_cert_file} -encoding ascii})
-  puts ssh.exec!(%{powershell /c "[System.Text.Encoding]::ASCII.GetString( [System.Convert]::FromBase64String('#{etcd_key_content}') ) | out-file #{etcd_key_file} -encoding ascii})
+  puts "Downloading install script generator from #{GENERATOR_URL}"
+  puts ssh.exec!("powershell /C wget '#{GENERATOR_URL}' -OutFile #{GENERATOR_LOCATION}")
+
+  puts "Generating the install script"
+  puts ssh.exec!("#{GENERATOR_LOCATION} -boshUrl=#{BOSH_URL} -outputDir=#{INSTALL_DIR} -windowsUsername=Administrator -windowsPassword=#{ADMIN_PASS}")
 
   puts "Provisioning the machine"
   execute_my_scripts_please(ssh) do
@@ -69,20 +69,7 @@ block = ->(ssh) do
   end
 
   puts "Install"
-  puts ssh.exec!("msiexec /norestart /passive /i #{MSI_LOCATION} "+
-                 "ADMIN_USERNAME=Administrator "+
-                 "ADMIN_PASSWORD=#{ADMIN_PASS} "+
-                 "CONSUL_IPS=#{CONSUL_IPS} "+
-                 "ETCD_CA_FILE=#{etcd_ca_file} "+
-                 "ETCD_CERT_FILE=#{etcd_cert_file} "+
-                 "ETCD_KEY_FILE=#{etcd_key_file} "+
-                 "CF_ETCD_CLUSTER=#{CF_ETCD_CLUSTER} "+
-                 "LOGGREGATOR_SHARED_SECRET=#{LOGGREGATOR_SHARED_SECRET} "+
-                 "STACK=windows2012R2 "+
-                 "REDUNDANCY_ZONE=#{REDUNDANCY_ZONE} "+
-                 (ENV["SYSLOG_HOST_IP"] ? "SYSLOG_HOST_IP=#{ENV["SYSLOG_HOST_IP"]} " : "")+
-                 (ENV["SYSLOG_PORT"] ? "SYSLOG_PORT=#{ENV["SYSLOG_PORT"]} " : "")
-                )
+  puts ssh.exec!("#{INSTALL_DIR}\\install_#{REDUNDANCY_ZONE}.bat")
 
   output = ssh.exec!("powershell /C type $Env:ProgramW6432/CloudFoundry/DiegoWindows/RELEASE_SHA")
   actual_sha = output.chomp.split(/\s+/).last

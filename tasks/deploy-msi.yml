@@ -4,11 +4,13 @@ image: docker:///pivotalgreenhouse/ruby
 inputs:
 - name: msi-file
 - name: diego-windows-msi
+- name: install-script-generator
 run:
   path: diego-windows-msi/scripts/deploy_msi.rb
   args: [msi-file]
 params:
   ADMIN_PASS:
+  BOSH_URL:
   CF_ETCD_CLUSTER:
   CONSUL_IPS:
   ETCD_CA_FILE:
