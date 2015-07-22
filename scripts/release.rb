@@ -77,7 +77,9 @@ def get_release_resource(release)
   github.releases(repo).select { |r| r.tag_name == release}.first
 end
 
-release = "v#{File.read('./msi-file/version').chomp}"
+def release
+  "v#{File.read('./msi-file/version').chomp}"
+end
 
 release_resource = get_release_resource(release)
 if release_resource then
