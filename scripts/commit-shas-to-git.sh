@@ -19,5 +19,6 @@ cd ../diego-windows-msi
 git checkout $DWM_SHA
 cd ../
 
+git config --global user.name "CI (Automated)"
+git config --global user.email "greenhouse@pivotal.io"
 git commit -m "DiegoWindowsMSI Release v$MSI_VERSION" cf-release diego-release diego-windows-msi
-git push origin master

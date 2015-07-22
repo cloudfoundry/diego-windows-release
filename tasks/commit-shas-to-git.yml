@@ -11,4 +11,3 @@ run:
   path: diego-windows-msi/scripts/commit-shas-to-git.sh
 params:
   GITHUB_TOKEN:
-  
