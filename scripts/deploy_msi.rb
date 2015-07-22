@@ -39,39 +39,44 @@ end
 # Figure out the sha of the msi being installed using the download url.
 
 block = ->(ssh) do
+  run = ->(cmd) {
+    puts "Command: ", cmd.inspect
+    response = ssh.exec!(cmd)
+    puts "Response: ", response
+    response
+  }
   hostname = ssh.exec!("hostname").chomp
   puts "Hostname: #{hostname}"
 
   puts "Uninstall"
-  puts ssh.exec!("msiexec /norestart /passive /x #{MSI_LOCATION}")
-  puts ssh.exec!("cmd /c rd #{INSTALL_DIR} /s /q")
-  puts ssh.exec!("cmd /c mkdir #{INSTALL_DIR}")
+  run["msiexec /norestart /passive /x #{MSI_LOCATION}"]
+  run["cmd /c rd #{INSTALL_DIR} /s /q"]
+  run["cmd /c mkdir #{INSTALL_DIR}"]
 
   puts "Downloading setup script from #{SETUP_URL}"
-  puts ssh.exec!("powershell /C wget '#{SETUP_URL}' -OutFile #{SETUP_LOCATION}")
+  run["powershell /C wget '#{SETUP_URL}' -OutFile #{SETUP_LOCATION}"]
 
   puts "Downloading msi from #{MSI_URL}"
-  puts ssh.exec!("powershell /C wget '#{MSI_URL}' -OutFile #{MSI_LOCATION}")
+  run["powershell /C wget '#{MSI_URL}' -OutFile #{MSI_LOCATION}"]
 
   puts "Downloading install script generator from #{GENERATOR_URL}"
-  puts ssh.exec!("powershell /C wget '#{GENERATOR_URL}' -OutFile #{GENERATOR_LOCATION}")
+  run["powershell /C wget '#{GENERATOR_URL}' -OutFile #{GENERATOR_LOCATION}"]
 
   puts "Generating the install script"
-  puts ssh.exec!("#{GENERATOR_LOCATION} -boshUrl=#{BOSH_URL} -outputDir=#{INSTALL_DIR} -windowsUsername=Administrator -windowsPassword=#{ADMIN_PASS}")
+  run["#{GENERATOR_LOCATION} -boshUrl=#{BOSH_URL} -outputDir=#{INSTALL_DIR} -windowsUsername=Administrator -windowsPassword=#{ADMIN_PASS}"]
 
   puts "Provisioning the machine"
   execute_my_scripts_please(ssh) do
-    response = ssh.exec!("powershell -Command & $env:windir/sysnative/WindowsPowerShell/v1.0/powershell.exe -Command #{SETUP_LOCATION}")
-    puts response
+    response = run["powershell -Command & $env:windir/sysnative/WindowsPowerShell/v1.0/powershell.exe -Command #{SETUP_LOCATION}"]
     if response.include?("PSSecurityException")
       exit(1)
     end
   end
 
   puts "Install"
-  puts ssh.exec!("#{INSTALL_DIR}\\install_#{REDUNDANCY_ZONE}.bat")
+  run["#{INSTALL_DIR}\\install_#{REDUNDANCY_ZONE}.bat"]
 
-  output = ssh.exec!("powershell /C type $Env:ProgramW6432/CloudFoundry/DiegoWindows/RELEASE_SHA")
+  output = run["powershell /C type $Env:ProgramW6432/CloudFoundry/DiegoWindows/RELEASE_SHA"]
   actual_sha = output.chomp.split(/\s+/).last
   puts actual_sha.inspect
 
