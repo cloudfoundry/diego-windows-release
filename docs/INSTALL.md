@@ -6,7 +6,7 @@ in a working cf/diego deployment
 ## Requirements
 
 - working cf/diego deployment
-- windows cell
+- windows VM (we recommend r3.xlarge, see https://github.com/cloudfoundry-incubator/diego-release/commit/c9331bc1b1000bd135cb99a025a3680d1a12ac87)
   - Recommended Windows ISO SHA1: B6F063436056510357CB19CB77DB781ED9C11DF3
 
 ## Retrieve the MSI
