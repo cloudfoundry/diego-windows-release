@@ -6,7 +6,7 @@ in a working cf/diego deployment
 ## Requirements
 
 - working cf/diego deployment
-- windows VM (we recommend r3.xlarge, see https://github.com/cloudfoundry-incubator/diego-release/commit/c9331bc1b1000bd135cb99a025a3680d1a12ac87)
+- Windows Server 2012R2 VM (we recommend r3.xlarge, see https://github.com/cloudfoundry-incubator/diego-release/commit/c9331bc1b1000bd135cb99a025a3680d1a12ac87)
   - Recommended Windows ISO SHA1: B6F063436056510357CB19CB77DB781ED9C11DF3
 
 ## Retrieve the MSI
@@ -22,8 +22,11 @@ You can download our latest msi from
 
 ## Setup the windows cell
 
-1. Download the `setup.ps1` from our [latest release](https://github.com/pivotal-cf/diego-windows-msi/releases/latest). From inside File explorer right click on the file and click `Run with powershell`. The script will enable the required Windows features
-and configure the DNS settings that the cell will need.
+1. Download the `setup.ps1` from
+our [latest release](https://github.com/pivotal-cf/diego-windows-msi/releases/latest).
+From inside File explorer right click on the file and click `Run with powershell`.
+The script will enable the required Windows features
+, configure the DNS settings, and configure the firewall to the way that the cell needs.
 
 ## Install the MSI
 
@@ -35,7 +38,7 @@ msiexec /norestart /i c:\diego.msi ^
           ADMIN_PASSWORD=[Previous user password] ^
           CONSUL_IPS=[Comma-separated IP addresses of consul agents from bosh deploy of CF] ^
           ETCD_CLUSTER=[URI of your Diego etcd cluster from bosh deploy] ^
-          CF_ETCD_CLUSTER=[URI of your Runtime cf etcd cluster from bosh deploy of cf] ^
+          CF_ETCD_CLUSTER=[URI of your Elastic Runtime cf etcd cluster from bosh deploy of cf] ^
           STACK=[CF stack, eg. windows2012R2] ^
           REDUNDANCY_ZONE=[Diego zone this cell is part of] ^
           LOGGREGATOR_SHARED_SECRET=[loggregator secret from your bosh deploy of cf] ^
@@ -48,7 +51,7 @@ msiexec /norestart /i c:\diego.msi ^
 An example would be:
 
 ```
-msiexec /norestart /i c:\diego.msi ^
+msiexec /norestart /i c:\temp\DiegoWindowsMSI.msi ^
           ADMIN_USERNAME=Administrator ^
           ADMIN_PASSWORD=secretpassword ^
           CONSUL_IPS=10.10.5.11,10.10.6.11,10.10.7.11 ^
@@ -68,7 +71,7 @@ the values that you should use in the misexec command:
 
 **CONSUL_IPS**
 
-Go to the OpsManager -> Runtime tile -> Status -> consul job and copy
+Go to the OpsManager -> Elastic Runtime tile -> Status -> consul job and copy
 the IP address(es).
 
 **ETCD_CLUSTER**
@@ -84,7 +87,7 @@ curl http://<etcd-server-ip>:4001/v2/keys/message -XPUT -d value="Hello diego"
 
 **CF_ETCD_CLUSTER**
 
-Go to the OpsManager -> Runtime tile -> Status -> etcd job and copy
+Go to the OpsManager -> Elastic Runtime tile -> Status -> etcd job and copy
 the IP address. Format the IP address as a URL with port 4001
 (e.g. "http://10.10.5.10:4001")
 
@@ -101,17 +104,20 @@ then:
 
 Go to `http://receptor.[DOMAIN]/v1/cells`
 
+
 You should see `zone` listed inside each existing cell, e.g.:
 
 ```json
 [{"cell_id":"cell-partition-0880c1d1dca06bbf67e1-0","zone":"0880c1d1dca06bbf67e1","capacity":{"memory_mb":30679,"disk_mb":15993,"containers":256}}]
 ```
 
+
 **LOGGREGATOR_SHARED_SECRET**
-The shared secret listed in your CF Runtime deployment / credentials
+The shared secret listed in your Elastic Runtime deployment / credentials
 tab, e.g.:
 
 You should see *Shared Secret Credentials* listed under *Doppler
+
 Server*, you want the second value
 
 eg. If you see `Shared Secret Credentials : abc / 123` then **123** is
@@ -178,3 +184,60 @@ port in the manifest as **SYSLOG_DAEMON_HOST** and
    | GardenWindows | CF GardenWindows | Running |
    | Metron        | CF Metron        | Running |
    | Rep           | CF Rep           | Running |
+
+2. Go to `http://receptor.[DOMAIN]/v1/cells`
+
+
+You should see the Windows cell(s) listed e.g.:
+
+```json
+[
+  {
+    "cell_id": "cell_z1-0",
+    "zone": "z1",
+    "capacity": {
+      "memory_mb": 30158,
+      "disk_mb": 45766,
+      "containers": 256
+    },
+    "rootfs_providers": {
+      "docker": [
+        
+      ],
+      "preloaded": [
+        "cflinuxfs2"
+      ]
+    }
+  },
+  {
+    "cell_id": "cell_z2-0",
+    "zone": "z2",
+    "capacity": {
+      "memory_mb": 30158,
+      "disk_mb": 45766,
+      "containers": 256
+    },
+    "rootfs_providers": {
+      "docker": [
+        
+      ],
+      "preloaded": [
+        "cflinuxfs2"
+      ]
+    }
+  },
+  {
+    "cell_id": "WIN-FCTL342T6B1",
+    "zone": "z1",
+    "capacity": {
+      "memory_mb": 15624,
+      "disk_mb": 35487,
+      "containers": 100
+    },
+    "rootfs_providers": {
+      "preloaded": [
+        "windows2012R2"
+      ]
+    }
+  }
+]
