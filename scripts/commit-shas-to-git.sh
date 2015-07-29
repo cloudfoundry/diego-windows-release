@@ -19,11 +19,16 @@ cd ../diego-windows-msi
 git checkout $DWM_SHA
 cd ../
 
+mkdir tmp
+echo "$KEY" > tmp/github
+chmod 600 tmp/github
+
+export GIT_SSH=$(pwd)/tmp/git_ssh.sh
+echo "ssh -o StrictHostKeyChecking=no -i $(pwd)/tmp/github" '"$@"' > $GIT_SSH
+chmod +x $GIT_SSH
+
 git config --global user.name "CI (Automated)"
 git config --global user.email "greenhouse@pivotal.io"
-cat > ~/.netrc <<HERE
-machine github.com login $GITHUB_USER password $GITHUB_TOKEN
-HERE
 git commit -m "DiegoWindowsMSI Release v$MSI_VERSION" cf-release diego-release diego-windows-msi
 git fetch
 git rebase origin/master
