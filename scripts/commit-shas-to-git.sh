@@ -21,5 +21,10 @@ cd ../
 
 git config --global user.name "CI (Automated)"
 git config --global user.email "greenhouse@pivotal.io"
-git checkout master
+cat > ~/.netrc <<HERE
+machine github.com login $GITHUB_USER password $GITHUB_TOKEN
+HERE
 git commit -m "DiegoWindowsMSI Release v$MSI_VERSION" cf-release diego-release diego-windows-msi
+git fetch
+git rebase origin/master
+git push origin HEAD:master
