@@ -15,7 +15,3 @@ For instructions on how to build the msi see [Building instructions](docs/BUILDI
 ## Installing the MSI
 
 To install the MSI refer to the [installation instructions](docs/INSTALL.md)
-
-## Additional resources
-
-- [Creating a Windows Cell on AWS](docs/AWS.md)
