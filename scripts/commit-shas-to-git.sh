@@ -21,4 +21,5 @@ cd ../
 
 git config --global user.name "CI (Automated)"
 git config --global user.email "greenhouse@pivotal.io"
+git checkout master
 git commit -m "DiegoWindowsMSI Release v$MSI_VERSION" cf-release diego-release diego-windows-msi
