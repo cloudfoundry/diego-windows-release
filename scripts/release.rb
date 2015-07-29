@@ -23,7 +23,7 @@ def github
 end
 
 def repo
-  'pivotal-cf/diego-windows-msi'
+  'cloudfoundry-incubator/diego-windows-msi'
 end
 
 def short_sha
