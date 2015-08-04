@@ -2,9 +2,9 @@
 
 set -ex
 
-stemcell=bosh-stemcell-389-warden-boshlite-ubuntu-trusty-go_agent.tgz
-
 if [ "x$RECREATE_VAGRANT" == "xyes" ]; then
+    stemcell=bosh-stemcell-389-warden-boshlite-ubuntu-trusty-go_agent.tgz
+
     cd ~/workspace/bosh-lite
     vagrant destroy -f
     vagrant up --provider=virtualbox # --provider=vmware_fusion
@@ -82,12 +82,12 @@ function build_and_upload_diego {
 }
 
 
-# build_and_upload_diego &
-# diego_pid=$!
-# build_and_upload_cf &
-# cf_pid=$!
+build_and_upload_diego &
+diego_pid=$!
+build_and_upload_cf &
+cf_pid=$!
 
-# wait $diego_pid $cf_pid
+wait $diego_pid $cf_pid
 
 function fix_deployment_manifest {
     # Disable canaries in the deployment manifest and deploy in
