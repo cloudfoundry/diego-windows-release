@@ -40,7 +40,7 @@
             // serviceInstaller
             // 
             this.serviceInstaller.DisplayName = "CF Containerizer";
-            this.serviceInstaller.ServiceName = "Containerizer";
+            this.serviceInstaller.ServiceName = "ContainerizerService";
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller

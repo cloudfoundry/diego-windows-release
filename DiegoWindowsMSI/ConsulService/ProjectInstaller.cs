@@ -16,15 +16,11 @@ namespace ConsulService
 
         protected override void OnAfterInstall(IDictionary savedState)
         {
+            ServiceConfigurator.SetRecoveryOptions(this.serviceInstaller.ServiceName);
             using (ServiceController pc = new ServiceController(this.serviceInstaller.ServiceName))
             {
                 pc.Start();
             }
-        }
-
-        protected override void OnCommitted(IDictionary savedState)
-        {
-            ServiceConfigurator.SetRecoveryOptions(this.serviceInstaller.ServiceName);
         }
     }
 }

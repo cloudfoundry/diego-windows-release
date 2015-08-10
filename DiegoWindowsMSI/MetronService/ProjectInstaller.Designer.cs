@@ -40,7 +40,7 @@
             // serviceInstaller
             // 
             this.serviceInstaller.DisplayName = "CF Metron";
-            this.serviceInstaller.ServiceName = "Metron";
+            this.serviceInstaller.ServiceName = "MetronService";
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller

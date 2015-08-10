@@ -40,7 +40,7 @@
             // serviceInstaller
             // 
             this.serviceInstaller.DisplayName = "CF GardenWindows";
-            this.serviceInstaller.ServiceName = "GardenWindows";
+            this.serviceInstaller.ServiceName = "GardenWindowsService";
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller

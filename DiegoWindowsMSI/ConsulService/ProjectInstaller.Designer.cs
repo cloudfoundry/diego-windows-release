@@ -40,7 +40,7 @@
             // serviceInstaller
             // 
             this.serviceInstaller.DisplayName = "CF Consul";
-            this.serviceInstaller.ServiceName = "Consul";
+            this.serviceInstaller.ServiceName = "ConsulService";
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
