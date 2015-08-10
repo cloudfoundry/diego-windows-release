@@ -15,8 +15,13 @@ if [ "x$RECREATE_VAGRANT" == "xyes" ]; then
 fi
 
 if [ "x$BOSH_LITE" == "xyes" ]; then
-    CF_MANIFEST = ~/deployments/bosh-lite/cf.yml
-    DIEGO_MANIFEST = ~/deployments/bosh-lite/diego.yml
+    if ! bosh target | grep -q "https://192.168.50.4:25555"; then
+        echo "doesn't look like you are pointed to bosh lite. Run 'bosh target lite'"
+        exit 1
+    fi
+
+    CF_MANIFEST=~/deployments/bosh-lite/cf.yml
+    DIEGO_MANIFEST=~/deployments/bosh-lite/diego.yml
 
     cd ~/workspace/diego-release
     ./scripts/print-director-stub > ~/deployments/bosh-lite/director.yml
@@ -81,14 +86,6 @@ function build_and_upload_diego {
         bosh -n upload release --rebase
 }
 
-
-build_and_upload_diego &
-diego_pid=$!
-build_and_upload_cf &
-cf_pid=$!
-
-wait $diego_pid $cf_pid
-
 function fix_deployment_manifest {
     # Disable canaries in the deployment manifest and deploy in
     # parallel (instead of serial) This should make the cf deployment
@@ -104,6 +101,13 @@ EOF
 
 fix_deployment_manifest $CF_MANIFEST
 fix_deployment_manifest $DIEGO_MANIFEST
+
+build_and_upload_diego &
+diego_pid=$!
+build_and_upload_cf &
+cf_pid=$!
+
+wait $diego_pid $cf_pid
 
 retry bosh -n -d $CF_MANIFEST deploy &&
     retry bosh -n -d $DIEGO_MANIFEST deploy
