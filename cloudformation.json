@@ -64,13 +64,13 @@
                 ]]}
               },
               "C:\\tmp\\generate.exe" : {
-                "source" : "https://github.com/cloudfoundry-incubator/diego-windows-msi/releases/download/v0.487/generate.exe"
+                "source" : "https://github.com/cloudfoundry-incubator/diego-windows-msi/releases/download/v0.494/generate.exe"
               },
               "C:\\tmp\\diego.msi" : {
-                "source" : "https://github.com/cloudfoundry-incubator/diego-windows-msi/releases/download/v0.487/DiegoWindowsMSI.msi"
+                "source" : "https://github.com/cloudfoundry-incubator/diego-windows-msi/releases/download/v0.494/DiegoWindowsMSI.msi"
               },
               "C:\\tmp\\setup.ps1" : {
-                "source" : "https://github.com/cloudfoundry-incubator/diego-windows-msi/releases/download/v0.487/setup.ps1"
+                "source" : "https://github.com/cloudfoundry-incubator/diego-windows-msi/releases/download/v0.494/setup.ps1"
               }
             },
             "commands": {
@@ -80,19 +80,19 @@
             },
             "services" : {
               "windows" : {
-                "Containerizer" : {
+                "ContainerizerService" : {
                   "ensureRunning" : "true"
                 },
-                "GardenWindows" : {
+                "GardenWindowsService" : {
                   "ensureRunning" : "true"
                 },
-                "Rep" : {
+                "RepService" : {
                   "ensureRunning" : "true"
                 },
-                "Metron" : {
+                "MetronService" : {
                   "ensureRunning" : "true"
                 },
-                "Consul" : {
+                "ConsulService" : {
                   "ensureRunning" : "true"
                 }
               }
