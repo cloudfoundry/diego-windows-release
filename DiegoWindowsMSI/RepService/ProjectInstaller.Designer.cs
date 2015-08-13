@@ -40,7 +40,7 @@
             // serviceInstaller
             // 
             this.serviceInstaller.DisplayName = "CF Rep";
-            this.serviceInstaller.ServiceName = "Rep";
+            this.serviceInstaller.ServiceName = "RepService";
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
