@@ -62,6 +62,16 @@ for /f "tokens=*" %%a in ('git rev-parse --short HEAD') do (
     set VERSION=%%a
 )
 
+pushd src\github.com\cloudfoundry-incubator\greenhouse-install-script-generator || exit /b 1
+  SET GOPATH=%GOPATH%\src\github.com\cloudfoundry-incubator\greenhouse-install-script-generator\Godeps\_workspace;%GOPATH%
+  ginkgo -r -noColor || exit /b 1
+  cd generate
+  go install
+popd
+
+SET GOPATH=%CD%
+echo F | xcopy bin\generate.exe output\generate-%VERSION%.exe || exit /b 1
+
 pushd DiegoWindowsMSI || exit /b 1
   rmdir /S /Q packages
   nuget restore || exit /b 1
@@ -69,6 +79,7 @@ pushd DiegoWindowsMSI || exit /b 1
   devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || exit /b 1
   xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\output\ || exit /b 1
 popd
+
 
 IF DEFINED APPVEYOR_BUILD_VERSION (SET VERSION=%APPVEYOR_BUILD_VERSION%-%VERSION%)
 
