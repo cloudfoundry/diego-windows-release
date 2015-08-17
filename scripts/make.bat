@@ -26,6 +26,13 @@ go install github.com/coreos/etcd || exit /b 1
 go install github.com/onsi/ginkgo/ginkgo || exit /b 1
 go install github.com/onsi/gomega || exit /b 1
 
+pushd src\github.com\cloudfoundry-incubator\greenhouse-install-script-generator || exit /b 1
+  SET GOPATH=%GOPATH%;%GOPATH%\src\github.com\cloudfoundry-incubator\greenhouse-install-script-generator\Godeps\_workspace
+  ginkgo -r -noColor || exit /b 1
+  cd generate
+  go install
+popd
+
 SET GOBIN=%CD%\DiegoWindowsMSI\DiegoWindowsMSI\go-executables
 
 :: Install metron, it contains all relevant gocode inside itself.
@@ -61,13 +68,6 @@ ginkgo -skip=when.an.interrupt.signal.is.sent.to.the.representative^|should.not.
 for /f "tokens=*" %%a in ('git rev-parse --short HEAD') do (
     set VERSION=%%a
 )
-
-pushd src\github.com\cloudfoundry-incubator\greenhouse-install-script-generator || exit /b 1
-  SET GOPATH=%GOPATH%;%GOPATH%\src\github.com\cloudfoundry-incubator\greenhouse-install-script-generator\Godeps\_workspace
-  ginkgo -r -noColor || exit /b 1
-  cd generate
-  go install
-popd
 
 SET GOPATH=%CD%
 echo F | xcopy bin\generate.exe output\generate-%VERSION%.exe || exit /b 1
