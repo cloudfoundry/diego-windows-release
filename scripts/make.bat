@@ -63,7 +63,7 @@ for /f "tokens=*" %%a in ('git rev-parse --short HEAD') do (
 )
 
 pushd src\github.com\cloudfoundry-incubator\greenhouse-install-script-generator || exit /b 1
-  SET GOPATH=%GOPATH%\src\github.com\cloudfoundry-incubator\greenhouse-install-script-generator\Godeps\_workspace;%GOPATH%
+  SET GOPATH=%GOPATH%;%GOPATH%\src\github.com\cloudfoundry-incubator\greenhouse-install-script-generator\Godeps\_workspace
   ginkgo -r -noColor || exit /b 1
   cd generate
   go install
