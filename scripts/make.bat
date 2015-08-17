@@ -14,6 +14,11 @@ SET PATH=%GOBIN%;%GOROOT%;%PATH%;%DEVENV_PATH%
 SET GOPATH=%CD%
 SET CONTAINERIZER_BIN=%CD%\src\\github.com\cloudfoundry-incubator\garden-windows\containerizer\Containerizer\bin\Containerizer.exe
 
+for /f "tokens=*" %%a in ('git rev-parse --short HEAD') do (
+    set VERSION=%%a
+)
+IF DEFINED APPVEYOR_BUILD_VERSION (SET VERSION=%APPVEYOR_BUILD_VERSION%-%VERSION%)
+
 :: Visual Studio must be in path
 where devenv
 if errorLevel 1 ( echo "devenv was not found on PATH")
@@ -64,11 +69,6 @@ ginkgo -r -noColor src/github.com/cloudfoundry-incubator/garden-windows || exit 
 ginkgo -skip=reports.garden.containers.as.-1 -r -noColor src/github.com/cloudfoundry-incubator/executor || exit /b 1
 ginkgo -skip=when.an.interrupt.signal.is.sent.to.the.representative^|should.not.exit,.but.keep.trying.to.maintain.presence.at.the.same.ID^|The.Rep.Evacuation.when.it.has.running.LRP.containers^|when.a.Ping.request.comes.in -noColor src/github.com/cloudfoundry-incubator/rep || exit /b 1
 
-
-for /f "tokens=*" %%a in ('git rev-parse --short HEAD') do (
-    set VERSION=%%a
-)
-
 SET GOPATH=%CD%
 echo F | xcopy bin\generate.exe output\generate-%VERSION%.exe || exit /b 1
 
@@ -79,9 +79,6 @@ pushd DiegoWindowsMSI || exit /b 1
   devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || exit /b 1
   xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\output\ || exit /b 1
 popd
-
-
-IF DEFINED APPVEYOR_BUILD_VERSION (SET VERSION=%APPVEYOR_BUILD_VERSION%-%VERSION%)
 
 move /Y output\DiegoWindowsMSI.msi output\DiegoWindowsMSI-%VERSION%.msi || exit /b 1
 :: running the following command without the echo part will prompt
