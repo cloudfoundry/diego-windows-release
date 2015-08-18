@@ -27,15 +27,20 @@ namespace ConfigurationManager
 
             var missing = new List<string>();
 
-            var required = new List<string>() {
+            var required = new List<string>()
+            {
                 "ADMIN_USERNAME",
                 "ADMIN_PASSWORD",
                 "CONSUL_IPS",
                 "CF_ETCD_CLUSTER",
                 "LOGGREGATOR_SHARED_SECRET",
                 "REDUNDANCY_ZONE",
-                "STACK"
+                "STACK",
+                "ETCD_CERT_FILE",
+                "ETCD_KEY_FILE",
+                "ETCD_CA_FILE"
             };
+
             var optional = new List<string>
             {
                 "ETCD_CLUSTER",
@@ -45,26 +50,16 @@ namespace ConfigurationManager
                 "SYSLOG_PORT"
             };
 
-            var etcdSslOptions = new List<string>
+            foreach (var key in required)
             {
-                "ETCD_CERT_FILE",
-                "ETCD_KEY_FILE",
-                "ETCD_CA_FILE"
-            };
-
-            foreach (var key in required) {
                 if (Context.Parameters[key] == null || Context.Parameters[key] == "")
                     missing.Add(key);
             }
 
-            if(missing.Count > 0) {
-                throw new Exception("Please provide all of the following msiexec properties: " + string.Join(", ", missing));
-            }
-
-            var etcdSslOptionsCount = etcdSslOptions.Count(keyName => !string.IsNullOrEmpty(Context.Parameters[keyName]));
-            if (etcdSslOptionsCount > 0 && etcdSslOptionsCount < etcdSslOptions.Count)
+            if (missing.Count > 0)
             {
-                throw new Exception("Please provide all or nothing for the following property set: " + string.Join(", ", etcdSslOptions));
+                throw new Exception("Please provide all of the following msiexec properties: " +
+                                    string.Join(", ", missing));
             }
 
             try
@@ -77,10 +72,11 @@ namespace ConfigurationManager
             }
             catch (UriFormatException)
             {
-                throw new Exception("ETCD_CLUSTER and CF_ETCD_CLUSTER values must be URIs (i.e. http://192.168.0.1:4001 instead of 192.168.0.1:4001).");
+                throw new Exception(
+                    "ETCD_CLUSTER and CF_ETCD_CLUSTER values must be URIs (i.e. http://192.168.0.1:4001 instead of 192.168.0.1:4001).");
             }
 
-            writePropertiesToFile(required.Concat(optional).Concat(etcdSslOptions).ToList());
+            writePropertiesToFile(required.Concat(optional).ToList());
         }
 
         private void writePropertiesToFile(List<string> keys)
@@ -92,9 +88,10 @@ namespace ConfigurationManager
             }
             var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             string jsonString = javaScriptSerializer.Serialize(parameters);
-            var configFile = System.IO.Path.GetFullPath(System.IO.Path.Combine(Context.Parameters["assemblypath"], "..", "parameters.json"));
+            var configFile =
+                System.IO.Path.GetFullPath(System.IO.Path.Combine(Context.Parameters["assemblypath"], "..",
+                    "parameters.json"));
             System.IO.File.WriteAllText(configFile, jsonString);
         }
     }
 }
-
