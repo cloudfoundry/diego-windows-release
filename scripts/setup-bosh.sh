@@ -79,6 +79,13 @@ function build_and_upload_cf {
         bosh -n upload release --rebase
 }
 
+function build_and_upload_garden_linux {
+    cd ~/workspace/garden-linux-release &&
+        sync_blobs &&
+        create_release &&
+        bosh -n upload release --rebase
+}
+
 function build_and_upload_diego {
     cd ~/workspace/diego-release &&
         sync_blobs &&
@@ -103,11 +110,10 @@ fix_deployment_manifest $CF_MANIFEST
 fix_deployment_manifest $DIEGO_MANIFEST
 
 build_and_upload_diego &
-diego_pid=$!
 build_and_upload_cf &
-cf_pid=$!
+build_and_upload_garden_linux &
 
-wait $diego_pid $cf_pid
+wait
 
 retry bosh -n -d $CF_MANIFEST deploy &&
     retry bosh -n -d $DIEGO_MANIFEST deploy
