@@ -22,6 +22,24 @@ You can download our latest msi from
 
 ## Setup the windows cell
 
+### Cloud Formation
+
+There is a Cloud Formation template in the root of the [diego-windows-msi](https://github.com/cloudfoundry-incubator/diego-windows-msi/) repository. This template can be uploaded to [Cloud Formation](https://console.aws.amazon.com/cloudformation/home) for automatic setup of a Windows cell.
+
+The Cloud Formation wizard will ask for a number of parameters.
+
+1. SecurityGroup: Security group ID to use for the Windows cells
+1. GardenWindowsSubnet: The subnet to launch the cell into
+1. BoshUserName: Username for bosh director
+1. BoshPassword: Pasword for bosh director
+1. BoshHost: Bosh director host
+1. ContainerizerPassword: Pasword for containerizer user e.g. password123!
+1. CellName: The name for your cell
+
+The Cloud Formation template will configure the Windows cell for the appropriate availability zone based on the provided security group, install the MSI and register itself with Diego. The Cloud Formation template will only succeed if all services are up and running after installation. To debug a failed install, set "Rollback on failure" to "No" under advanced options.
+
+### Manual Setup
+
 1. Download the `setup.ps1` from
 our [latest release](https://github.com/pivotal-cf/diego-windows-msi/releases/latest).
 From inside File explorer right click on the file and click `Run with powershell`.
@@ -85,7 +103,7 @@ connect to the etcd server from Ops Manager:
 curl http://<etcd-server-ip>:4001/v2/keys/message -XPUT -d value="Hello diego"
 ```
 
-**CF_ETCD_CLUSTER**
+**CF\_ETCD\_CLUSTER**
 
 Go to the OpsManager -> Elastic Runtime tile -> Status -> etcd job and copy
 the IP address. Format the IP address as a URL with port 4001
@@ -112,7 +130,7 @@ You should see `zone` listed inside each existing cell, e.g.:
 ```
 
 
-**LOGGREGATOR_SHARED_SECRET**
+**LOGGREGATOR\_SHARED\_SECRET**
 The shared secret listed in your Elastic Runtime deployment / credentials
 tab, e.g.:
 
@@ -135,7 +153,7 @@ Run `bosh vms` and format the **etcd_z1/0** (in the **diego
 deployment**) IP address as a URL with port 4001
 (e.g. "http://10.10.5.10:4001")
 
-**CF_ETCD_CLUSTER**
+**CF\_ETCD\_CLUSTER**
 
 Run `bosh vms` and format the **etcd_z1/0** (in the **cf
 deployment**) IP address as a URL with port 4001
@@ -153,7 +171,7 @@ diego:
 ```
 in your diego deployment manifest.
 
-**LOGGREGATOR_SHARED_SECRET**
+**LOGGREGATOR\_SHARED\_SECRET**
 
 The shared secret can be found in the cf deployment manifest. e.g.:
 
@@ -162,12 +180,12 @@ The shared secret can be found in the cf deployment manifest. e.g.:
     shared_secret: loggregator-secret
 ```
 
-**SYSLOG_HOST_IP** and **SYSLOG_PORT**
+**SYSLOG\_HOST\_IP** and **SYSLOG_PORT**
 
 These are both optional, or you can use any syslog udp endpoint you
 would like. If an endpoint was set in diego, you can find the ip and
-port in the manifest as **SYSLOG_DAEMON_HOST** and
-**SYSLOG_DAEMON_PORT** respectively.
+port in the manifest as **SYSLOG\_DAEMON\_HOST** and
+**SYSLOG\_DAEMON\_PORT** respectively.
 
 ## Verify that all the services are up and running
 
