@@ -31,7 +31,7 @@ The Cloud Formation wizard will ask for a number of parameters.
 1. SecurityGroup: Security group ID to use for the Windows cells
 1. GardenWindowsSubnet: The subnet to launch the cell into
 1. BoshUserName: Username for bosh director
-1. BoshPassword: Pasword for bosh director
+1. BoshPassword: Pasword for bosh director (Make sure your password meets [Windows complexity requirements](https://technet.microsoft.com/en-us/library/Cc786468(v=WS.10).aspx))
 1. BoshHost: Bosh director host
 1. ContainerizerPassword: Pasword for containerizer user e.g. password123!
 1. CellName: The name for your cell
