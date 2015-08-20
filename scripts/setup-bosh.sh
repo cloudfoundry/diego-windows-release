@@ -99,6 +99,7 @@ function fix_deployment_manifest {
     # way faster than it used to be
     ruby -ryaml <<EOF
 y = YAML.load_file("$1")
+y["jobs"].select {|x| x["name"] =~ /etcd_z/}.each {|x| x["update"]["serial"] = true }
 y["update"]["canaries"] = 0
 y["update"]["serial"] = false
 y["update"]["max_in_flight"] = 50
