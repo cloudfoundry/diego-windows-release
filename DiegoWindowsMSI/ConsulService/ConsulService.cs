@@ -31,9 +31,6 @@ namespace ConsulService
         {
             var config = Config.Params();
             var consulIps = config["CONSUL_IPS"].Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries);
-
-            var encryptKey = System.IO.File.ReadAllText(config["CONSUL_ENCRYPT_FILE"]);
-
             var consulConfig = new
             {
                 datacenter = "dc1",
@@ -46,17 +43,7 @@ namespace ConsulService
                 rejoin_after_leave = true,
                 disable_remote_exec = true,
                 disable_update_check = true,
-                protocol = 2, 
-
-                /* ssl options */
-                verify_outgoing = true,
-                verify_incoming = true,
-                verify_server_hostname = true,
-                ca_file = config["CONSUL_CA_FILE"],
-                key_file = config["CONSUL_AGENT_KEY_FILE"],
-                cert_file = config["CONSUL_AGENT_CERT_FILE"],
-                encrypt = encryptKey,
-
+                protocol = 2,
                 start_join = consulIps,
                 retry_join = consulIps
             };
