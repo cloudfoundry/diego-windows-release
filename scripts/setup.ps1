@@ -22,6 +22,11 @@
         Name = "Web-WHC"
     }
 
+    WindowsFeature ASPClassic {
+      Ensure = "Present"
+      Name = "Web-ASP"
+    }
+
     Script SetupDNS {
       SetScript = {
         $externalip = ([System.Net.Dns]::GetHostEntry([System.Net.Dns]::GetHostName()).AddressList | Where { $_.AddressFamily -eq [System.Net.Sockets.AddressFamily]::InterNetwork }).IPAddressToString
