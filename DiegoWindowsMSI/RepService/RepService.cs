@@ -36,7 +36,6 @@ namespace RepService
             {
                 /*
  Usage of c:\dwm\bin\rep.exe:
-  -allowPrivileged=false: allow execution of privileged run actions
   -bbsAddress="": Address to the BBS Server
   -cachePath="/tmp/cache": location to cache assets
   -cellID="": the ID used by the rep to identify itself to external systems - must be specified
@@ -106,7 +105,6 @@ namespace RepService
                                 " -containerMaxCpuShares=10000" +
                                 " -cachePath=/c/tmp/executor/cache" +
                                 " -maxCacheSizeInBytes=10000000000" +
-                                " -allowPrivileged=false" +
                                 " -exportNetworkEnvVars=true" +
                                 " -healthyMonitoringInterval=30s" +
                                 " -unhealthyMonitoringInterval=0.5s" +
