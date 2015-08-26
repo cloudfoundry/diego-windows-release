@@ -14,7 +14,7 @@ SET PATH=%GOBIN%;%GOROOT%;%PATH%;%DEVENV_PATH%
 SET GOPATH=%CD%
 SET CONTAINERIZER_BIN=%CD%\src\\github.com\cloudfoundry-incubator\garden-windows\containerizer\Containerizer\bin\Containerizer.exe
 
-for /f "tokens=*" %%a in ('git rev-parse --short HEAD') do (
+for /f "tokens=*" %%a in ('git rev-parse HEAD') do (
     set VERSION=%%a
 )
 IF DEFINED APPVEYOR_BUILD_VERSION (SET VERSION=%APPVEYOR_BUILD_VERSION%-%VERSION%)
