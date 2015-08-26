@@ -137,6 +137,14 @@
   }
 }
 
+if($PSVersionTable.PSVersion.Major -lt 4) {
+  $shell = New-Object -ComObject Wscript.Shell
+  $shell.Popup("You must be running Powershell version 4 or greater", 5, "Invalid Powershell version", 0x30)
+  echo "You must be running Powershell version 4 or greater"
+  exit(-1)
+}
+
 Enable-PSRemoting -Force
+Install-WindowsFeature DSC-Service
 CFWindows
 Start-DscConfiguration -Wait -Path .\CFWindows -Force -Verbose
