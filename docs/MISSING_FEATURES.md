@@ -3,7 +3,7 @@
 1. No bosh support. Implications:
    1. Cannot guarantee binary compatability with diego
    2. No automatic/rolling update path for cell operating systems/AMIs and/or MSI
-   3. No support for [DEA Network Properties](https://docs.cloudfoundry.org/concepts/security.html#network-security)
+   3. No support for [DEA Network Properties](https://docs.cloudfoundry.org/concepts/security.html#network-traffic)
 1. Spare CPU cycles aren't availble for other containers (unlike linux)
 1. Buildpacks
 1. Container ssh access
