@@ -38,7 +38,11 @@ namespace ConfigurationManager
                 "STACK",
                 "ETCD_CERT_FILE",
                 "ETCD_KEY_FILE",
-                "ETCD_CA_FILE"
+                "ETCD_CA_FILE",
+                "CONSUL_ENCRYPT_FILE",
+                "CONSUL_CA_FILE",
+                "CONSUL_AGENT_CERT_FILE",
+                "CONSUL_AGENT_KEY_FILE",
             };
 
             var optional = new List<string>
