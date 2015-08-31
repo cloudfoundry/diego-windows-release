@@ -14,10 +14,6 @@
 
 - TODO: There are some stories in the backlog to investigate the limits and stability of a windows cell. The current goal is parity with Diego scaling and stability, but we may publish caveats if this is not easily achievable.
 
-## Known Security and Isolation Limitations
-
-1. A process can allocate shared memory that is not accounted for by job object memory accounting
-
 ## Supported Applications
 
 1. [ASP .NET MVC](https://github.com/cloudfoundry-incubator/wats/tree/af669382b4639e7605afc23f1dc8d48d8bfa5dd1/assets/nora/NoraPublished) (12-factor ASP.NET MVC apps compiled against .NET 3.5+ were tested most extensively)
