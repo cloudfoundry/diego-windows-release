@@ -1,4 +1,4 @@
-## Cloud Foundry Features NOT Supported by Greenhouse/.NET 1.0
+## CF Features Not Supported by Greenhouse/.NET 1.0
 
 1. No bosh support. Implications:
    1. Cannot guarantee binary compatability with diego
@@ -10,7 +10,7 @@
 1. ICMP firewall rules (no ICMP traffic is allowed by default)
 1. Firewall logging
 
-## Stability and Scalability
+## Stability and Scalability Expectations
 
 - TODO: There are some stories in the backlog to investigate the limits and stability of a windows cell. The current goal is parity with Diego scaling and stability, but we may publish caveats if this is not easily achievable.
 
@@ -18,7 +18,7 @@
 
 1. A process can allocate shared memory that is not accounted for by job object memory accounting
 
-## Supported Apps in .NET
+## Supported Applications
 
 1. [ASP .NET MVC](https://github.com/cloudfoundry-incubator/wats/tree/af669382b4639e7605afc23f1dc8d48d8bfa5dd1/assets/nora/NoraPublished)
 1. [Windows-compiled executables](https://github.com/cloudfoundry-incubator/wats/tree/af669382b4639e7605afc23f1dc8d48d8bfa5dd1/assets/webapp)
