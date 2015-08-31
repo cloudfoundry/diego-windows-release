@@ -70,7 +70,6 @@ namespace RepService
   -preloadedRootFS=map[]: List of preloaded RootFSes
   -pruneInterval=1m0s: amount of time during which a container can remain in the allocated state
   -readWorkPoolSize=64: Number of concurrent read operations in garden
-  -receptorTaskHandlerURL="http://127.0.0.1:1169": location of receptor task handler
   -rootFSProvider=[]: List of RootFS providers
   -sessionName="rep": consul session name
   -skipCertVerify=false: skip SSL certificate verification
@@ -88,7 +87,6 @@ namespace RepService
                                 " -etcdKeyFile=" + tryGetKey(hash, "ETCD_KEY_FILE") +
                                 " -bbsAddress=http://bbs.service" + Config.CONSUL_DNS_SUFFIX + ":8889" +
                                 " -consulCluster=http://127.0.0.1:8500" +
-                                " -receptorTaskHandlerURL=http://receptor.service" + Config.CONSUL_DNS_SUFFIX + ":1169" +
                                 " -debugAddr=0.0.0.0:17008" +
                                 " -listenAddr=0.0.0.0:1800" +
                                 " -preloadedRootFS=" + hash["STACK"] + ":/tmp/"+ hash["STACK"] +
