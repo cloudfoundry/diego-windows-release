@@ -27,3 +27,13 @@
 ## Applications Not Supported
 
 1. [WCF Applications](http://forums.iis.net/t/1174466.aspx)
+
+## Upgradability
+
+1. Diego is epected to retain backwards compatibility with the cells, which allows for rolling upgrades
+1. Greenhouse/.NET must implement cell evacuation prior to the next release to support upgrades
+1. How Cloud Operators will upgrade their Windows cells:
+   1. Spin up a new cell.
+   1. Trigger evacuation on an old cell. The apps from the old cell will be migrated to the new cell.
+   1. Shut down the old cell when evacuation completes.
+   1. Repeat until all cells are updated.
