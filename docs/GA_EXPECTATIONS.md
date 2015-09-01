@@ -1,35 +1,30 @@
-## CF Features Not Supported by Greenhouse/.NET 1.0
-
-1. BOSH. Implications:
-   1. Cannot guarantee binary compatability with diego
-   2. No automatic/rolling update path for cell operating systems/AMIs and/or MSI
-   3. No support for [DEA Network Properties](https://docs.cloudfoundry.org/concepts/security.html#network-traffic) (but CF security groups can be configured to provide the same capability)
-1. Spare CPU cycles aren't availble for other containers (unlike Linux)
-1. Buildpacks
-1. Container ssh access
-1. ICMP firewall rules (no ICMP traffic is allowed by default)
-1. Firewall logging
+# CF Greenhouse 1.0 Release Notes [Draft]
+## CF Features Not Yet Supported
+1. Implications of not having BOSH support for Windows:
+  1. Cannot guarantee binary compatibility with diego bosh releases
+  2. No bosh rolling updates for CF or core operating system updates in Windows
+2. Windows does not support fair sharing of CPU resources, instead hard allocations are used
+3. Currently there is no support for container ssh access from the CF cli
+4. ICMP must be explicitly enabled by security groups, the default is to deny ICMP egress
+5. Firewall logs are not currently emitted into the CF log pipeline
 
 ## Stability and Scalability Expectations
+1. Capacity planning for Windows instances of CF varies greatly based upon the overhead of components added by the customer to the instance
+2. More detail and guidance for Windows scaling expectations coming soon
 
-- TODO: There are some stories in the backlog to investigate the limits and stability of a windows cell. The current goal is parity with Diego scaling and stability, but we may publish caveats if this is not easily achievable.
-
-## Supported Applications
-
+## Supported Applications - Known to work
 1. [ASP .NET MVC](https://github.com/cloudfoundry-incubator/wats/tree/af669382b4639e7605afc23f1dc8d48d8bfa5dd1/assets/nora/NoraPublished) (12-factor ASP.NET MVC apps compiled against .NET 3.5+ were tested most extensively)
-1. [Windows-compiled executables](https://github.com/cloudfoundry-incubator/wats/tree/af669382b4639e7605afc23f1dc8d48d8bfa5dd1/assets/webapp)
-1. [Batch scripts (with a manually specified start command)](https://github.com/cloudfoundry-incubator/wats/tree/af669382b4639e7605afc23f1dc8d48d8bfa5dd1/assets/batch-script)
+2. [Windows-compiled executables](https://github.com/cloudfoundry-incubator/wats/tree/af669382b4639e7605afc23f1dc8d48d8bfa5dd1/assets/webapp)
+3. [Batch scripts (with a manually specified start command)](https://github.com/cloudfoundry-incubator/wats/tree/af669382b4639e7605afc23f1dc8d48d8bfa5dd1/assets/batch-script)
 
 ## Applications Not Supported
-
 1. [WCF Applications](http://forums.iis.net/t/1174466.aspx)
 
 ## Upgradability
-
-1. Diego is epected to retain backwards compatibility with the cells, which allows for rolling upgrades
-1. Greenhouse/.NET must implement cell evacuation prior to the next release to support upgrades
-1. How Cloud Operators will upgrade their Windows cells:
-   1. Spin up a new cell.
-   1. Trigger evacuation on an old cell. The apps from the old cell will be migrated to the new cell.
-   1. Shut down the old cell when evacuation completes.
-   1. Repeat until all cells are updated.
+1. Diego is expected to retain backwards compatibility with the cells, which allows for rolling upgrades
+2. Greenhouse/.NET will implement cell evacuation prior to the next release to support upgrades
+3. Proposed Windows cell upgrade process:
+  1. Spin up a new cell
+  2. Trigger evacuation on an old cell. The apps from the old cell will be migrated to the new cell
+  3. Shut down the old cell when evacuation completes
+  4. Repeat until all cells are updated
