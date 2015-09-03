@@ -2,6 +2,21 @@
 
 set -ex
 
+# ENV variable to setup parallel create and upload release
+PARALLEL=${PARALLEL:-"yes"}
+
+# ENV variables used to setup syslog
+# PAPERTRAIL_ENDPOINT=            # logs.papaertrail.com:5550
+export PAPERTRAIL_ADDR=$(echo $PAPERTRAIL_ENDPOINT | cut -d: -f1)
+export PAPERTRAIL_PORT=$(echo $PAPERTRAIL_ENDPOINT | cut -d: -f2)
+
+# ENV variables used to setup bosh lite
+# RECREATE_VAGRANT=               # yes to recreate the virtual bos vm
+# BOSH_LITE=                      # yes to deploy to bosh lite
+
+# ENV variables used to setup aws env
+# AWS_ENVIRONMENT=                # environment name, e.g. ferret
+
 if [ "x$RECREATE_VAGRANT" == "xyes" ]; then
     stemcell=bosh-stemcell-389-warden-boshlite-ubuntu-trusty-go_agent.tgz
 
@@ -55,7 +70,7 @@ else
 fi
 
 function retry {
-    for i in {1..3}; do
+    for _ in {1..3}; do
         if "$@"; then
             return 0
         fi
@@ -103,6 +118,10 @@ y["jobs"].select {|x| x["name"] =~ /etcd_z/}.each {|x| x["update"]["serial"] = t
 y["update"]["canaries"] = 0
 y["update"]["serial"] = false
 y["update"]["max_in_flight"] = 50
+y["properties"]["syslog_daemon_config"] = {
+  "address" => ENV["PAPERTRAIL_ADDR"],
+  "port"    => ENV["PAPERTRAIL_PORT"]
+}
 File.open("$1", File::RDWR|File::TRUNC) {|f| f.write y.to_yaml}
 EOF
 }
@@ -110,11 +129,19 @@ EOF
 fix_deployment_manifest $CF_MANIFEST
 fix_deployment_manifest $DIEGO_MANIFEST
 
-build_and_upload_diego &
-build_and_upload_cf &
-build_and_upload_garden_linux &
-
-wait
+# This could fail if the release was already uploaded, this should be
+# fixed in the latest directory
+# https://github.com/cloudfoundry/bosh/commit/104869c8b1f4cd58bd87e50c8557e38edee91f10
+if [ "x$PARALLEL" == "xyes" ]; then
+    build_and_upload_diego &
+    build_and_upload_cf &
+    build_and_upload_garden_linux &
+    wait
+else
+    build_and_upload_diego
+    build_and_upload_cf
+    build_and_upload_garden_linux
+fi
 
 retry bosh -n -d $CF_MANIFEST deploy &&
     retry bosh -n -d $DIEGO_MANIFEST deploy
