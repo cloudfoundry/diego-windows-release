@@ -145,3 +145,6 @@
 [submodule "src/github.com/cloudfoundry-incubator/greenhouse-install-script-generator"]
 	path = src/github.com/cloudfoundry-incubator/greenhouse-install-script-generator
 	url = https://github.com/cloudfoundry-incubator/greenhouse-install-script-generator
+[submodule "src/github.com/cloudfoundry-incubator/diego-ssh"]
+	path = src/github.com/cloudfoundry-incubator/diego-ssh
+	url = https://github.com/cloudfoundry-incubator/diego-ssh
