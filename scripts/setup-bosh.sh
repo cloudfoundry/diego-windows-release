@@ -46,7 +46,7 @@ if [ "x$BOSH_LITE" == "xyes" ]; then
                                    ~/deployments/bosh-lite/director.yml \
                                    ~/workspace/diego-release/stubs-for-cf-release/enable_consul_with_cf.yml \
                                    ~/workspace/diego-release/stubs-for-cf-release/enable_diego_windows_in_cc.yml \
-                                   ~/workspace/diego-release/stubs-for-cf-release/enable_diego_ssh_in_cc.yml \
+                                   ~/workspace/diego-release/stubs-for-cf-release/enable_diego_ssh_in_c*.yml \
                                    > $CF_MANIFEST
 
     cd ~/workspace/diego-release
