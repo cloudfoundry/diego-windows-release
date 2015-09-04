@@ -21,7 +21,6 @@ export PAPERTRAIL_PORT=$(echo $PAPERTRAIL_ENDPOINT | cut -d: -f2)
 # AWS_ENVIRONMENT=                # environment name, e.g. ferret
 
 if [ "x$RECREATE_VAGRANT" == "xyes" ]; then
-    bosh_cmd=$bosh_lite_cmd
 
     cd ~/workspace/bosh-lite
     vagrant destroy -f
@@ -30,6 +29,7 @@ fi
 
 if [ "x$BOSH_LITE" == "xyes" ]; then
     bosh_cmd=$bosh_lite_cmd
+    bosh_upload_release_cmd="$bosh_cmd -n upload release"
 
     CF_MANIFEST=~/deployments/bosh-lite/cf.yml
     DIEGO_MANIFEST=~/deployments/bosh-lite/diego.yml
@@ -61,6 +61,8 @@ if [ "x$BOSH_LITE" == "xyes" ]; then
         > $DIEGO_MANIFEST
 elif [ "x$AWS_ENVIRONMENT" != "x" ]; then
     bosh_cmd=$bosh_aws_cmd
+    bosh_upload_release_cmd="$bosh_cmd -n upload release --rebase"
+
     cd ~/workspace/greenhouse-private/${AWS_ENVIRONMENT}
     ./generate-cf-diego-manifests.sh
     CF_MANIFEST=/tmp/cf.yml
@@ -92,21 +94,21 @@ function build_and_upload_cf {
     cd ~/workspace/cf-release &&
         sync_blobs &&
         create_release &&
-        $bosh_cmd -n upload release --rebase
+        $bosh_upload_release_cmd
 }
 
 function build_and_upload_garden_linux {
     cd ~/workspace/garden-linux-release &&
         sync_blobs &&
         create_release &&
-        $bosh_cmd -n upload release --rebase
+        $bosh_upload_release_cmd
 }
 
 function build_and_upload_diego {
     cd ~/workspace/diego-release &&
         sync_blobs &&
         create_release &&
-        $bosh_cmd -n upload release --rebase
+        $bosh_upload_release_cmd
 }
 
 function fix_deployment_manifest {
