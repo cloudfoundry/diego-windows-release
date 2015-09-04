@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 set -ex
+bosh_lite_cmd="bosh -u admin -p admin -t https://192.168.50.4:25555"
+bosh_awse_cmd="bosh"
+
 
 # ENV variable to setup parallel create and upload release
 PARALLEL=${PARALLEL:-"yes"}
@@ -18,28 +21,27 @@ export PAPERTRAIL_PORT=$(echo $PAPERTRAIL_ENDPOINT | cut -d: -f2)
 # AWS_ENVIRONMENT=                # environment name, e.g. ferret
 
 if [ "x$RECREATE_VAGRANT" == "xyes" ]; then
-    stemcell=bosh-stemcell-389-warden-boshlite-ubuntu-trusty-go_agent.tgz
+    bosh_cmd=$bosh_lite_cmd
 
     cd ~/workspace/bosh-lite
     vagrant destroy -f
     vagrant up --provider=virtualbox # --provider=vmware_fusion
-    if [ ! -e $stemcell ]; then
-        bosh download public stemcell $stemcell
-    fi
-    bosh upload stemcell $stemcell
 fi
 
 if [ "x$BOSH_LITE" == "xyes" ]; then
-    if ! bosh target | grep -q "https://192.168.50.4:25555"; then
-        echo "doesn't look like you are pointed to bosh lite. Run 'bosh target lite'"
-        exit 1
-    fi
+    bosh_cmd=$bosh_lite_cmd
 
     CF_MANIFEST=~/deployments/bosh-lite/cf.yml
     DIEGO_MANIFEST=~/deployments/bosh-lite/diego.yml
 
+    stemcell=bosh-stemcell-389-warden-boshlite-ubuntu-trusty-go_agent.tgz
+    if [ ! -e $stemcell ]; then
+        $bosh_cmd download public stemcell $stemcell 
+        $bosh_cmd upload stemcell $stemcell
+    fi
+
     cd ~/workspace/diego-release
-    ./scripts/print-director-stub > ~/deployments/bosh-lite/director.yml
+    printf "director_uuid: %s" $($bosh_cmd status --uuid)> ~/deployments/bosh-lite/director.yml
 
     cd ~/workspace/cf-release
     ./generate_deployment_manifest warden \
@@ -60,6 +62,7 @@ if [ "x$BOSH_LITE" == "xyes" ]; then
         ~/deployments/bosh-lite \
         > $DIEGO_MANIFEST
 elif [ "x$AWS_ENVIRONMENT" != "x" ]; then
+    bosh_cmd=$bosh_aws_cmd
     cd ~/workspace/greenhouse-private/${AWS_ENVIRONMENT}
     ./generate-cf-diego-manifests.sh
     CF_MANIFEST=/tmp/cf.yml
@@ -80,32 +83,32 @@ function retry {
 }
 
 function sync_blobs {
-    retry bosh --parallel 10 sync blobs
+    retry $bosh_cmd --parallel 10 sync blobs
 }
 
 function create_release {
-    retry bosh --parallel 10 -n create release --force
+    retry $bosh_cmd --parallel 10 -n create release --force
 }
 
 function build_and_upload_cf {
     cd ~/workspace/cf-release &&
         sync_blobs &&
         create_release &&
-        bosh -n upload release --rebase
+        $bosh_cmd -n upload release --rebase
 }
 
 function build_and_upload_garden_linux {
     cd ~/workspace/garden-linux-release &&
         sync_blobs &&
         create_release &&
-        bosh -n upload release --rebase
+        $bosh_cmd -n upload release --rebase
 }
 
 function build_and_upload_diego {
     cd ~/workspace/diego-release &&
         sync_blobs &&
         create_release &&
-        bosh -n upload release --rebase
+        $bosh_cmd -n upload release --rebase
 }
 
 function fix_deployment_manifest {
@@ -143,8 +146,8 @@ else
     build_and_upload_garden_linux
 fi
 
-retry bosh -n -d $CF_MANIFEST deploy &&
-    retry bosh -n -d $DIEGO_MANIFEST deploy
+retry $bosh_cmd -n -d $CF_MANIFEST deploy &&
+    retry $bosh_cmd -n -d $DIEGO_MANIFEST deploy
 
 if [ "x$BOSH_LITE" = "xyes" ]; then
     ~/workspace/bosh-lite/bin/add-route
