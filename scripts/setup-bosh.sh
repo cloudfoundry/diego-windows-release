@@ -2,7 +2,7 @@
 
 set -ex
 bosh_lite_cmd="bosh -u admin -p admin -t https://192.168.50.4:25555"
-bosh_awse_cmd="bosh"
+bosh_aws_cmd="bosh"
 
 
 # ENV variable to setup parallel create and upload release
