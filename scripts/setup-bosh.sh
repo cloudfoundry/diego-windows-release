@@ -35,10 +35,8 @@ if [ "x$BOSH_LITE" == "xyes" ]; then
     DIEGO_MANIFEST=~/deployments/bosh-lite/diego.yml
 
     stemcell=bosh-stemcell-389-warden-boshlite-ubuntu-trusty-go_agent.tgz
-    if [ ! -e $stemcell ]; then
-        $bosh_cmd download public stemcell $stemcell 
-        $bosh_cmd upload stemcell $stemcell
-    fi
+    $bosh_cmd -n download public stemcell $stemcell 
+    $bosh_cmd upload stemcell $stemcell || echo 0
 
     cd ~/workspace/diego-release
     printf "director_uuid: %s" $($bosh_cmd status --uuid)> ~/deployments/bosh-lite/director.yml
