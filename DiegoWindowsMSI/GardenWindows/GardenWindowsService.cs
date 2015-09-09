@@ -34,7 +34,7 @@ namespace GardenWindowsService
                 StartInfo =
                 {
                     FileName = "garden-windows.exe",
-                    Arguments = "--listenNetwork=tcp -listenAddr=0.0.0.0:9241 -containerGraceTime=1h -containerizerURL=http://localhost:1788",
+                    Arguments = "--listenNetwork=tcp -listenAddr=0.0.0.0:9241 -containerGraceTime=5m -containerizerURL=http://localhost:1788",
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,
