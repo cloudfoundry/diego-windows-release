@@ -19,7 +19,7 @@
       "NoEcho" : "true"
     },
     "BoshHost": {
-      "Description": "Bosh director.",
+      "Description": "Bosh director (e.g. 127.0.0.1).",
       "Type": "String"
     },
     "ContainerizerPassword": {
@@ -64,13 +64,13 @@
                 ]]}
               },
               "C:\\tmp\\generate.exe" : {
-                "source" : "https://github.com/cloudfoundry-incubator/diego-windows-msi/releases/download/v0.494/generate.exe"
+                "source" : "GENERATE_EXECUTABLE_URL"
               },
               "C:\\tmp\\diego.msi" : {
-                "source" : "https://github.com/cloudfoundry-incubator/diego-windows-msi/releases/download/v0.494/DiegoWindowsMSI.msi"
+                "source" : "MSI_URL"
               },
               "C:\\tmp\\setup.ps1" : {
-                "source" : "https://github.com/cloudfoundry-incubator/diego-windows-msi/releases/download/v0.494/setup.ps1"
+                "source" : "SETUP_PS1_URL"
               }
             },
             "commands": {
@@ -105,7 +105,7 @@
         "DisableApiTermination": "false",
         "InstanceInitiatedShutdownBehavior": "stop",
         "ImageId": "ami-cd9339a6",
-        "InstanceType": "m3.large",
+        "InstanceType": "r3.xlarge",
         "Monitoring": "false",
         "Tags": [
           {
