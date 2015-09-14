@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 
 namespace ConfigurationManager
@@ -80,22 +81,45 @@ namespace ConfigurationManager
                     "ETCD_CLUSTER and CF_ETCD_CLUSTER values must be URIs (i.e. http://192.168.0.1:4001 instead of 192.168.0.1:4001).");
             }
 
-            writePropertiesToFile(required.Concat(optional).ToList());
+            CopyMiscellaneousFiles(required.Concat(optional).ToList());
+            WriteParametersFile(required.Concat(optional).ToList());
         }
 
-        private void writePropertiesToFile(List<string> keys)
+        private void WriteParametersFile(IEnumerable<string> keys)
         {
             var parameters = new Dictionary<string, string>();
             foreach (string key in keys.Where(x => x != "ADMIN_USERNAME"))
             {
-                parameters.Add(key, Context.Parameters[key]);
+                var value = Context.Parameters[key];
+                if (key.EndsWith("_FILE"))
+                {
+                    value = DestinationFilename(value);
+                }
+                parameters.Add(key, value);
             }
             var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             string jsonString = javaScriptSerializer.Serialize(parameters);
-            var configFile =
-                System.IO.Path.GetFullPath(System.IO.Path.Combine(Context.Parameters["assemblypath"], "..",
-                    "parameters.json"));
-            System.IO.File.WriteAllText(configFile, jsonString);
+            var configFile = DestinationFilename("parameters.json");
+            File.WriteAllText(configFile, jsonString);
+        }
+
+        private void CopyMiscellaneousFiles(IEnumerable<string> keys)
+        {
+            foreach (string key in keys.Where(x => x.EndsWith("_FILE")))
+            {
+                var path = Context.Parameters[key];
+                File.Copy(path, DestinationFilename(path), true);
+            }
+        }
+        private string Destination()
+        {
+            return Path.GetFullPath(Path.Combine(Context.Parameters["assemblypath"], ".."));
+        }
+
+        private string DestinationFilename(string path)
+        {
+            var filename = Path.GetFileName(path);
+            return Path.GetFullPath(Path.Combine(Destination(), filename));
         }
     }
 }
