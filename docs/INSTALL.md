@@ -71,7 +71,7 @@ An example would be:
 ```
 msiexec /norestart /i c:\temp\DiegoWindowsMSI.msi ^
           ADMIN_USERNAME=Administrator ^
-          ADMIN_PASSWORD=secretpassword ^
+          ADMIN_PASSWORD=secret^%password ^
           CONSUL_IPS=10.10.5.11,10.10.6.11,10.10.7.11 ^
           ETCD_CLUSTER=http://10.10.5.10:4001 ^
           CF_ETCD_CLUSTER=http://10.244.0.42:4001 ^
@@ -81,6 +81,8 @@ msiexec /norestart /i c:\temp\DiegoWindowsMSI.msi ^
           SYSLOG_HOST_IP=syslog-server.example.com ^
           SYSLOG_PORT=514
 ```
+
+Special characters must be escaped with `^`.
 
 ### Notes for ops manager deployments:
 
