@@ -100,7 +100,7 @@ namespace RepService
                                 " -gardenAddr=127.0.0.1:9241" +
                                 " -memoryMB=auto" +
                                 " -diskMB=auto" +
-                                " -containerMaxCpuShares=10000" +
+                                " -containerMaxCpuShares=1" +
                                 " -cachePath=/c/tmp/executor/cache" +
                                 " -maxCacheSizeInBytes=10000000000" +
                                 " -exportNetworkEnvVars=true" +
