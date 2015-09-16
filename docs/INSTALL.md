@@ -55,7 +55,6 @@ msiexec /norestart /i c:\temp\DiegoWindowsMSI.msi ^
           ADMIN_USERNAME=[Username with admin privileges] ^
           ADMIN_PASSWORD=[Previous user password] ^
           CONSUL_IPS=[Comma-separated IP addresses of consul agents from bosh deploy of CF] ^
-          ETCD_CLUSTER=[URI of your Diego etcd cluster from bosh deploy] ^
           CF_ETCD_CLUSTER=[URI of your Elastic Runtime cf etcd cluster from bosh deploy of cf] ^
           STACK=[CF stack, eg. windows2012R2] ^
           REDUNDANCY_ZONE=[Diego zone this cell is part of] ^
@@ -73,7 +72,6 @@ msiexec /norestart /i c:\temp\DiegoWindowsMSI.msi ^
           ADMIN_USERNAME=Administrator ^
           ADMIN_PASSWORD=secret^%password ^
           CONSUL_IPS=10.10.5.11,10.10.6.11,10.10.7.11 ^
-          ETCD_CLUSTER=http://10.10.5.10:4001 ^
           CF_ETCD_CLUSTER=http://10.244.0.42:4001 ^
           STACK=windows2012R2 ^
           REDUNDANCY_ZONE=0c35dfe1cf34ec47e2a2 ^
@@ -93,17 +91,6 @@ the values that you should use in the misexec command:
 
 Go to the OpsManager -> Elastic Runtime tile -> Status -> consul job and copy
 the IP address(es).
-
-**ETCD_CLUSTER**
-
-Go to the OpsManager -> Diego tile -> Status -> etcd job and copy the
-IP address(es). Format the IP address as a URL with port 4001
-(e.g. "http://10.10.5.10:4001"). Use this command to ensure you can
-connect to the etcd server from Ops Manager:
-
-```
-curl http://<etcd-server-ip>:4001/v2/keys/message -XPUT -d value="Hello diego"
-```
 
 **CF\_ETCD\_CLUSTER**
 
@@ -148,12 +135,6 @@ the **LOGGREGATOR_SHARED_SECRET**
 **CONSUL_IPS**
 
 Run `bosh vms` and copy the **consul_z1/0** IP address.
-
-**ETCD_CLUSTER**
-
-Run `bosh vms` and format the **etcd_z1/0** (in the **diego
-deployment**) IP address as a URL with port 4001
-(e.g. "http://10.10.5.10:4001")
 
 **CF\_ETCD\_CLUSTER**
 
