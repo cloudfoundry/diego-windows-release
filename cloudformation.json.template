@@ -5,10 +5,6 @@
       "Description": "Security group ID to use for the Windows cells",
       "Type": "AWS::EC2::SecurityGroup::Id"
     },
-    "GardenWindowsSubnet": {
-      "Description": "The subnet to launch the cell into",
-      "Type": "AWS::EC2::Subnet::Id"
-    },
     "BoshUserName": {
       "Description": "Username for bosh director.",
       "Type": "String"
@@ -23,7 +19,7 @@
       "Type": "String"
     },
     "ContainerizerPassword": {
-      "Description": "Pasword for containerizer user e.g. password123!",
+      "Description": "Password for containerizer user e.g. password123!",
       "Type": "String",
       "NoEcho" : "true"
     },
@@ -31,9 +27,62 @@
       "Description": "The name for your cell",
       "Type": "String",
       "Default": "windows_cell"
+    },
+    "SubnetCIDR": {
+      "Description": "The ip range to use for the windows cell subnet",
+      "Type": "String",
+      "Default": "10.10.100.0/24"
+    },
+    "NATZ": {
+      "Description": "The instance id of the NATZ box",
+      "Type": "AWS::EC2::Instance::Id"
+    },
+    "VPCID": {
+      "Description": "The vpc in which the cell and subnet will be created",
+      "Type": "AWS::EC2::VPC::Id"
     }
   },
   "Resources": {
+    "GardenWindowsSubnet": {
+      "Type" : "AWS::EC2::Subnet",
+      "Properties" : {
+        "CidrBlock" : {"Ref": "SubnetCIDR"},
+        "VpcId" : { "Ref" : "VPCID" },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "GardenWindowsSubnet"
+          }
+        ]
+      }
+    },
+    "GardenWindowsRouteTable":{
+      "Type" : "AWS::EC2::RouteTable",
+      "Properties" : {
+        "VpcId" : {"Ref": "VPCID"}
+      },
+      "Tags": [
+        {
+          "Key": "Name",
+          "Value": "GardenWindowsRouteTable"
+        }
+      ]
+    },
+    "GardenWindowsRoute": {
+      "Type" : "AWS::EC2::Route",
+      "Properties" : {
+        "DestinationCidrBlock" : "0.0.0.0/0",
+        "InstanceId" : {"Ref": "NATZ"},
+        "RouteTableId" : {"Ref": "GardenWindowsRouteTable"}
+      }
+    },
+    "GardenWinsowSubnetRouteTableAssociation": {
+      "Type" : "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties" : {
+        "RouteTableId" : {"Ref": "GardenWindowsRouteTable"},
+        "SubnetId" : {"Ref": "GardenWindowsSubnet"}
+      }
+    },
     "GardenWindowsInstance": {
       "Type": "AWS::EC2::Instance",
       "Metadata": {
