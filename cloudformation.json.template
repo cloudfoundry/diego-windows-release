@@ -53,7 +53,6 @@
                   " -outputDir=C:\\tmp",
                   " -windowsUsername=containerizer",
                   " -windowsPassword=", { "Ref": "ContainerizerPassword" },
-                  " -awsSubnet=", { "Ref": "GardenWindowsSubnet" },
                   "\n",
 
                   "PowerShell.exe -ExecutionPolicy Unrestricted C:\\tmp\\setup.ps1",
