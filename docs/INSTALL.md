@@ -29,7 +29,6 @@ There is a Cloud Formation template in the root of the [diego-windows-msi](https
 The Cloud Formation wizard will ask for a number of parameters.
 
 1. SecurityGroup: Security group ID to use for the Windows cells
-1. GardenWindowsSubnet: The subnet to launch the cell into
 1. BoshUserName: Username for bosh director
 1. BoshPassword: Pasword for bosh director (Make sure your password meets [Windows complexity requirements](https://technet.microsoft.com/en-us/library/Cc786468(v=WS.10).aspx))
 1. BoshHost: Bosh director host
@@ -57,7 +56,7 @@ msiexec /norestart /i c:\temp\DiegoWindowsMSI.msi ^
           CONSUL_IPS=[Comma-separated IP addresses of consul agents from bosh deploy of CF] ^
           CF_ETCD_CLUSTER=[URI of your Elastic Runtime cf etcd cluster from bosh deploy of cf] ^
           STACK=[CF stack, eg. windows2012R2] ^
-          REDUNDANCY_ZONE=[Diego zone this cell is part of] ^
+          REDUNDANCY_ZONE=windows ^
           LOGGREGATOR_SHARED_SECRET=[loggregator secret from your bosh deploy of cf] ^
           EXTERNAL_IP=[(optional) External IP of box] ^
           MACHINE_NAME=[(optional) This machine's name (must be unique across your cluster)] ^
@@ -74,7 +73,7 @@ msiexec /norestart /i c:\temp\DiegoWindowsMSI.msi ^
           CONSUL_IPS=10.10.5.11,10.10.6.11,10.10.7.11 ^
           CF_ETCD_CLUSTER=http://10.244.0.42:4001 ^
           STACK=windows2012R2 ^
-          REDUNDANCY_ZONE=0c35dfe1cf34ec47e2a2 ^
+          REDUNDANCY_ZONE=windows ^
           LOGGREGATOR_SHARED_SECRET=loggregator-secret ^
           SYSLOG_HOST_IP=syslog-server.example.com ^
           SYSLOG_PORT=514
@@ -100,24 +99,7 @@ the IP address. Format the IP address as a URL with port 4001
 
 **ZONE / REDUNDANCY_ZONE**
 
-For AWS users, You can get the zone from the EC2 instances list,
-instance name, after the dash. The EC2 instance name with
-nats-partition-abcde12345fedcb54321/0 would have a zone of
-abcde12345fedcb54321. **NOTE** this is not the AWS zone.
-
-You can also navigate to OpsManager -> Diego for PCF -> Credentials
-and then find the username and password for *Receptor Credentials* and
-then:
-
-Go to `http://receptor.[DOMAIN]/v1/cells`
-
-
-You should see `zone` listed inside each existing cell, e.g.:
-
-```json
-[{"cell_id":"cell-partition-0880c1d1dca06bbf67e1-0","zone":"0880c1d1dca06bbf67e1","capacity":{"memory_mb":30679,"disk_mb":15993,"containers":256}}]
-```
-
+Use the value `windows` for this field (see examples above).
 
 **LOGGREGATOR\_SHARED\_SECRET**
 The shared secret listed in your Elastic Runtime deployment / credentials
@@ -144,15 +126,7 @@ deployment**) IP address as a URL with port 4001
 
 **ZONE / REDUNDANCY_ZONE**
 
-This is **not** an AWS zone (e.g. us-east-1) but is instead the same
-zone listed like
-
-```
-diego:
-  rep:
-    zone: my-zone
-```
-in your diego deployment manifest.
+Use the value `windows` for this field (see examples above).
 
 **LOGGREGATOR\_SHARED\_SECRET**
 
