@@ -81,11 +81,7 @@ namespace RepService
                 {
                     FileName = "rep.exe",
                     // REMOVED //-rootFSProvider docker //-containerInodeLimit=200000
-                    Arguments = " -etcdCluster=" + hash["ETCD_CLUSTER"] +
-                                " -etcdCaFile=\"" + tryGetKey(hash, "ETCD_CA_FILE") + "\"" +
-                                " -etcdCertFile=\"" + tryGetKey(hash, "ETCD_CERT_FILE") + "\"" +
-                                " -etcdKeyFile=\"" + tryGetKey(hash, "ETCD_KEY_FILE") + "\"" +
-                                " -bbsAddress=http://bbs.service" + Config.CONSUL_DNS_SUFFIX + ":8889" +
+                    Arguments = " -bbsAddress=http://bbs.service" + Config.CONSUL_DNS_SUFFIX + ":8889" +
                                 " -consulCluster=http://127.0.0.1:8500" +
                                 " -debugAddr=0.0.0.0:17008" +
                                 " -listenAddr=0.0.0.0:1800" +

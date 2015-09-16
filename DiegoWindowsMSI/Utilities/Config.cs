@@ -18,7 +18,6 @@ namespace Utilities
             var hash = javaScriptSerializer.Deserialize<Dictionary<string, string>>(jsonString);
             SetExternalIP(hash);
             SetMachineName(hash);
-            SetEtcdCluster(hash);
             return hash;
         }
 
@@ -51,22 +50,6 @@ namespace Utilities
                 }
             }
             return localIP;
-        }
-
-        private static void SetEtcdCluster(Dictionary<string, string> p)
-        {
-            if (!p.ContainsKey("ETCD_CLUSTER") || string.IsNullOrWhiteSpace(p["ETCD_CLUSTER"]))
-            {
-                var sslValues = new string[] {"ETCD_CERT_FILE", "ETCD_KEY_FILE", "ETCD_CA_FILE"};
-                if (sslValues.All(keyName => p.ContainsKey(keyName) && !string.IsNullOrWhiteSpace(keyName)))
-                {
-                    p["ETCD_CLUSTER"] = "https://etcd.service" + CONSUL_DNS_SUFFIX + ":4001";
-                }
-                else
-                {
-                    p["ETCD_CLUSTER"] = "http://etcd.service" + CONSUL_DNS_SUFFIX + ":4001";
-                }
-            }
         }
     }
 }

@@ -37,9 +37,6 @@ namespace ConfigurationManager
                 "LOGGREGATOR_SHARED_SECRET",
                 "REDUNDANCY_ZONE",
                 "STACK",
-                "ETCD_CERT_FILE",
-                "ETCD_KEY_FILE",
-                "ETCD_CA_FILE",
                 "CONSUL_ENCRYPT_FILE",
                 "CONSUL_CA_FILE",
                 "CONSUL_AGENT_CERT_FILE",
@@ -48,7 +45,6 @@ namespace ConfigurationManager
 
             var optional = new List<string>
             {
-                "ETCD_CLUSTER",
                 "EXTERNAL_IP",
                 "MACHINE_NAME",
                 "SYSLOG_HOST_IP",
@@ -69,16 +65,12 @@ namespace ConfigurationManager
 
             try
             {
-                if (!string.IsNullOrEmpty(Context.Parameters["ETCD_CLUSTER"]))
-                {
-                    new Uri(Context.Parameters["ETCD_CLUSTER"]);
-                }
                 new Uri(Context.Parameters["CF_ETCD_CLUSTER"]);
             }
             catch (UriFormatException)
             {
                 throw new Exception(
-                    "ETCD_CLUSTER and CF_ETCD_CLUSTER values must be URIs (i.e. http://192.168.0.1:4001 instead of 192.168.0.1:4001).");
+                    "CF_ETCD_CLUSTER values must be URIs (i.e. http://192.168.0.1:4001 instead of 192.168.0.1:4001).");
             }
 
             CopyMiscellaneousFiles(required.Concat(optional).ToList());
