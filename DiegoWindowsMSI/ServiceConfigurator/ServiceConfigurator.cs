@@ -8,7 +8,8 @@ public class ServiceConfigurator
     private const int ERROR_ACCESS_DENIED = 5;
 
     /* sc_action constants */
-    private const int SC_ACTION_RESTART = 1;
+    public const int SC_ACTION_NONE = 0;
+    public const int SC_ACTION_RESTART = 1;
     private const int DELAY_IN_MILLISECONDS = 0;
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
@@ -30,7 +31,7 @@ public class ServiceConfigurator
     private static extern int GetLastError();
 
 
-    public static void SetRecoveryOptions(String serviceName, int pDaysToResetFailureCount = 0)
+    public static void SetRecoveryOptions(String serviceName, int action = SC_ACTION_RESTART, int pDaysToResetFailureCount = 0)
     {
         ServiceController svcController = new ServiceController(serviceName);
         IntPtr _ServiceHandle = svcController.ServiceHandle.DangerousGetHandle();
@@ -38,11 +39,11 @@ public class ServiceConfigurator
         int NUM_ACTIONS = 3;
         int[] arrActions = new int[NUM_ACTIONS * 2];
         int index = 0;
-        arrActions[index++] = SC_ACTION_RESTART;
+        arrActions[index++] = action;
         arrActions[index++] = DELAY_IN_MILLISECONDS;
-        arrActions[index++] = (int)SC_ACTION_RESTART;
+        arrActions[index++] = action;
         arrActions[index++] = DELAY_IN_MILLISECONDS;
-        arrActions[index++] = (int)SC_ACTION_RESTART;
+        arrActions[index++] = action;
         arrActions[index++] = DELAY_IN_MILLISECONDS;
 
         IntPtr tmpBuff = Marshal.AllocHGlobal(NUM_ACTIONS * 8);

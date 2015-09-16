@@ -16,6 +16,7 @@ namespace RepService
     {
         private Process process;
         private const string eventSource = "Rep";
+        internal const int RepPort = 1800;
 
         public RepService()
         {
@@ -84,7 +85,7 @@ namespace RepService
                     Arguments = " -bbsAddress=http://bbs.service" + Config.CONSUL_DNS_SUFFIX + ":8889" +
                                 " -consulCluster=http://127.0.0.1:8500" +
                                 " -debugAddr=0.0.0.0:17008" +
-                                " -listenAddr=0.0.0.0:1800" +
+                                " -listenAddr=0.0.0.0:" + RepPort +
                                 " -preloadedRootFS=" + hash["STACK"] + ":/tmp/"+ hash["STACK"] +
                                 " -cellID="+hash["MACHINE_NAME"] +
                                 " -zone="+hash["REDUNDANCY_ZONE"] +
