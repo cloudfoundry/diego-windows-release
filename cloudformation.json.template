@@ -59,14 +59,14 @@
     "GardenWindowsRouteTable":{
       "Type" : "AWS::EC2::RouteTable",
       "Properties" : {
-        "VpcId" : {"Ref": "VPCID"}
-      },
-      "Tags": [
-        {
-          "Key": "Name",
-          "Value": "GardenWindowsRouteTable"
-        }
-      ]
+        "VpcId" : {"Ref": "VPCID"},
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "GardenWindowsRouteTable"
+          }
+        ]
+      }
     },
     "GardenWindowsRoute": {
       "Type" : "AWS::EC2::Route",
