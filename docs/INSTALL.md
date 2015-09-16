@@ -34,6 +34,9 @@ The Cloud Formation wizard will ask for a number of parameters.
 1. BoshHost: Bosh director host
 1. ContainerizerPassword: Pasword for containerizer user e.g. password123!
 1. CellName: The name for your cell
+1. VPCID: the id of the vpc in which the cell and the subnet will be created
+1. NATZ: the instance id of the `NATZ` box
+1. SubnetCIDR: the ip range of the windows cell subnet, e.g. `10.10.100.0/24`
 
 The Cloud Formation template will configure the Windows cell for the appropriate availability zone based on the provided security group, install the MSI and register itself with Diego. The Cloud Formation template will only succeed if all services are up and running after installation. To debug a failed install, set "Rollback on failure" to "No" under advanced options.
 
