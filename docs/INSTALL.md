@@ -84,6 +84,10 @@ msiexec /norestart /i c:\temp\DiegoWindowsMSI.msi ^
 
 Special characters must be escaped with `^`.
 
+### Changing bosh properties
+
+Note that if bosh properties are changed in the bosh manifest, the MSI must be reinstalled. For example, setting a syslog host in the deployment manifest will not update the MSI parameters.
+
 ### Notes for ops manager deployments:
 
 If you used ops manager to deploy CF/Diego, follow these steps to find out
