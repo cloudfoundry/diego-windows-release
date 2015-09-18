@@ -104,7 +104,7 @@
         "AWS::CloudFormation::Init": {
           "config": {
             "files": {
-              "C:\\tmp\\init.bat" : {
+              "C:\\tmp\\dwminst\\init.bat" : {
                 "content" : { "Fn::Join" : ["", [
                   "net user containerizer ", { "Ref": "ContainerizerPassword" }, " /ADD",
                   "\n",
@@ -112,36 +112,36 @@
                   "net localgroup administrators containerizer /ADD",
                   "\n",
 
-                  "C:\\tmp\\generate.exe",
+                  "C:\\tmp\\dwminst\\generate.exe",
                   " -boshUrl=https://", { "Ref": "BoshUserName" }, ":", { "Ref": "BoshPassword" }, "@", { "Ref": "BoshHost" }, ":25555",
-                  " -outputDir=C:\\tmp",
+                  " -outputDir=C:\\tmp\\dwminst",
                   " -windowsUsername=containerizer",
                   " -windowsPassword=", { "Ref": "ContainerizerPassword" },
                   "\n",
 
-                  "PowerShell.exe -ExecutionPolicy Unrestricted C:\\tmp\\setup.ps1",
+                  "PowerShell.exe -ExecutionPolicy Unrestricted C:\\tmp\\dwminst\\setup.ps1",
                   "\n",
 
-                  "C:\\tmp\\install.bat",
+                  "C:\\tmp\\dwminst\\install.bat",
                   "\n"
                 ]]}
               },
-              "C:\\tmp\\generate.exe" : {
+              "C:\\tmp\\dwminst\\generate.exe" : {
                 "source" : {"Ref": "ZZZGenerateUrl"}
               },
-              "C:\\tmp\\diego.msi" : {
+              "C:\\tmp\\dwminst\\diego.msi" : {
                 "source" : {"Ref": "ZZZDiegoMsiUrl"}
               },
-              "C:\\tmp\\setup.ps1" : {
+              "C:\\tmp\\dwminst\\setup.ps1" : {
                 "source" : {"Ref": "ZZZSetupPs1Url"}
               }
             },
             "commands": {
               "1-init": {
-                "command": "c:\\tmp\\init.bat > c:\\tmp\\debug-stdout.log 2> c:\\tmp\\debug-stderr.log"
+                "command": "c:\\tmp\\dwminst\\init.bat > c:\\tmp\\dwminst\\debug-stdout.log 2> c:\\tmp\\dwminst\\debug-stderr.log"
               },
               "2-cleanup": {
-                "command": "rd /s /q c:\\tmp"
+                "command": "rd /s /q c:\\tmp\\dwminst"
               }
             },
             "services" : {
