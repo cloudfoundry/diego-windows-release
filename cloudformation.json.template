@@ -40,6 +40,21 @@
     "VPCID": {
       "Description": "The vpc in which the cell and subnet will be created",
       "Type": "AWS::EC2::VPC::Id"
+    },
+    "ZZZGenerateUrl": {
+      "Description": "URL of generate.exe",
+      "Type": "String",
+      "Default": ""
+    },
+    "ZZZDiegoMsiUrl": {
+      "Description": "URL of the diego.msi to install",
+      "Type": "String",
+      "Default": ""
+    },
+    "ZZZSetupPs1Url": {
+      "Description": "URL of the setup.ps1 to run",
+      "Type": "String",
+      "Default": ""
     }
   },
   "Resources": {
@@ -112,18 +127,21 @@
                 ]]}
               },
               "C:\\tmp\\generate.exe" : {
-                "source" : "GENERATE_EXECUTABLE_URL"
+                "source" : {"Ref": "ZZZGenerateUrl"}
               },
               "C:\\tmp\\diego.msi" : {
-                "source" : "MSI_URL"
+                "source" : {"Ref": "ZZZDiegoMsiUrl"}
               },
               "C:\\tmp\\setup.ps1" : {
-                "source" : "SETUP_PS1_URL"
+                "source" : {"Ref": "ZZZSetupPs1Url"}
               }
             },
             "commands": {
               "1-init": {
                 "command": "c:\\tmp\\init.bat > c:\\tmp\\debug-stdout.log 2> c:\\tmp\\debug-stderr.log"
+              },
+              "2-cleanup": {
+                "command": "rd /s /q c:\\tmp"
               }
             },
             "services" : {
