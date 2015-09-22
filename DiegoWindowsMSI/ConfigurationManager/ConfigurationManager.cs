@@ -45,6 +45,9 @@ namespace ConfigurationManager
 
             var optional = new List<string>
             {
+                "BBS_CA_FILE",
+                "BBS_CLIENT_CERT_FILE",
+                "BBS_CLIENT_KEY_FILE",
                 "EXTERNAL_IP",
                 "MACHINE_NAME",
                 "SYSLOG_HOST_IP",
@@ -73,8 +76,10 @@ namespace ConfigurationManager
                     "CF_ETCD_CLUSTER values must be URIs (i.e. http://192.168.0.1:4001 instead of 192.168.0.1:4001).");
             }
 
-            CopyMiscellaneousFiles(required.Concat(optional).ToList());
-            WriteParametersFile(required.Concat(optional).ToList());
+            var presentOptional = optional.Where(key => Context.Parameters[key] != null && Context.Parameters[key] != "");
+            var keys = required.Concat(presentOptional).ToList();
+            CopyMiscellaneousFiles(keys);
+            WriteParametersFile(keys);
         }
 
         private void WriteParametersFile(IEnumerable<string> keys)

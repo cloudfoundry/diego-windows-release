@@ -18,6 +18,7 @@ namespace Utilities
             var hash = javaScriptSerializer.Deserialize<Dictionary<string, string>>(jsonString);
             SetExternalIP(hash);
             SetMachineName(hash);
+            SetBbsAddress(hash);
             return hash;
         }
 
@@ -50,6 +51,19 @@ namespace Utilities
                 }
             }
             return localIP;
+        }
+
+        private static void SetBbsAddress(Dictionary<string, string> p)
+        {
+            var sslValues = new string[] { "BBS_CA_FILE", "BBS_CLIENT_CERT_FILE", "BBS_CLIENT_KEY_FILE" };
+            if (sslValues.All(keyName => p.ContainsKey(keyName) && !string.IsNullOrWhiteSpace(p[keyName])))
+            {
+                p["BBS_ADDRESS"] = "https://bbs.service" + CONSUL_DNS_SUFFIX + ":8889";
+            }
+            else
+            {
+                p["BBS_ADDRESS"] = "http://bbs.service" + CONSUL_DNS_SUFFIX + ":8889";
+            }
         }
     }
 }

@@ -38,6 +38,9 @@ namespace RepService
                 /*
  Usage of c:\dwm\bin\rep.exe:
   -bbsAddress="": Address to the BBS Server
+  -bbsCACert="": path to certificate authority cert used for mutually authenticated TLS BBS communication
+  -bbsClientCert="": path to client cert used for mutually authenticated TLS BBS communication
+  -bbsClientKey="": path to client key used for mutually authenticated TLS BBS communication
   -cachePath="/tmp/cache": location to cache assets
   -cellID="": the ID used by the rep to identify itself to external systems - must be specified
   -communicationTimeout=10s: Timeout applied to all HTTP requests.
@@ -49,10 +52,7 @@ namespace RepService
   -debugAddr="": host:port for serving pprof debugging info
   -deleteWorkPoolSize=32: Number of concurrent delete operations in garden
   -diskMB="auto": the amount of disk the executor has available in megabytes
-  -etcdCaFile="": Location of the CA certificate for mutual auth
-  -etcdCertFile="": Location of the client certificate for mutual auth
   -etcdCluster="http://127.0.0.1:4001": comma-separated list of etcd URLs (scheme://ip:port)
-  -etcdKeyFile="": Location of the client key for mutual auth
   -evacuationPollingInterval=10s: the interval on which to scan the executor during evacuation
   -evacuationTimeout=10m0s: Timeout to wait for evacuation to complete
   -exportNetworkEnvVars=false: export network environment variables into container (e.g. CF_INSTANCE_IP, CF_INSTANCE_PORT)
@@ -82,7 +82,10 @@ namespace RepService
                 {
                     FileName = "rep.exe",
                     // REMOVED //-rootFSProvider docker //-containerInodeLimit=200000
-                    Arguments = " -bbsAddress=http://bbs.service" + Config.CONSUL_DNS_SUFFIX + ":8889" +
+                    Arguments = " -bbsAddress=" + hash["BBS_ADDRESS"] +
+                                " -bbsCACert=\"" + tryGetKey(hash, "BBS_CA_FILE") + "\"" +
+                                " -bbsClientCert=\"" + tryGetKey(hash, "BBS_CLIENT_CERT_FILE") + "\"" +
+                                " -bbsClientKey=\"" + tryGetKey(hash, "BBS_CLIENT_KEY_FILE") + "\"" +
                                 " -consulCluster=http://127.0.0.1:8500" +
                                 " -debugAddr=0.0.0.0:17008" +
                                 " -listenAddr=0.0.0.0:" + RepPort +
