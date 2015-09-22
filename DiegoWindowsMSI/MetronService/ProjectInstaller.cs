@@ -8,20 +8,16 @@ using System.ServiceProcess;
 namespace MetronService
 {
     [RunInstaller(true)]
-    public partial class ProjectInstaller : System.Configuration.Install.Installer
+    public partial class ProjectInstaller : CommonService
     {
         public ProjectInstaller()
         {
             InitializeComponent();
         }
 
-        protected override void OnAfterInstall(IDictionary savedState)
+        public override string ServiceName()
         {
-            ServiceConfigurator.SetRecoveryOptions(this.serviceInstaller.ServiceName);
-            using (ServiceController pc = new ServiceController(this.serviceInstaller.ServiceName))
-            {
-                pc.Start();
-            }
+            return this.serviceInstaller.ServiceName;
         }
     }
 }

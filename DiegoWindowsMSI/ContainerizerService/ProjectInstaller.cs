@@ -10,11 +10,16 @@ using System.Threading.Tasks;
 namespace ContainerizerService
 {
     [RunInstaller(true)]
-    public partial class ProjectInstaller : System.Configuration.Install.Installer
+    public partial class ProjectInstaller : CommonService
     {
         public ProjectInstaller()
         {
             InitializeComponent();
+        }
+
+        public override string ServiceName()
+        {
+            return this.serviceInstaller.ServiceName;
         }
 
         protected override void OnBeforeInstall(IDictionary savedState)
@@ -24,15 +29,6 @@ namespace ContainerizerService
             this.serviceProcessInstaller.Password = Context.Parameters["ADMIN_PASSWORD"];
 
             base.OnBeforeInstall(savedState);
-        }
-
-        protected override void OnAfterInstall(IDictionary savedState)
-        {
-            ServiceConfigurator.SetRecoveryOptions(this.serviceInstaller.ServiceName);
-            using (ServiceController pc = new ServiceController(this.serviceInstaller.ServiceName))
-            {
-                pc.Start();
-            }
         }
     }
 }

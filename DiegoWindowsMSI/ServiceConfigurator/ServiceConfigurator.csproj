@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
@@ -41,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonService.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ServiceConfigurator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
