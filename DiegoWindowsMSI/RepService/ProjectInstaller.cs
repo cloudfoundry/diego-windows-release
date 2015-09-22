@@ -25,7 +25,16 @@ namespace RepService
             ServiceConfigurator.SetRecoveryOptions(this.serviceInstaller.ServiceName, ServiceConfigurator.SC_ACTION_NONE);
             var request = WebRequest.Create(String.Format("http://localhost:{0}/evacuate", RepService.RepPort));
             request.Method = "POST";
-            var response = request.GetResponse();
+            WebResponse response;
+            try
+            {
+                response = request.GetResponse();
+            }
+            catch (WebException)
+            {
+                base.OnBeforeUninstall(savedState);
+                return;
+            }
             var statusCode = ((HttpWebResponse) response).StatusCode;
             if (statusCode != HttpStatusCode.Accepted)
             {
