@@ -56,6 +56,9 @@ The following instructions assume that the msi was downloaded to `c:\temp\DiegoW
 msiexec /norestart /i c:\temp\DiegoWindowsMSI.msi ^
           ADMIN_USERNAME=[Username with admin privileges] ^
           ADMIN_PASSWORD=[Previous user password] ^
+          BBS_CA_FILE=[(optional) path to the BBS CA certificate] ^
+          BBS_CLIENT_CERT_FILE=[(optional) path to the BBS client certificate] ^
+          BBS_CLIENT_KEY_FILE=[(optional) path to the BBS client key] ^
           CONSUL_IPS=[Comma-separated IP addresses of consul agents from bosh deploy of CF] ^
           CF_ETCD_CLUSTER=[URI of your Elastic Runtime cf etcd cluster from bosh deploy of cf] ^
           STACK=[CF stack, eg. windows2012R2] ^
@@ -73,6 +76,9 @@ An example would be:
 msiexec /norestart /i c:\temp\DiegoWindowsMSI.msi ^
           ADMIN_USERNAME=Administrator ^
           ADMIN_PASSWORD=secret^%password ^
+          BBS_CA_FILE=c:\temp\bbs_ca.crt ^
+          BBS_CLIENT_CERT_FILE=c:\temp\bbs_client.crt ^
+          BBS_CLIENT_KEY_FILE=c:\temp\bbs_client.key ^
           CONSUL_IPS=10.10.5.11,10.10.6.11,10.10.7.11 ^
           CF_ETCD_CLUSTER=http://10.244.0.42:4001 ^
           STACK=windows2012R2 ^
