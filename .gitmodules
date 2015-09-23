@@ -4,9 +4,6 @@
 [submodule "src/github.com/cloudfoundry-incubator/executor"]
 	path = src/github.com/cloudfoundry-incubator/executor
 	url = https://github.com/cloudfoundry-incubator/executor
-[submodule "src/github.com/cloudfoundry-incubator/garden-windows"]
-	path = src/github.com/cloudfoundry-incubator/garden-windows
-	url = https://github.com/cloudfoundry-incubator/garden-windows
 [submodule "src/github.com/cloudfoundry-incubator/auction"]
 	path = src/github.com/cloudfoundry-incubator/auction
 	url = https://github.com/cloudfoundry-incubator/auction
@@ -22,9 +19,6 @@
 [submodule "src/github.com/cloudfoundry-incubator/cf_http"]
 	path = src/github.com/cloudfoundry-incubator/cf_http
 	url = https://github.com/cloudfoundry-incubator/cf_http
-[submodule "src/github.com/cloudfoundry-incubator/garden"]
-	path = src/github.com/cloudfoundry-incubator/garden
-	url = https://github.com/cloudfoundry-incubator/garden
 [submodule "src/github.com/cloudfoundry-incubator/runtime-schema"]
 	path = src/github.com/cloudfoundry-incubator/runtime-schema
 	url = https://github.com/cloudfoundry-incubator/runtime-schema
@@ -91,24 +85,6 @@
 [submodule "src/github.com/vito/go-sse"]
 	path = src/github.com/vito/go-sse
 	url = https://github.com/vito/go-sse
-[submodule "src/github.com/gorilla/mux"]
-	path = src/github.com/gorilla/mux
-	url = https://github.com/gorilla/mux
-[submodule "src/github.com/gorilla/context"]
-	path = src/github.com/gorilla/context
-	url = https://github.com/gorilla/context
-[submodule "src/github.com/hydrogen18/stoppableListener"]
-	path = src/github.com/hydrogen18/stoppableListener
-	url = https://github.com/hydrogen18/stoppableListener
-[submodule "src/github.com/cloudfoundry-incubator/windows_app_lifecycle"]
-	path = src/github.com/cloudfoundry-incubator/windows_app_lifecycle
-	url = https://github.com/cloudfoundry-incubator/windows_app_lifecycle
-[submodule "src/github.com/cloudfoundry-incubator/wats"]
-	path = src/github.com/cloudfoundry-incubator/wats
-	url = https://github.com/cloudfoundry-incubator/wats
-[submodule "src/github.com/cloudfoundry/loggregator"]
-	path = src/github.com/cloudfoundry/loggregator
-	url = https://github.com/cloudfoundry/loggregator
 [submodule "src/github.com/onsi/ginkgo"]
 	path = src/github.com/onsi/ginkgo
 	url = https://github.com/onsi/ginkgo
@@ -121,9 +97,6 @@
 [submodule "src/github.com/hashicorp/consul"]
 	path = src/github.com/hashicorp/consul
 	url = https://github.com/hashicorp/consul
-[submodule "src/golang.org/x/net"]
-	path = src/golang.org/x/net
-	url = https://github.com/golang/net
 [submodule "src/github.com/cloudfoundry/noaa"]
 	path = src/github.com/cloudfoundry/noaa
 	url = https://github.com/cloudfoundry/noaa
@@ -133,9 +106,6 @@
 [submodule "src/github.com/cloudfoundry/sonde-go"]
 	path = src/github.com/cloudfoundry/sonde-go
 	url = https://github.com/cloudfoundry/sonde-go
-[submodule "src/github.com/mitchellh/go-ps"]
-	path = src/github.com/mitchellh/go-ps
-	url = https://github.com/mitchellh/go-ps
 [submodule "src/github.com/cloudfoundry-incubator/bbs"]
 	path = src/github.com/cloudfoundry-incubator/bbs
 	url = https://github.com/cloudfoundry-incubator/bbs
