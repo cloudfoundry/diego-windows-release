@@ -153,7 +153,7 @@ retry $bosh_cmd -n -d $CF_MANIFEST deploy &&
 
 if [ "x$BOSH_LITE" = "xyes" ]; then
     ~/workspace/bosh-lite/bin/add-route
-    cf api --skip-ssl-validation https://api.10.244.0.34.xip.io
+    cf api --skip-ssl-validation https://api.bosh-lite.com
     cf login -u admin -p admin
     if [ "x$RECREATE_VAGRANT" = "xyes" ]; then
         cf create-org org &&
