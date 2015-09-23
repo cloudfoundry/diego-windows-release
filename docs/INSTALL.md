@@ -60,6 +60,10 @@ msiexec /norestart /i c:\temp\DiegoWindowsMSI.msi ^
           BBS_CLIENT_CERT_FILE=[(optional) path to the BBS client certificate] ^
           BBS_CLIENT_KEY_FILE=[(optional) path to the BBS client key] ^
           CONSUL_IPS=[Comma-separated IP addresses of consul agents from bosh deploy of CF] ^
+          CONSUL_ENCRYPT_FILE=[path to the consul encryption key] ^
+          CONSUL_CA_FILE=[path to the consul CA certificate] ^
+          CONSUL_AGENT_CERT_FILE=[path to the consul agent certificate] ^
+          CONSUL_AGENT_KEY_FILE=[path to the consul agent key] ^
           CF_ETCD_CLUSTER=[URI of your Elastic Runtime cf etcd cluster from bosh deploy of cf] ^
           STACK=[CF stack, eg. windows2012R2] ^
           REDUNDANCY_ZONE=windows ^
@@ -80,6 +84,10 @@ msiexec /norestart /i c:\temp\DiegoWindowsMSI.msi ^
           BBS_CLIENT_CERT_FILE=c:\temp\bbs_client.crt ^
           BBS_CLIENT_KEY_FILE=c:\temp\bbs_client.key ^
           CONSUL_IPS=10.10.5.11,10.10.6.11,10.10.7.11 ^
+          CONSUL_ENCRYPT_FILE=c:\temp\consul_encrypt.key ^
+          CONSUL_CA_FILE=c:\temp\consul_ca.crt ^
+          CONSUL_AGENT_CERT_FILE=c:\temp\consul_agent.crt ^
+          CONSUL_AGENT_KEY_FILE=c:\temp\consul_agent.key ^
           CF_ETCD_CLUSTER=http://10.244.0.42:4001 ^
           STACK=windows2012R2 ^
           REDUNDANCY_ZONE=windows ^
