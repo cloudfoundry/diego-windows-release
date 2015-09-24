@@ -89,8 +89,8 @@
 	path = src/github.com/vito/go-sse
 	url = https://github.com/vito/go-sse
 [submodule "src/github.com/cloudfoundry/loggregator"]
- path = src/github.com/cloudfoundry/loggregator
- url = https://github.com/cloudfoundry/loggregator
+	path = src/github.com/cloudfoundry/loggregator
+	url = https://github.com/cloudfoundry/loggregator
 [submodule "src/github.com/onsi/ginkgo"]
 	path = src/github.com/onsi/ginkgo
 	url = https://github.com/onsi/ginkgo
