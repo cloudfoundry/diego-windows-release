@@ -19,6 +19,9 @@
 [submodule "src/github.com/cloudfoundry-incubator/cf_http"]
 	path = src/github.com/cloudfoundry-incubator/cf_http
 	url = https://github.com/cloudfoundry-incubator/cf_http
+[submodule "src/github.com/cloudfoundry-incubator/garden"]
+	path = src/github.com/cloudfoundry-incubator/garden
+	url = https://github.com/cloudfoundry-incubator/garden
 [submodule "src/github.com/cloudfoundry-incubator/runtime-schema"]
 	path = src/github.com/cloudfoundry-incubator/runtime-schema
 	url = https://github.com/cloudfoundry-incubator/runtime-schema
@@ -85,6 +88,9 @@
 [submodule "src/github.com/vito/go-sse"]
 	path = src/github.com/vito/go-sse
 	url = https://github.com/vito/go-sse
+[submodule "src/github.com/cloudfoundry/loggregator"]
+ path = src/github.com/cloudfoundry/loggregator
+ url = https://github.com/cloudfoundry/loggregator
 [submodule "src/github.com/onsi/ginkgo"]
 	path = src/github.com/onsi/ginkgo
 	url = https://github.com/onsi/ginkgo

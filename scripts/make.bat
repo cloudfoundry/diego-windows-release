@@ -28,7 +28,7 @@ pushd src\github.com\cloudfoundry-incubator\greenhouse-install-script-generator 
   go install
 popd
 
-SET GOBIN=%CD%\DiegoWindowsMSI\DiegoWindowsMSI\go-executables
+SET GOBIN=%CD%\DiegoWindowsRelease\DiegoWindowsMSI\go-executables
 
 :: Install metron, it contains all relevant gocode inside itself.
 pushd src\github.com\cloudfoundry\loggregator || exit /b 1
@@ -51,15 +51,15 @@ ginkgo -skip=when.an.interrupt.signal.is.sent.to.the.representative^|should.not.
 SET GOPATH=%CD%
 echo F | xcopy bin\generate.exe output\generate-%VERSION%.exe || exit /b 1
 
-pushd DiegoWindowsMSI || exit /b 1
+pushd DiegoWindowsRelease || exit /b 1
   rmdir /S /Q packages
   nuget restore || exit /b 1
   echo SHA: %VERSION% > RELEASE_SHA
   devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || exit /b 1
-  xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\output\ || exit /b 1
+  xcopy DiegoWindowsMSI\Release\DiegoWindows.msi ..\output\ || exit /b 1
 popd
 
-move /Y output\DiegoWindowsMSI.msi output\DiegoWindowsMSI-%VERSION%.msi || exit /b 1
+move /Y output\DiegoWindows.msi output\DiegoWindows-%VERSION%.msi || exit /b 1
 :: running the following command without the echo part will prompt
 :: the user to specify whether the destination is a directory (D) or
 :: file (F). we echo F to select file.

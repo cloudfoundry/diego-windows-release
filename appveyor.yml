@@ -8,19 +8,19 @@ build_script:
 test: off
 artifacts:
 - path: output/*
-  name: diego-windows-msi
+  name: diego-windows
 deploy:
 - provider: S3
   access_key_id: AKIAJ3M5ORCAISPRT22Q
   secret_access_key:
     secure: lMbaCusTBxZpIbSzoILyHMBkz+sVH7EwgAqI3sAVYAM92OcIzlzq1IzcB8MmnRvZ
   region: us-east-1
-  bucket: diego-windows-msi
-  artifact: diego-windows-msi
+  bucket: diego-windows-release
+  artifact: diego-windows
   set_public: true
   on:
     branch: master
-clone_folder: c:\dwm
+clone_folder: c:\diego-windows-release
 branches:
   only:
   - master
