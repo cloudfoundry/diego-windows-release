@@ -1,7 +1,7 @@
 rmdir /S /Q output
 mkdir output
 SET DEVENV_PATH=%programfiles(x86)%\Microsoft Visual Studio 12.0\Common7\IDE
-SET PATH=%GOBIN%;%GOROOT%;%PATH%;%DEVENV_PATH%
+SET PATH=%GOROOT%;%PATH%;%DEVENV_PATH%
 
 for /f "tokens=*" %%a in ('git rev-parse HEAD') do (
     set VERSION=%%a
@@ -16,6 +16,7 @@ if errorLevel 1 ( echo "devenv was not found on PATH")
 REGEDIT.EXE  /S  "%~dp0\fix_visual_studio_building_msi.reg" || exit /b 1
 
 SET GOBIN=%CD%\bin
+SET PATH=%GOBIN%;%PATH%
 pushd greenhouse-install-script-generator || exit /b 1
   SET GOPATH=%CD%;%CD%\Godeps\_workspace
   go install github.com/onsi/ginkgo/ginkgo || exit /b 1
