@@ -1,9 +1,7 @@
 rmdir /S /Q output
 mkdir output
-SET GOBIN=%CD%\bin
 SET DEVENV_PATH=%programfiles(x86)%\Microsoft Visual Studio 12.0\Common7\IDE
 SET PATH=%GOBIN%;%GOROOT%;%PATH%;%DEVENV_PATH%
-SET GOPATH=%CD%
 
 for /f "tokens=*" %%a in ('git rev-parse HEAD') do (
     set VERSION=%%a
@@ -17,39 +15,35 @@ if errorLevel 1 ( echo "devenv was not found on PATH")
 :: https://visualstudiogallery.msdn.microsoft.com/9abe329c-9bba-44a1-be59-0fbf6151054d
 REGEDIT.EXE  /S  "%~dp0\fix_visual_studio_building_msi.reg" || exit /b 1
 
-:: install the binaries in %GOBIN%
-go install github.com/onsi/ginkgo/ginkgo || exit /b 1
-go install github.com/onsi/gomega || exit /b 1
-
-pushd src\github.com\cloudfoundry-incubator\greenhouse-install-script-generator || exit /b 1
-  SET GOPATH=%GOPATH%;%GOPATH%\src\github.com\cloudfoundry-incubator\greenhouse-install-script-generator\Godeps\_workspace
+SET GOBIN=%CD%\bin
+pushd greenhouse-install-script-generator || exit /b 1
+  SET GOPATH=%CD%;%CD%\Godeps\_workspace
+  go install github.com/onsi/ginkgo/ginkgo || exit /b 1
   ginkgo -r -noColor || exit /b 1
-  cd generate
-  go install
+  cd src\generate
+  go install || exit /b 1
 popd
+echo F | xcopy bin\generate.exe output\generate-%VERSION%.exe || exit /b 1
 
 SET GOBIN=%CD%\DiegoWindowsRelease\DiegoWindowsMSI\go-executables
-
 :: Install metron, it contains all relevant gocode inside itself.
-pushd src\github.com\cloudfoundry\loggregator || exit /b 1
-  SET OLD_GOPATH=%GOPATH%
+pushd loggregator || exit /b 1
   SET GOPATH=%CD%
   go install metron || exit /b 1
-  SET GOPATH=%OLD_GOPATH%
 popd
 
-go install github.com/cloudfoundry-incubator/rep/cmd/rep || exit /b 1
+pushd diego-release || exit /b 1
+  SET GOPATH=%CD%
+  :: windows cmd doesn't like quoting arguments, use -skip=foo.bar
+  :: instead of -skip='foo bar'
+  ginkgo -r -noColor src/github.com/cloudfoundry-incubator/executor || exit /b 1
+  ginkgo -skip=when.an.interrupt.signal.is.sent.to.the.representative^|should.not.exit,.but.keep.trying.to.maintain.presence.at.the.same.ID^|The.Rep.Evacuation.when.it.has.running.LRP.containers^|when.a.Ping.request.comes.in -noColor src/github.com/cloudfoundry-incubator/rep || exit /b 1
+
+  go install github.com/cloudfoundry-incubator/rep/cmd/rep || exit /b 1
+popd
+
+# consul.exe is checked in, download from https://www.consul.io/downloads.html
 copy bin\consul.exe %GOBIN%
-
-:: Run the tests
-
-:: windows cmd doesn't like quoting arguments, use -skip=foo.bar instead of -skip='foo bar'
-:: we use the dot operator to match anything, -skip expects a regex
-ginkgo -r -noColor src/github.com/cloudfoundry-incubator/executor || exit /b 1
-ginkgo -skip=when.an.interrupt.signal.is.sent.to.the.representative^|should.not.exit,.but.keep.trying.to.maintain.presence.at.the.same.ID^|The.Rep.Evacuation.when.it.has.running.LRP.containers^|when.a.Ping.request.comes.in -noColor src/github.com/cloudfoundry-incubator/rep || exit /b 1
-
-SET GOPATH=%CD%
-echo F | xcopy bin\generate.exe output\generate-%VERSION%.exe || exit /b 1
 
 pushd DiegoWindowsRelease || exit /b 1
   rmdir /S /Q packages
@@ -58,8 +52,8 @@ pushd DiegoWindowsRelease || exit /b 1
   devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || exit /b 1
   xcopy DiegoWindowsMSI\Release\DiegoWindows.msi ..\output\ || exit /b 1
 popd
-
 move /Y output\DiegoWindows.msi output\DiegoWindows-%VERSION%.msi || exit /b 1
+
 :: running the following command without the echo part will prompt
 :: the user to specify whether the destination is a directory (D) or
 :: file (F). we echo F to select file.
