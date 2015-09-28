@@ -64,4 +64,3 @@ move /Y output\DiegoWindows.msi output\DiegoWindows-%VERSION%.msi || exit /b 1
 :: the user to specify whether the destination is a directory (D) or
 :: file (F). we echo F to select file.
 echo F | xcopy docs\INSTALL.md output\INSTALL-%VERSION%.md || exit /b 1
-echo F | xcopy scripts\setup.ps1 output\setup-%VERSION%.ps1 || exit /b 1
