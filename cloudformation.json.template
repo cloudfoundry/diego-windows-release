@@ -46,8 +46,13 @@
       "Type": "String",
       "Default": ""
     },
-    "ZZZDiegoMsiUrl": {
-      "Description": "URL of the diego.msi to install",
+    "ZZZDiegoWindowsMsiUrl": {
+      "Description": "URL of the DiegoWindows.msi to install",
+      "Type": "String",
+      "Default": ""
+    },
+    "ZZZGardenWindowsMsiUrl": {
+      "Description": "URL of the GardenWindows.msi to install",
       "Type": "String",
       "Default": ""
     },
@@ -129,8 +134,11 @@
               "C:\\tmp\\dwminst\\generate.exe" : {
                 "source" : {"Ref": "ZZZGenerateUrl"}
               },
-              "C:\\tmp\\dwminst\\diego.msi" : {
-                "source" : {"Ref": "ZZZDiegoMsiUrl"}
+              "C:\\tmp\\dwminst\\GardenWindows.msi" : {
+                "source" : {"Ref": "ZZZGardenWindowsMsiUrl"}
+              },
+              "C:\\tmp\\dwminst\\DiegoWindows.msi" : {
+                "source" : {"Ref": "ZZZDiegoWindowsMsiUrl"}
               },
               "C:\\tmp\\dwminst\\setup.ps1" : {
                 "source" : {"Ref": "ZZZSetupPs1Url"}
