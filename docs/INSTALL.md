@@ -60,6 +60,32 @@ The script will enable the required Windows features
 
 ## Install the MSIs
 
+### Option 1: Using the [Install Script Generator](https://github.com/cloudfoundry-incubator/greenhouse-install-script-generator)
+
+1. Download the `generate.exe` from the same release. Run it with the following argument template:
+
+```
+generate.exe -outputDir=[the directory where the script will output its files]
+             -windowsUsername=[the username of an administrator user for Containerizer to run as]
+             -windowsPassword=[the password for the same user] 
+             -boshUrl=[the URL for your BOSH director, with credentials]
+```
+
+For example:
+
+```
+generate.exe -outputDir=C:\diego-install-dir -windowsUsername=Administrator -windowsPassword=MyPass123! -boshUrl=https://10.10.0.54:25555
+```
+
+1. Download `DiegoWindows.msi` and `GardenWindows.msi` to the output directory
+you specified to the generate command. The filenames being correct is
+important, since the script assumes these will be the MSI file names.
+
+1. Run the `install.bat` script in the output directory. This will install
+both of the MSIs with all of the arguments they require.
+
+### Option 2: Manually
+
 The following instructions assume that the MSIs were downloaded to `c:\temp`
 
 ```
@@ -118,74 +144,11 @@ msiexec /norestart /i c:\temp\DiegoWindows.msi ^
 
 Special characters must be escaped with `^`.
 
-### Changing BOSH properties
+#### Changing BOSH properties
 
 Note that if BOSH properties are changed in the BOSH manifest, the MSI must be
 reinstalled. For example, setting a syslog host in the deployment manifest will
 not update the MSI parameters.
-
-### Notes for ops manager deployments:
-
-If you used ops manager to deploy CF/Diego, follow these steps to find out
-the values that you should use in the misexec command:
-
-**CONSUL_IPS**
-
-Go to the OpsManager -> Elastic Runtime tile -> Status -> consul job and copy
-the IP address(es).
-
-**CF\_ETCD\_CLUSTER**
-
-Go to the OpsManager -> Elastic Runtime tile -> Status -> etcd job and copy
-the IP address. Format the IP address as a URL with port 4001
-(e.g. "http://10.10.5.10:4001")
-
-**ZONE / REDUNDANCY_ZONE**
-
-Use the value `windows` for this field (see examples above).
-
-**LOGGREGATOR\_SHARED\_SECRET**
-The shared secret listed in your Elastic Runtime deployment / credentials
-tab, e.g.:
-
-You should see *Shared Secret Credentials* listed under *Doppler
-
-Server*, you want the second value
-
-eg. If you see `Shared Secret Credentials : abc / 123` then **123** is
-the **LOGGREGATOR_SHARED_SECRET**
-
-### Notes for BOSH deployments:
-- Both **MACHINE_NAME** and **EXTERNAL_IP** are optional.
-**CONSUL_IPS**
-
-Run `bosh vms` and copy the **consul_z1/0** IP address.
-
-**CF\_ETCD\_CLUSTER**
-
-Run `bosh vms` and format the **etcd_z1/0** (in the **cf
-deployment**) IP address as a URL with port 4001
-(e.g. "http://10.10.5.10:4001")
-
-**ZONE / REDUNDANCY_ZONE**
-
-Use the value `windows` for this field (see examples above).
-
-**LOGGREGATOR\_SHARED\_SECRET**
-
-The shared secret can be found in the cf deployment manifest. e.g.:
-
-```
-  loggregator_endpoint:
-    shared_secret: loggregator-secret
-```
-
-**SYSLOG\_HOST\_IP** and **SYSLOG_PORT**
-
-These are both optional, or you can use any syslog udp endpoint you
-would like. If an endpoint was set in Diego, you can find the ip and
-port in the manifest as **SYSLOG\_DAEMON\_HOST** and
-**SYSLOG\_DAEMON\_PORT** respectively.
 
 ## Verify that all the services are up and running
 
@@ -202,60 +165,3 @@ port in the manifest as **SYSLOG\_DAEMON\_HOST** and
    | GardenWindows | CF GardenWindows | Running |
    | Metron        | CF Metron        | Running |
    | Rep           | CF Rep           | Running |
-
-2. Go to `http://receptor.[DOMAIN]/v1/cells`
-
-
-You should see the Windows cell(s) listed e.g.:
-
-```json
-[
-  {
-    "cell_id": "cell_z1-0",
-    "zone": "z1",
-    "capacity": {
-      "memory_mb": 30158,
-      "disk_mb": 45766,
-      "containers": 256
-    },
-    "rootfs_providers": {
-      "docker": [
-        
-      ],
-      "preloaded": [
-        "cflinuxfs2"
-      ]
-    }
-  },
-  {
-    "cell_id": "cell_z2-0",
-    "zone": "z2",
-    "capacity": {
-      "memory_mb": 30158,
-      "disk_mb": 45766,
-      "containers": 256
-    },
-    "rootfs_providers": {
-      "docker": [
-        
-      ],
-      "preloaded": [
-        "cflinuxfs2"
-      ]
-    }
-  },
-  {
-    "cell_id": "WIN-FCTL342T6B1",
-    "zone": "z1",
-    "capacity": {
-      "memory_mb": 15624,
-      "disk_mb": 35487,
-      "containers": 100
-    },
-    "rootfs_providers": {
-      "preloaded": [
-        "windows2012R2"
-      ]
-    }
-  }
-]
