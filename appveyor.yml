@@ -3,6 +3,7 @@ skip_tags: true
 cache: C:\Users\appveyor\AppData\Local\NuGet\Cache
 build_script:
 - git submodule update --init --recursive
+- powershell "& .\scripts\replace-version.ps1"
 - scripts\make.bat
 test: off
 artifacts:
