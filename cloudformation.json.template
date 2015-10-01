@@ -178,7 +178,7 @@
       "Properties": {
         "DisableApiTermination": "false",
         "InstanceInitiatedShutdownBehavior": "stop",
-        "ImageId": "ami-cd9339a6",
+        "ImageId": "ami-c9cea0ac",
         "InstanceType": "r3.xlarge",
         "Monitoring": "false",
         "Tags": [
