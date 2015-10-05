@@ -53,7 +53,7 @@ namespace RepService
                 {
                     break;
                 }
-                if (sw.ElapsedMilliseconds > 5 * 60 * 1000) break;
+                if (sw.ElapsedMilliseconds > 1 * 60 * 1000) break;
             }
             base.OnBeforeUninstall(savedState);
         }
