@@ -165,3 +165,12 @@ not update the MSI parameters.
    | GardenWindows | CF GardenWindows | Running |
    | Metron        | CF Metron        | Running |
    | Rep           | CF Rep           | Running |
+
+1. Download/clone the [CF Smoke Tests](https://github.com/cloudfoundry/cf-smoke-tests.git) repository
+
+1. Follow the instructions from the README to run the smoke tests against your
+environment with the `enable_windows_tests` configuration flag set to `true`.
+
+This will deploy a sample .NET application to one of your Windows cells and
+exercise basic CF functionality to ensure your deployment is functioning
+properly.
