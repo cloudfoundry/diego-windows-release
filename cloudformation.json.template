@@ -37,6 +37,10 @@
       "Description": "The instance id of the NATZ box",
       "Type": "AWS::EC2::Instance::Id"
     },
+    "DesiredCapacity": {
+      "Description": "The number of Windows cells to deploy",
+      "Type": "Number"
+    },
     "VPCID": {
       "Description": "The vpc in which the cell and subnet will be created",
       "Type": "AWS::EC2::VPC::Id"
@@ -103,8 +107,8 @@
         "SubnetId" : {"Ref": "GardenWindowsSubnet"}
       }
     },
-    "GardenWindowsInstance": {
-      "Type": "AWS::EC2::Instance",
+    "GardenWindowsInstanceConfiguration": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
       "Metadata": {
         "AWS::CloudFormation::Init": {
           "config": {
@@ -176,35 +180,14 @@
       },
 
       "Properties": {
-        "DisableApiTermination": "false",
-        "InstanceInitiatedShutdownBehavior": "stop",
         "ImageId": "ami-c9cea0ac",
         "InstanceType": "r3.xlarge",
-        "Monitoring": "false",
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": { "Ref": "CellName" }
-          }
-        ],
-        "NetworkInterfaces": [
-          {
-            "DeleteOnTermination": "true",
-            "Description": "Primary network interface",
-            "DeviceIndex": 0,
-            "SubnetId": {
-              "Ref": "GardenWindowsSubnet"
-            },
-            "GroupSet": [
-              { "Ref": "SecurityGroup" }
-            ]
-          }
-        ],
+        "InstanceMonitoring" : "false",
+        "SecurityGroups": [{ "Ref": "SecurityGroup" }],
         "KeyName": "bosh",
-        "UserData" : { "Fn::Base64" : { "Fn::Join" : ["", [
+        "UserData": { "Fn::Base64": { "Fn::Join": [ "", [
           "<script>\n",
-
-          "cfn-init.exe -v -s ", { "Ref": "AWS::StackId" }, " -r GardenWindowsInstance",
+          "cfn-init.exe -v -s ", { "Ref": "AWS::StackId" }, " -r GardenWindowsInstanceConfiguration",
           "\n",
 
           "cfn-signal.exe -e %ERRORLEVEL% ", { "Fn::Base64" : { "Ref" : "DWMWaitHandle" }},
@@ -221,10 +204,28 @@
 
     "DWMWaitCondition" : {
       "Type" : "AWS::CloudFormation::WaitCondition",
-      "DependsOn" : "GardenWindowsInstance",
+      "DependsOn" : "GardenWindowsInstanceConfiguration",
       "Properties" : {
         "Handle" : {"Ref" : "DWMWaitHandle"},
-        "Timeout" : "3600"
+        "Timeout" : "3600",
+        "Count" : { "Ref" : "DesiredCapacity" }
+      }
+    },
+
+    "GardenWindowsAutoScalingGroup": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Version": "2009-05-15",
+      "Properties": {
+        "VPCZoneIdentifier": [{"Ref": "GardenWindowsSubnet"}],
+        "LaunchConfigurationName": { "Ref": "GardenWindowsInstanceConfiguration" },
+        "MinSize": "1",
+        "MaxSize": { "Ref": "DesiredCapacity" },
+        "DesiredCapacity": { "Ref": "DesiredCapacity" },
+        "Tags" : [{
+          "Key"   : "Name",
+          "Value" : "windows_cell",
+          "PropagateAtLaunch" : "true"
+        }]
       }
     }
   },
