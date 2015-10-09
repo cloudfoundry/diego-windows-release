@@ -38,11 +38,11 @@ if [ "x$BOSH_LITE" == "xyes" ]; then
     CF_MANIFEST=$deployments/bosh-lite/cf.yml
     DIEGO_MANIFEST=$deployments/bosh-lite/diego.yml
 
-    stemcell=bosh-stemcell-389-warden-boshlite-ubuntu-trusty-go_agent.tgz
+    stemcell=bosh-warden-boshlite-ubuntu-trusty-go_agent
     if [ ! -e $stemcell ]; then
-        $bosh_cmd -n download public stemcell $stemcell
+      `wget --show-progress -qcO $stemcell.tgz https://bosh.io/d/stemcells/$stemcell`
     fi
-    $bosh_cmd upload stemcell $stemcell || echo 0
+    $bosh_cmd upload stemcell $stemcell.tgz --skip-if-exists || echo 0
 
     cd "$workspace/diego-release"
     uuid=`$bosh_cmd status --uuid`
@@ -118,6 +118,11 @@ function build_and_upload_diego {
         $bosh_upload_release_cmd
 }
 
+function upload_etcd_release {
+ wget --show-progress -qcO etcd-release.tgz https://bosh.io/d/github.com/cloudfoundry-incubator/etcd-release
+ $bosh_cmd upload release etcd-release.tgz
+
+
 function fix_deployment_manifest {
     # Disable canaries in the deployment manifest and deploy in
     # parallel (instead of serial) This should make the cf deployment
@@ -146,11 +151,13 @@ if [ "x$PARALLEL" == "xyes" ]; then
     build_and_upload_diego &
     build_and_upload_cf &
     build_and_upload_garden_linux &
+    upload_etcd_release &
     wait
 else
     build_and_upload_diego
     build_and_upload_cf
     build_and_upload_garden_linux
+    upload_etcd_release
 fi
 
 retry $bosh_cmd -n -d $CF_MANIFEST deploy &&
