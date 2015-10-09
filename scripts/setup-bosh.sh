@@ -4,6 +4,10 @@ set -ex
 bosh_lite_cmd="bosh -u admin -p admin -t https://192.168.50.4:25555"
 bosh_aws_cmd="bosh"
 
+dir=$(dirname $0)
+cd "$dir"
+workspace=$PWD/../..
+deployments=$workspace/../deployments
 
 # ENV variable to setup parallel create and upload release
 PARALLEL=${PARALLEL:-"yes"}
@@ -22,7 +26,7 @@ export PAPERTRAIL_PORT=$(echo $PAPERTRAIL_ENDPOINT | cut -d: -f2)
 
 if [ "x$RECREATE_VAGRANT" == "xyes" ]; then
 
-    cd ~/workspace/bosh-lite
+    cd $workspace/bosh-lite
     vagrant destroy -f
     vagrant up --provider=virtualbox # --provider=vmware_fusion
 fi
@@ -31,8 +35,8 @@ if [ "x$BOSH_LITE" == "xyes" ]; then
     bosh_cmd=$bosh_lite_cmd
     bosh_upload_release_cmd="$bosh_cmd -n upload release"
 
-    CF_MANIFEST=~/deployments/bosh-lite/cf.yml
-    DIEGO_MANIFEST=~/deployments/bosh-lite/diego.yml
+    CF_MANIFEST=$deployments/bosh-lite/cf.yml
+    DIEGO_MANIFEST=$deployments/bosh-lite/diego.yml
 
     stemcell=bosh-stemcell-389-warden-boshlite-ubuntu-trusty-go_agent.tgz
     if [ ! -e $stemcell ]; then
@@ -40,32 +44,33 @@ if [ "x$BOSH_LITE" == "xyes" ]; then
     fi
     $bosh_cmd upload stemcell $stemcell || echo 0
 
-    cd ~/workspace/diego-release
-    printf "director_uuid: %s" $($bosh_cmd status --uuid)> ~/deployments/bosh-lite/director.yml
+    cd "$workspace/diego-release"
+    uuid=`$bosh_cmd status --uuid`
+    echo "director_uuid: ${uuid}" > $deployments/bosh-lite/director.yml
 
-    cd ~/workspace/cf-release
+    cd "$workspace/cf-release"
     ./scripts/generate_deployment_manifest warden \
-                                   ~/deployments/bosh-lite/director.yml \
-                                   ~/workspace/diego-release/stubs-for-cf-release/enable_consul_with_cf.yml \
-                                   ~/workspace/diego-release/stubs-for-cf-release/enable_diego_windows_in_cc.yml \
-                                   ~/workspace/diego-release/stubs-for-cf-release/enable_diego_ssh_in_c*.yml \
+                                   $deployments/bosh-lite/director.yml \
+                                   $workspace/diego-release/stubs-for-cf-release/enable_consul_with_cf.yml \
+                                   $workspace/diego-release/stubs-for-cf-release/enable_diego_windows_in_cc.yml \
+                                   $workspace/diego-release/stubs-for-cf-release/enable_diego_ssh_in_c*.yml \
                                    > $CF_MANIFEST
 
-    cd ~/workspace/diego-release
+    cd $workspace/diego-release
     ./scripts/generate-deployment-manifest \
-        ~/deployments/bosh-lite/director.yml \
+        $deployments/bosh-lite/director.yml \
         manifest-generation/bosh-lite-stubs/property-overrides.yml \
         manifest-generation/bosh-lite-stubs/instance-count-overrides.yml \
         manifest-generation/bosh-lite-stubs/persistent-disk-overrides.yml \
         manifest-generation/bosh-lite-stubs/iaas-settings.yml \
         manifest-generation/bosh-lite-stubs/additional-jobs.yml \
-        ~/deployments/bosh-lite \
+        $deployments/bosh-lite \
         > $DIEGO_MANIFEST
 elif [ "x$AWS_ENVIRONMENT" != "x" ]; then
     bosh_cmd=$bosh_aws_cmd
     bosh_upload_release_cmd="$bosh_cmd -n upload release --rebase"
 
-    cd ~/workspace/greenhouse-private/${AWS_ENVIRONMENT}
+    cd "$workspace/greenhouse-private/${AWS_ENVIRONMENT}"
     ./generate-cf-diego-manifests.sh
     CF_MANIFEST=/tmp/cf.yml
     DIEGO_MANIFEST=/tmp/diego.yml
@@ -93,21 +98,21 @@ function create_release {
 }
 
 function build_and_upload_cf {
-    cd ~/workspace/cf-release &&
+    cd $workspace/cf-release &&
         sync_blobs &&
         create_release &&
         $bosh_upload_release_cmd
 }
 
 function build_and_upload_garden_linux {
-    cd ~/workspace/garden-linux-release &&
+    cd $workspace/garden-linux-release &&
         sync_blobs &&
         create_release &&
         $bosh_upload_release_cmd
 }
 
 function build_and_upload_diego {
-    cd ~/workspace/diego-release &&
+    cd $workspace/diego-release &&
         sync_blobs &&
         create_release &&
         $bosh_upload_release_cmd
@@ -152,7 +157,7 @@ retry $bosh_cmd -n -d $CF_MANIFEST deploy &&
     retry $bosh_cmd -n -d $DIEGO_MANIFEST deploy
 
 if [ "x$BOSH_LITE" = "xyes" ]; then
-    ~/workspace/bosh-lite/bin/add-route
+    $workspace/bosh-lite/bin/add-route
     cf api --skip-ssl-validation https://api.bosh-lite.com
     cf login -u admin -p admin
     if [ "x$RECREATE_VAGRANT" = "xyes" ]; then
