@@ -42,7 +42,7 @@ if [ "x$BOSH_LITE" == "xyes" ]; then
     if [ ! -e $stemcell ]; then
       `wget --show-progress -qcO /tmp/$stemcell https://bosh.io/d/stemcells/$stemcell`
     fi
-    $bosh_cmd upload stemcell /tmp/$stemcell --skip-if-exists || echo 0
+    $bosh_cmd upload stemcell /tmp/$stemcell --skip-if-exists
 
     cd "$workspace/cf-release"
     ./scripts/generate_deployment_manifest warden \
