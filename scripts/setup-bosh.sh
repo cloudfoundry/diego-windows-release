@@ -40,9 +40,9 @@ if [ "x$BOSH_LITE" == "xyes" ]; then
 
     stemcell=bosh-warden-boshlite-ubuntu-trusty-go_agent
     if [ ! -e $stemcell ]; then
-      `wget --show-progress -qcO $stemcell.tgz https://bosh.io/d/stemcells/$stemcell`
+      `wget --show-progress -qcO /tmp/$stemcell https://bosh.io/d/stemcells/$stemcell`
     fi
-    $bosh_cmd upload stemcell $stemcell.tgz --skip-if-exists || echo 0
+    $bosh_cmd upload stemcell /tmp/$stemcell --skip-if-exists || echo 0
 
     cd "$workspace/diego-release"
     uuid=`$bosh_cmd status --uuid`
@@ -58,7 +58,6 @@ if [ "x$BOSH_LITE" == "xyes" ]; then
 
     cd $workspace/diego-release
     ./scripts/generate-deployment-manifest \
-        $deployments/bosh-lite/director.yml \
         manifest-generation/bosh-lite-stubs/property-overrides.yml \
         manifest-generation/bosh-lite-stubs/instance-count-overrides.yml \
         manifest-generation/bosh-lite-stubs/persistent-disk-overrides.yml \
@@ -119,8 +118,9 @@ function build_and_upload_diego {
 }
 
 function upload_etcd_release {
- wget --show-progress -qcO etcd-release.tgz https://bosh.io/d/github.com/cloudfoundry-incubator/etcd-release
- $bosh_cmd upload release etcd-release.tgz
+  wget --show-progress -qcO /tmp/etcd-release https://bosh.io/d/github.com/cloudfoundry-incubator/etcd-release
+  $bosh_cmd upload release /tmp/etcd-release
+}
 
 
 function fix_deployment_manifest {
