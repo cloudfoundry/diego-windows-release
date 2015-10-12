@@ -44,10 +44,6 @@ if [ "x$BOSH_LITE" == "xyes" ]; then
     fi
     $bosh_cmd upload stemcell /tmp/$stemcell --skip-if-exists || echo 0
 
-    cd "$workspace/diego-release"
-    uuid=`$bosh_cmd status --uuid`
-    echo "director_uuid: ${uuid}" > $deployments/bosh-lite/director.yml
-
     cd "$workspace/cf-release"
     ./scripts/generate_deployment_manifest warden \
                                    $deployments/bosh-lite/director.yml \
