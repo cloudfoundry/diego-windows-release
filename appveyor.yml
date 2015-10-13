@@ -5,6 +5,7 @@ build_script:
 - git submodule update --init --recursive
 - powershell "& .\scripts\replace-version.ps1"
 - scripts\make.bat
+- echo %APPVEYOR_BUILD_VERSION% > VERSION
 test: off
 artifacts:
 - path: output/*
@@ -20,6 +21,8 @@ deploy:
   set_public: true
   on:
     branch: master
+before_deploy:
+  - powershell "Push-AppveyorArtifact VERSION -DeploymentName diego-windows"
 clone_folder: c:\diego-windows-release
 branches:
   only:
