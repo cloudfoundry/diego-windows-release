@@ -33,9 +33,9 @@ blobs
 .bzr
 diego.sublime-workspace
 
-DiegoWindowsMSI/DiegoWindowsMSI/go-executables/*.exe
+DiegoWindowsRelease/DiegoWindowsMSI/go-executables/*.exe
 
-DiegoWindowsMSI/RELEASE_SHA
+DiegoWindowsRelease/RELEASE_SHA
 
 # go tooling
 src/9fans.net/go/
