@@ -5,7 +5,7 @@ build_script:
 - git submodule update --init --recursive
 - powershell "& .\scripts\replace-version.ps1"
 - scripts\make.bat
-- echo %APPVEYOR_BUILD_VERSION% > VERSION
+- echo %APPVEYOR_BUILD_VERSION%.0 > VERSION
 test: off
 artifacts:
 - path: output/*
