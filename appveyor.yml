@@ -10,8 +10,6 @@ test: off
 artifacts:
 - path: output-*.zip
   name: diego-windows
-- path: output/*
-  name: diego-windows
 deploy:
 - provider: S3
   access_key_id: AKIAJ3M5ORCAISPRT22Q
