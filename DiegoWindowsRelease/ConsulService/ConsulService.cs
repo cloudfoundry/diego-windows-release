@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Linq;
+using System.IO;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 
 namespace ConsulService
@@ -37,7 +32,7 @@ namespace ConsulService
             var consulConfig = new
             {
                 datacenter = "dc1",
-                data_dir = "/tmp",
+                data_dir = Path.GetTempPath(),
                 node_name = config["MACHINE_NAME"],
                 server = false,
                 ports = new { dns = 53 },
