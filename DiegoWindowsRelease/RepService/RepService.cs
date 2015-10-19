@@ -102,7 +102,7 @@ namespace RepService
                                 " -diskMB=auto" +
                                 " -containerMaxCpuShares=1" +
                                 " -cachePath=C:\\tmp\\executor\\cache" +
-                                " -maxCacheSizeInBytes=10000000000" +
+                                " -maxCacheSizeInBytes=5000000000" +
                                 " -exportNetworkEnvVars=true" +
                                 " -healthyMonitoringInterval=30s" +
                                 " -unhealthyMonitoringInterval=0.5s" +
