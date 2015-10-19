@@ -101,7 +101,7 @@ namespace RepService
                                 " -memoryMB=auto" +
                                 " -diskMB=auto" +
                                 " -containerMaxCpuShares=1" +
-                                " -cachePath=C:\\tmp\\executor\\cache" +
+                                " -cachePath=" + Path.Combine(Path.GetTempPath(), "executor", "cache") +
                                 " -maxCacheSizeInBytes=5000000000" +
                                 " -exportNetworkEnvVars=true" +
                                 " -healthyMonitoringInterval=30s" +
@@ -111,7 +111,7 @@ namespace RepService
                                 " -readWorkPoolSize=64" +
                                 " -metricsWorkPoolSize=8" +
                                 " -healthCheckWorkPoolSize=64" +
-                                " -tempDir=C:\\tmp\\executor\\tmp" +
+                                " -tempDir=" + Path.Combine(Path.GetTempPath(), "executor", "tmp") +
                                 " -logLevel=debug",
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
