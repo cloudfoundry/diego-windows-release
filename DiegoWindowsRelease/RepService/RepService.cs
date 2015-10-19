@@ -101,7 +101,7 @@ namespace RepService
                                 " -memoryMB=auto" +
                                 " -diskMB=auto" +
                                 " -containerMaxCpuShares=1" +
-                                " -cachePath=/c/tmp/executor/cache" +
+                                " -cachePath=C:\\tmp\\executor\\cache" +
                                 " -maxCacheSizeInBytes=10000000000" +
                                 " -exportNetworkEnvVars=true" +
                                 " -healthyMonitoringInterval=30s" +
@@ -111,7 +111,7 @@ namespace RepService
                                 " -readWorkPoolSize=64" +
                                 " -metricsWorkPoolSize=8" +
                                 " -healthCheckWorkPoolSize=64" +
-                                " -tempDir=/c/tmp/executor/tmp" +
+                                " -tempDir=C:\\tmp\\executor\\tmp" +
                                 " -logLevel=debug",
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
