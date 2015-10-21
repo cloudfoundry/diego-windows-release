@@ -44,7 +44,7 @@ pushd diego-release || exit /b 1
   go install github.com/cloudfoundry-incubator/rep/cmd/rep || exit /b 1
 popd
 
-# consul.exe is checked in, download from https://www.consul.io/downloads.html
+:: consul.exe is checked in, download from https://www.consul.io/downloads.html
 copy bin\consul.exe %GOBIN%
 
 pushd DiegoWindowsRelease || exit /b 1
