@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.ServiceProcess;
 using Utilities;
 
@@ -27,7 +28,22 @@ namespace ConsulService
             var config = Config.Params();
             var consulIps = config["CONSUL_IPS"].Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries);
 
-            var encryptKey = System.IO.File.ReadAllText(config["CONSUL_ENCRYPT_FILE"]);
+            var enableSSl = false;
+            var caFile = "";
+            var keyFile = "";
+            var certFile = "";
+            var encrypt = "";
+
+            var sslKeys = new string[] {"CONSUL_CA_FILE", "CONSUL_AGENT_KEY_FILE", "CONSUL_AGENT_CERT_FILE"};
+            if (sslKeys.All((x) => config.ContainsKey(x) && !string.IsNullOrWhiteSpace(config[x])))
+            {
+                /* ssl options */
+                enableSSl = true;
+                caFile = config["CONSUL_CA_FILE"];
+                keyFile = config["CONSUL_AGENT_KEY_FILE"];
+                certFile = config["CONSUL_AGENT_CERT_FILE"];
+                encrypt = System.IO.File.ReadAllText(config["CONSUL_ENCRYPT_FILE"]);
+            }
 
             var consulConfig = new
             {
@@ -41,16 +57,15 @@ namespace ConsulService
                 rejoin_after_leave = true,
                 disable_remote_exec = true,
                 disable_update_check = true,
-                protocol = 2, 
+                protocol = 2,
 
-                /* ssl options */
-                verify_outgoing = true,
-                verify_incoming = true,
-                verify_server_hostname = true,
-                ca_file = config["CONSUL_CA_FILE"],
-                key_file = config["CONSUL_AGENT_KEY_FILE"],
-                cert_file = config["CONSUL_AGENT_CERT_FILE"],
-                encrypt = encryptKey,
+                verify_outgoing = enableSSl,
+                verify_incoming = enableSSl,
+                verify_server_hostname = enableSSl,
+                ca_file = caFile,
+                key_file = keyFile,
+                cert_file = certFile,
+                encrypt,
 
                 start_join = consulIps,
                 retry_join = consulIps

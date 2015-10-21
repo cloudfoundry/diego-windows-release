@@ -35,14 +35,14 @@ namespace ConfigurationManager
                 "LOGGREGATOR_SHARED_SECRET",
                 "REDUNDANCY_ZONE",
                 "STACK",
-                "CONSUL_ENCRYPT_FILE",
-                "CONSUL_CA_FILE",
-                "CONSUL_AGENT_CERT_FILE",
-                "CONSUL_AGENT_KEY_FILE",
             };
 
             var optional = new List<string>
             {
+                "CONSUL_ENCRYPT_FILE",
+                "CONSUL_CA_FILE",
+                "CONSUL_AGENT_CERT_FILE",
+                "CONSUL_AGENT_KEY_FILE",
                 "BBS_CA_FILE",
                 "BBS_CLIENT_CERT_FILE",
                 "BBS_CLIENT_KEY_FILE",
