@@ -18,9 +18,9 @@ See [BUILDING.md](BUILDING.md) for further instructions.
 ### Download a prebuilt MSI
 
 You can download our latest Garden MSIs from
-[here](https://github.com/pivotal-cf/garden-windows-release/releases/latest)
+[here](https://github.com/cloudfoundry-incubator/garden-windows-release/releases/latest)
 and the latest DiegoWindows MSIs from
-[here](https://github.com/pivotal-cf/diego-windows-release/releases/latest].
+[here](https://github.com/cloudfoundry-incubator/diego-windows-release/releases/latest).
 
 ## Setup the Windows cell
 
@@ -53,7 +53,7 @@ failed install, set "Rollback on failure" to "No" under advanced options.
 ### Manual Setup
 
 1. Download the `setup.ps1` from
-our [latest release](https://github.com/pivotal-cf/diego-windows-release/releases/latest).
+our [latest release](https://github.com/cloudfoundry-incubator/diego-windows-release/releases/latest).
 From inside File explorer right click on the file and click `Run with powershell`.
 The script will enable the required Windows features
 , configure the DNS settings, and configure the firewall to the way that the cell needs.
@@ -166,7 +166,7 @@ not update the MSI parameters.
    | Metron        | CF Metron        | Running |
    | Rep           | CF Rep           | Running |
 
-1. Download/clone the [CF Smoke Tests](https://github.com/cloudfoundry/cf-smoke-tests.git) repository
+1. Download/clone the [CF Smoke Tests](https://github.com/cloudfoundry/cf-smoke-tests) repository
 
 1. Follow the instructions from the README to run the smoke tests against your
 environment with the `enable_windows_tests` configuration flag set to `true`.
