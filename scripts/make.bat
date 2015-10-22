@@ -18,9 +18,9 @@ REGEDIT.EXE  /S  "%~dp0\fix_visual_studio_building_msi.reg" || exit /b 1
 SET GOBIN=%CD%\bin
 SET PATH=%GOBIN%;%PATH%
 pushd greenhouse-install-script-generator || exit /b 1
-  SET GOPATH=%CD%;%CD%\Godeps\_workspace
+  SET GOPATH=%CD%
   go install github.com/onsi/ginkgo/ginkgo || exit /b 1
-  ginkgo -r -noColor || exit /b 1
+  ginkgo -r -noColor src\integration || exit /b 1
   cd src\generate
   go install || exit /b 1
 popd
