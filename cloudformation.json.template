@@ -29,17 +29,21 @@
       "Default": "windows_cell"
     },
     "SubnetCIDR": {
-      "Description": "The ip range to use for the windows cell subnet",
+      "Description": "The IP range to use for the Windows cell subnet. It should not collide with an existing subnet within the VPC.",
       "Type": "String",
-      "Default": "10.10.100.0/24"
+      "Default": "10.0.100.0/24"
     },
-    "NATZ": {
-      "Description": "The instance id of the NATZ box",
+    "NATInstance": {
+      "Description": "The instance ID of the NAT box. Search for 'NAT' (case-sensitive) in the dropdown, it will typically be the first result.",
       "Type": "AWS::EC2::Instance::Id"
     },
     "DesiredCapacity": {
       "Description": "The number of Windows cells to deploy",
       "Type": "Number"
+    },
+    "KeyPair": {
+      "Description": "A keypair that you have the private key to",
+      "Type": "AWS::EC2::KeyPair::KeyName"
     },
     "VPCID": {
       "Description": "The vpc in which the cell and subnet will be created",
@@ -96,7 +100,7 @@
       "Type" : "AWS::EC2::Route",
       "Properties" : {
         "DestinationCidrBlock" : "0.0.0.0/0",
-        "InstanceId" : {"Ref": "NATZ"},
+        "InstanceId" : {"Ref": "NATInstance"},
         "RouteTableId" : {"Ref": "GardenWindowsRouteTable"}
       }
     },
@@ -184,7 +188,7 @@
         "InstanceType": "r3.xlarge",
         "InstanceMonitoring" : "false",
         "SecurityGroups": [{ "Ref": "SecurityGroup" }],
-        "KeyName": "bosh",
+        "KeyName": {"Ref": "KeyPair"},
         "UserData": { "Fn::Base64": { "Fn::Join": [ "", [
           "<script>\n",
           "cfn-init.exe -v -s ", { "Ref": "AWS::StackId" }, " -r GardenWindowsInstanceConfiguration",
