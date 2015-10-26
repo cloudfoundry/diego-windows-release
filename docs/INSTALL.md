@@ -62,7 +62,8 @@ The script will enable the required Windows features
 
 ### Option 1: Using the [Install Script Generator](https://github.com/cloudfoundry-incubator/greenhouse-install-script-generator)
 
-1. Download the `generate.exe` from the same release. Run it with the following argument template:
+1. Download the `generate.exe` from the same release. **Note** that if you are using Internet Explorer to download the file it will currently remove the `.exe` extension from the file, so you will have to rename it to have the extension.
+2. Run it with the following argument template:
 
 ```
 generate.exe -outputDir=[the directory where the script will output its files]
