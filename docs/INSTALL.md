@@ -32,7 +32,7 @@ repository. This template can be uploaded to [Cloud
 Formation](https://console.aws.amazon.com/cloudformation/home) for automatic
 setup of a Windows cell.
 
-The Cloud Formation wizard will ask for a number of parameters.
+The CloudFormation wizard will ask for a number of parameters.
 
 1. SecurityGroup: Security group ID to use for the Windows cells
 1. BoshUserName: Username for BOSH director
@@ -41,13 +41,13 @@ The Cloud Formation wizard will ask for a number of parameters.
 1. ContainerizerPassword: Pasword for containerizer user e.g. password123!
 1. CellName: The name for your cell
 1. VPCID: the id of the vpc in which the cell and the subnet will be created
-1. NAT Instance: the instance ID of the NAT box. Search for `NAT` in the Cloudformation dropdown, it will typically be the first result. 
+1. NAT Instance: the instance ID of the NAT box. Search for `NAT` in the CloudFormation dropdown, it will typically be the first result.
 1. SubnetCIDR: the IP range of the Windows cell subnet, e.g. `10.0.100.0/24`. It should not collide with an existing subnet within the VPC.
 1. Keypair: A keypair that you have the private key to. This will be necessary to retrieve the Administrator password to the Windows VMs that are created.
 
-The Cloud Formation template will configure the Windows cell for the
+The CloudFormation template will configure the Windows cell for the
 appropriate availability zone based on the provided security group, install the
-MSI and register itself with Diego. The Cloud Formation template will only
+MSI and register itself with Diego. The CloudFormation template will only
 succeed if all services are up and running after installation. To debug a
 failed install, set "Rollback on failure" to "No" under advanced options.
 
