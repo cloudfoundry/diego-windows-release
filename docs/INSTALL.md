@@ -142,8 +142,6 @@ msiexec /norestart /i c:\temp\DiegoWindows.msi ^
           SYSLOG_PORT=514
 ```
 
-Special characters must be escaped with `^`.
-
 #### Changing BOSH properties
 
 Note that if BOSH properties are changed in the BOSH manifest, the MSI must be
