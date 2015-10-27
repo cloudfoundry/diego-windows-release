@@ -19,9 +19,11 @@
       "Type": "String"
     },
     "ContainerizerPassword": {
-      "Description": "Password for containerizer user e.g. password123!",
+      "Description": "Password for containerizer user e.g. Password123.",
       "Type": "String",
-      "NoEcho" : "true"
+      "NoEcho" : "true",
+      "AllowedPattern": "[a-zA-Z0-9]+",
+      "ConstraintDescription": "Must be alphanumeric, with at least one capital letter, one lowercase letter, and one number."
     },
     "CellName": {
       "Description": "The name for your cell",
