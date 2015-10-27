@@ -36,9 +36,9 @@ The CloudFormation wizard will ask for a number of parameters.
 
 1. SecurityGroup: Security group ID to use for the Windows cells
 1. BoshUserName: Username for BOSH director
-1. BoshPassword: Pasword for BOSH director (Make sure your password meets [Windows complexity requirements](https://technet.microsoft.com/en-us/library/Cc786468(v=WS.10).aspx))
+1. BoshPassword: Pasword for BOSH director
 1. BoshHost: Bosh director host
-1. ContainerizerPassword: Pasword for containerizer user e.g. password123!
+1. ContainerizerPassword: Password for containerizer user e.g. `Password123`. Must be alphanumeric and contain at least one capital, one lowercase, and one numeric character.
 1. CellName: The name for your cell
 1. VPCID: the id of the vpc in which the cell and the subnet will be created
 1. NAT Instance: the instance ID of the NAT box. Search for `NAT` in the CloudFormation dropdown, it will typically be the first result.
@@ -76,7 +76,7 @@ generate.exe -outputDir=[the directory where the script will output its files]
 For example:
 
 ```
-generate.exe -outputDir=C:\diego-install-dir -windowsUsername=Administrator -windowsPassword=MyPass123! -boshUrl=https://10.10.0.54:25555
+generate.exe -outputDir=C:\diego-install-dir -windowsUsername=Administrator -windowsPassword=MyPass123 -boshUrl=https://10.10.0.54:25555
 ```
 
 1. Download `DiegoWindows.msi` and `GardenWindows.msi` to the output directory
@@ -121,13 +121,11 @@ An example would be:
 ```
 msiexec /norestart /i c:\temp\GardenWindows.msi ^
           ADMIN_USERNAME=Administrator ^
-          ADMIN_PASSWORD=secret^%password ^
+          ADMIN_PASSWORD=secret0password ^
           SYSLOG_HOST_IP=syslog-server.example.com ^
           SYSLOG_PORT=514
 
 msiexec /norestart /i c:\temp\DiegoWindows.msi ^
-          ADMIN_USERNAME=Administrator ^
-          ADMIN_PASSWORD=secret^%password ^
           BBS_CA_FILE=c:\temp\bbs_ca.crt ^
           BBS_CLIENT_CERT_FILE=c:\temp\bbs_client.crt ^
           BBS_CLIENT_KEY_FILE=c:\temp\bbs_client.key ^
