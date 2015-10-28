@@ -94,6 +94,7 @@ The following instructions assume that the MSIs were downloaded to `c:\temp`
 msiexec /norestart /i c:\temp\GardenWindows.msi ^
           ADMIN_USERNAME=[Username with admin privileges] ^
           ADMIN_PASSWORD=[Previous user password] ^
+          CONTAINER_DIRECTORY=[(optional) An absolute path to the directory Containerizer will use to store container files, default is C:\containerizer] ^
           SYSLOG_HOST_IP=[(optional) Syslog host IP to send logs to] ^
           SYSLOG_PORT=[(optional) Syslog port to send logs to]
 
@@ -122,6 +123,7 @@ An example would be:
 msiexec /norestart /i c:\temp\GardenWindows.msi ^
           ADMIN_USERNAME=Administrator ^
           ADMIN_PASSWORD=secret0password ^
+          CONTAINER_DIRECTORY=D:\containers ^
           SYSLOG_HOST_IP=syslog-server.example.com ^
           SYSLOG_PORT=514
 
