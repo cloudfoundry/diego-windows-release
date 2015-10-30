@@ -1,5 +1,9 @@
 # Troubleshooting Failures
 
+1. Use [hakim](https://github.com/cloudfoundry-incubator/hakim.git) to diagnose
+   common installation issues. Compiled binaries are available in the releases
+   of [diego-windows-release](https://github.com/cloudfoundry-incubator/diego-windows-release/releases).
+
 1. Check `cf logs` for failures
 
     Example log output:
