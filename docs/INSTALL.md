@@ -150,21 +150,12 @@ Note that if BOSH properties are changed in the BOSH manifest, the MSI must be
 reinstalled. For example, setting a syslog host in the deployment manifest will
 not update the MSI parameters.
 
-## Verify that all the services are up and running
+## Verifying your DiegoWindows deployment
 
-1. If everything has worked correctly, you should now see the
-   following five services running in the Task Manager (it's easier to
-   sort the services using the `Description` column and look for
-   descriptions starting with `CF `):
-
-   | Name          | Description      | Status  |
-   |---------------|------------------|---------|
-   | Consul        | CF Consul        | Running |
-   | Containerizer | CF Containerizer | Running |
-   | Executor      | CF Executor      | Running |
-   | GardenWindows | CF GardenWindows | Running |
-   | Metron        | CF Metron        | Running |
-   | Rep           | CF Rep           | Running |
+1. Download `hakim.exe` from the DiegoWindows release onto your Windows cell.
+   Run it in a terminal. It will check your system to ensure that the install
+   is properly configured, and will output error messages if it detects any
+   problems.
 
 1. Download/clone the [CF Smoke Tests](https://github.com/cloudfoundry/cf-smoke-tests) repository
 
