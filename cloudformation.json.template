@@ -66,6 +66,11 @@
       "Type": "String",
       "Default": ""
     },
+    "ZZZHakimUrl": {
+      "Description": "URL of hakim.exe",
+      "Type": "String",
+      "Default": ""
+    },
     "ZZZSetupPs1Url": {
       "Description": "URL of the setup.ps1 to run",
       "Type": "String",
@@ -139,6 +144,9 @@
 
                   "C:\\tmp\\dwminst\\install.bat",
                   "\n"
+
+                  "C:\\tmp\\dwminst\\hakim.exe",
+                  "\n"
                 ]]}
               },
               "C:\\tmp\\dwminst\\generate.exe" : {
@@ -152,6 +160,9 @@
               },
               "C:\\tmp\\dwminst\\setup.ps1" : {
                 "source" : {"Ref": "ZZZSetupPs1Url"}
+              },
+              "C:\\tmp\\dwminst\\hakim.exe" : {
+                "source" : {"Ref": "ZZZHakimUrl"}
               }
             },
             "commands": {
