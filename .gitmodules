@@ -7,3 +7,6 @@
 [submodule "loggregator"]
 	path = loggregator
 	url = https://github.com/cloudfoundry/loggregator.git
+[submodule "hakim"]
+	path = hakim
+	url = https://github.com/cloudfoundry-incubator/hakim

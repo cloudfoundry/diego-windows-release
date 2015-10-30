@@ -26,6 +26,13 @@ pushd greenhouse-install-script-generator || exit /b 1
 popd
 echo F | xcopy bin\generate.exe output\generate-%VERSION%.exe || exit /b 1
 
+pushd hakim || exit /b 1
+  SET GOPATH=%CD%\vendor;%CD%
+  ginkgo -r -noColor src\ || exit /b 1
+  go install hakim || exit /b 1
+popd
+echo F | xcopy bin\hakim.exe output\hakim-%VERSION%.exe || exit /b 1
+
 SET GOBIN=%CD%\DiegoWindowsRelease\DiegoWindowsMSI\go-executables
 :: Install metron, it contains all relevant gocode inside itself.
 pushd loggregator || exit /b 1
