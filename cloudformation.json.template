@@ -240,7 +240,7 @@
         "DesiredCapacity": { "Ref": "DesiredCapacity" },
         "Tags" : [{
           "Key"   : "Name",
-          "Value" : "windows_cell",
+          "Value" : { "Ref": "CellName" },
           "PropagateAtLaunch" : "true"
         }]
       }
