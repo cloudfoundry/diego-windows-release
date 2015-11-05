@@ -197,7 +197,7 @@
       },
 
       "Properties": {
-        "ImageId": "ami-c9cea0ac",
+        "ImageId": "ami-1df0ac78",
         "InstanceType": "r3.xlarge",
         "InstanceMonitoring" : "false",
         "SecurityGroups": [{ "Ref": "SecurityGroup" }],
