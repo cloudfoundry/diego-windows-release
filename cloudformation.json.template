@@ -197,7 +197,12 @@
       },
 
       "Properties": {
-        "ImageId": "ami-1df0ac78",
+        "ImageId": {
+          "Fn::GetAtt": [
+            "AMIInfo",
+            "Id"
+          ]
+        },
         "InstanceType": "r3.xlarge",
         "InstanceMonitoring" : "false",
         "SecurityGroups": [{ "Ref": "SecurityGroup" }],
@@ -242,6 +247,99 @@
           "Key"   : "Name",
           "Value" : { "Ref": "CellName" },
           "PropagateAtLaunch" : "true"
+        }]
+      }
+    },
+
+    "AMIInfo": {
+      "Type": "Custom::AMIInfo",
+      "Properties": {
+        "ServiceToken": { "Fn::GetAtt" : ["AMIInfoFunction", "Arn"] },
+        "Region": { "Ref": "AWS::Region" }
+      }
+    },
+
+    "AMIInfoFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "ZipFile":  { "Fn::Join": ["\n", [
+            "var aws = require('aws-sdk');",
+            "var response = require('cfn-response');",
+            "var describeImagesParams = {",
+            "      Filters: [",
+            "          { Name: 'name', Values: ['Windows_Server-2012-R2_RTM-English-64Bit-Base*']},",
+            "          { Name: 'state', Values: ['available']},",
+            "      ],",
+            "      Owners: ['amazon']",
+            "};",
+            "",
+            "exports.handler = function(event, context) {",
+            "         console.log('REQUEST RECEIVED:\\n' + JSON.stringify(event));",
+            "         if (event.RequestType == 'Delete') {",
+            "                  response.send(event, context, response.SUCCESS);",
+            "                  return;",
+            "         }",
+            "         var responseData;",
+            "         var ec2 = new aws.EC2({region: event.ResourceProperties.Region});",
+            "         ec2.describeImages(describeImagesParams, function(err, describeImagesResult) {",
+            "                  if (err) {",
+            "                           responseData = {Error: 'DescribeImages call failed'};",
+            "                           console.log(responseData.Error + ':\\n', err);",
+            "                           response.send(event, context, response.FAILED, responseData);",
+            "                  }",
+            "                  else {",
+            "                           var images = describeImagesResult.Images.sort(function(x, y) {",
+            "                               return y.CreationDate.localeCompare(x.CreationDate);",
+            "                           });",
+            "                           ",
+            "                           if (images.length > 0) {",
+            "                               var image = images[0];",
+            "                               responseData = {'Id': image.ImageId};",
+            "                               response.send(event, context, response.SUCCESS, responseData);",
+            "                           } else {",
+            "                               responseData = {Error: 'No image found'};",
+            "                               response.send(event, context, response.FAILED, responseData);",
+            "                           }",
+            "                  }",
+            "         });",
+            "};"
+          ]]}
+        },
+        "Handler": "index.handler",
+        "Role": { "Fn::GetAtt" : ["LambdaExecutionRole", "Arn"] },
+        "Runtime": "nodejs",
+        "Timeout": "30"
+      }
+    },
+
+    "LambdaExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [{
+            "Effect": "Allow",
+            "Principal": {"Service": ["lambda.amazonaws.com"]},
+            "Action": ["sts:AssumeRole"]
+          }]
+        },
+        "Path": "/",
+        "Policies": [{
+          "PolicyName": "root",
+          "PolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [{
+              "Effect": "Allow",
+              "Action": ["logs:CreateLogGroup","logs:CreateLogStream","logs:PutLogEvents"],
+              "Resource": "arn:aws:logs:*:*:*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": ["ec2:DescribeImages"],
+              "Resource": "*"
+            }]
+          }
         }]
       }
     }
