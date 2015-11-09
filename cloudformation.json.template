@@ -344,5 +344,16 @@
       }
     }
   },
+  "Outputs": {
+    "AMIID": {
+      "Description": "The Amazon EC2 instance AMI ID.",
+      "Value": {
+        "Fn::GetAtt": [
+          "AMIInfo",
+          "Id"
+        ]
+      }
+    }
+  },
   "Description": "Windows cell"
 }
