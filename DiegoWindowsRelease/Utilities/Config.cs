@@ -26,7 +26,7 @@ namespace Utilities
         {
             if (!p.ContainsKey("EXTERNAL_IP") || string.IsNullOrWhiteSpace(p["EXTERNAL_IP"]))
             {
-                p["EXTERNAL_IP"] = findExternalIP();
+                p["EXTERNAL_IP"] = findExternalIP(p["CONSUL_IPS"]);
             }
         }
 
@@ -38,19 +38,14 @@ namespace Utilities
             }
         }
 
-        private static string findExternalIP()
+        private static string findExternalIP(string ips)
         {
-            IPHostEntry host;
-            string localIP = "";
-            host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (IPAddress ip in host.AddressList)
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
             {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    localIP = ip.ToString();
-                }
+                socket.Connect(ips.Split(',')[0], 65530);
+                var endPoint = socket.LocalEndPoint as IPEndPoint;
+                return endPoint.Address.ToString();
             }
-            return localIP;
         }
 
         private static void SetBbsAddress(Dictionary<string, string> p)
