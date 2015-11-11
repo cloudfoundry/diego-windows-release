@@ -6,7 +6,7 @@ working CF/Diego deployment
 ## Requirements
 
 - working CF/Diego deployment
-- Windows Server 2012R2 VM (we recommend r3.xlarge, see https://github.com/cloudfoundry-incubator/diego-release/commit/c9331bc1b1000bd135cb99a025a3680d1a12ac87)
+- Windows Server 2012R2 VM (we recommend r3.xlarge, per https://github.com/cloudfoundry-incubator/diego-release/commit/c9331bc1b1000bd135cb99a025a3680d1a12ac87)
   - Recommended Windows ISO SHA1: B6F063436056510357CB19CB77DB781ED9C11DF3
 
 ## Retrieve the MSI
@@ -24,7 +24,7 @@ and the latest DiegoWindows MSIs from
 
 ## Setup the Windows cell
 
-### CloudFormation
+### CloudFormation deployment on AWS
 
 There is a CloudFormation template in the root of the
 [garden-windows-release](https://github.com/cloudfoundry-incubator/diego-windows-release/)
@@ -38,7 +38,7 @@ The CloudFormation wizard will ask for a number of parameters.
 1. BoshUserName: Username for BOSH director
 1. BoshPassword: Pasword for BOSH director
 1. BoshHost: Bosh director host
-1. ContainerizerPassword: Password for containerizer user e.g. `Password123`. Must be alphanumeric and contain at least one capital, one lowercase, and one numeric character. Cannot contain `"` characters due to a limitation in `msiexec.exe`.
+1. ContainerizerPassword: Password for containerizer user e.g. `Password123`. _Must be alphanumeric and contain at least one capital, one lowercase, and one numeric character. Cannot contain `"` characters due to a limitation in `msiexec.exe`._
 1. CellName: The name for your cell
 1. VPCID: the id of the vpc in which the cell and the subnet will be created
 1. NAT Instance: the instance ID of the NAT box. Search for `NAT` in the CloudFormation dropdown, it will typically be the first result.
@@ -53,18 +53,18 @@ failed install, set "Rollback on failure" to "No" under advanced options.
 
 ### Manual Setup
 
-1. Download the `setup.ps1` from
+1. Download the `setup.ps1` script from
 our [latest release](https://github.com/cloudfoundry-incubator/diego-windows-release/releases/latest).
-From inside File explorer right click on the file and click `Run with powershell`.
-The script will enable the required Windows features
-, configure the DNS settings, and configure the firewall to the way that the cell needs.
+From inside File explorer, right click on the file and click `Run with powershell`.
+The script will enable the required Windows features, 
+configure the DNS settings, and configure the firewall to the way that the cell needs.
 
 ## Install the MSIs
 
 ### Option 1: Using the [Install Script Generator](https://github.com/cloudfoundry-incubator/greenhouse-install-script-generator)
 
-1. Download the `generate.exe` from the same release. **Note** that if you are using Internet Explorer to download the file it will currently remove the `.exe` extension from the file, so you will have to rename it to have the extension.
-2. Run it with the following argument template:
+1. Download the `generate.exe` from the same release. **Note** that if you are using Internet Explorer to download the file it may remove the `.exe` extension from the file, so you will have to rename the file and add the extension.
+2. Run `generate.exe` with the following argument template:
 
 ```
 generate.exe -outputDir=[the directory where the script will output its files]
@@ -73,15 +73,20 @@ generate.exe -outputDir=[the directory where the script will output its files]
              -boshUrl=[the URL for your BOSH director, with credentials]
 ```
 
+_**NOTE:** The windowsPassword argument cannot contain `"` characters due to a limitation in `msiexec.exe`._
+
 For example:
 
 ```
 generate.exe -outputDir=C:\diego-install-dir -windowsUsername=Administrator -windowsPassword=MyPass123 -boshUrl=https://10.10.0.54:25555
 ```
 
+The output of `generate.exe` is a batch file called `install.bat`, which appears in the same directory.
+
+
 1. Download `DiegoWindows.msi` and `GardenWindows.msi` to the output directory
-you specified to the generate command. The filenames being correct is
-important, since the script assumes these will be the MSI file names.
+you specified to the generate command. The filenames must remain unchanged, 
+since the script assumes these will be the MSI file names.
 
 1. Run the `install.bat` script in the output directory. This will install
 both of the MSIs with all of the arguments they require.
