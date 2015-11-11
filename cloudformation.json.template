@@ -144,7 +144,7 @@
                   " -windowsPassword=", { "Ref": "ContainerizerPassword" },
                   "\n",
 
-                  "PowerShell.exe -ExecutionPolicy Unrestricted C:\\tmp\\dwminst\\setup.ps1",
+                  "PowerShell.exe -ExecutionPolicy Unrestricted C:\\tmp\\dwminst\\setup.ps1 -quiet",
                   "\n",
 
                   "C:\\tmp\\dwminst\\install.bat",
