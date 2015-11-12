@@ -27,20 +27,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4417302ECE7E40B48C4A6D1B5DF159E1"
+        "MsmKey" = "8:_473A396CE845E5620AF8019053E797F4"
         "OwnerKey" = "8:_613EAF226D874052A41D383D75B47E3D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4417302ECE7E40B48C4A6D1B5DF159E1"
-        "OwnerKey" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
+        "MsmKey" = "8:_473A396CE845E5620AF8019053E797F4"
+        "OwnerKey" = "8:_7E3DCD760C864A8390B1D9C0A7140298"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4417302ECE7E40B48C4A6D1B5DF159E1"
-        "OwnerKey" = "8:_7E3DCD760C864A8390B1D9C0A7140298"
+        "MsmKey" = "8:_473A396CE845E5620AF8019053E797F4"
+        "OwnerKey" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -81,56 +81,56 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_E97BE1F68E695BDCEFEE43E8076C25D8"
+        "MsmKey" = "8:_EA8A3A7E51F235F515C56400D76033DE"
         "OwnerKey" = "8:_613EAF226D874052A41D383D75B47E3D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E97BE1F68E695BDCEFEE43E8076C25D8"
-        "OwnerKey" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
+        "MsmKey" = "8:_EA8A3A7E51F235F515C56400D76033DE"
+        "OwnerKey" = "8:_7E3DCD760C864A8390B1D9C0A7140298"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E97BE1F68E695BDCEFEE43E8076C25D8"
-        "OwnerKey" = "8:_7E3DCD760C864A8390B1D9C0A7140298"
+        "MsmKey" = "8:_EA8A3A7E51F235F515C56400D76033DE"
+        "OwnerKey" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_7E3DCD760C864A8390B1D9C0A7140298"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_613EAF226D874052A41D383D75B47E3D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_473A396CE845E5620AF8019053E797F4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_EA8A3A7E51F235F515C56400D76033DE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1E9CBEF93D3E4B0BB0158362146458FF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4417302ECE7E40B48C4A6D1B5DF159E1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E97BE1F68E695BDCEFEE43E8076C25D8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_613EAF226D874052A41D383D75B47E3D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_66FF94DA72EE487E9D61444BEFDF4CBF"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -343,7 +343,7 @@
             "Sequence" = "3:1"
             "Identifier" = "8:_3063336D_FBFB_4779_9594_83921AFDAE94"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/BBS_CA_FILE=[BBS_CA_FILE] /BBS_CLIENT_CERT_FILE=[BBS_CLIENT_CERT_FILE] /BBS_CLIENT_KEY_FILE=[BBS_CLIENT_KEY_FILE] /CONSUL_IPS=[CONSUL_IPS] /MACHINE_NAME=[MACHINE_NAME] /STACK=[STACK] /REDUNDANCY_ZONE=[REDUNDANCY_ZONE] /LOGGREGATOR_SHARED_SECRET=[LOGGREGATOR_SHARED_SECRET] /CF_ETCD_CLUSTER=[CF_ETCD_CLUSTER] /SYSLOG_HOST_IP=[SYSLOG_HOST_IP] /SYSLOG_PORT=[SYSLOG_PORT] /CONSUL_ENCRYPT_FILE=[CONSUL_ENCRYPT_FILE] /CONSUL_CA_FILE=[CONSUL_CA_FILE] /CONSUL_AGENT_CERT_FILE=[CONSUL_AGENT_CERT_FILE] /CONSUL_AGENT_KEY_FILE=[CONSUL_AGENT_KEY_FILE]"
+            "CustomActionData" = "8:/BBS_CA_FILE=[BBS_CA_FILE] /BBS_CLIENT_CERT_FILE=[BBS_CLIENT_CERT_FILE] /BBS_CLIENT_KEY_FILE=[BBS_CLIENT_KEY_FILE] /CONSUL_IPS=[CONSUL_IPS] /MACHINE_NAME=[MACHINE_NAME] /STACK=[STACK] /REDUNDANCY_ZONE=[REDUNDANCY_ZONE] /LOGGREGATOR_SHARED_SECRET=[LOGGREGATOR_SHARED_SECRET] /CF_ETCD_CLUSTER=[CF_ETCD_CLUSTER] /EXTERNAL_IP=[EXTERNAL_IP] /SYSLOG_HOST_IP=[SYSLOG_HOST_IP] /SYSLOG_PORT=[SYSLOG_PORT] /CONSUL_ENCRYPT_FILE=[CONSUL_ENCRYPT_FILE] /CONSUL_CA_FILE=[CONSUL_CA_FILE] /CONSUL_AGENT_CERT_FILE=[CONSUL_AGENT_CERT_FILE] /CONSUL_AGENT_KEY_FILE=[CONSUL_AGENT_KEY_FILE]"
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_E0AEF316BA2D4C46BA25C8A163E63354"
             {
@@ -430,15 +430,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4417302ECE7E40B48C4A6D1B5DF159E1"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_473A396CE845E5620AF8019053E797F4"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ServiceConfigurator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_473A396CE845E5620AF8019053E797F4"
+                    {
+                    "Name" = "8:Utilities.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
-            "SourcePath" = "8:ServiceConfigurator.dll"
+            "SourcePath" = "8:Utilities.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_ACA42DBD8EC64991ABB3254FB6DDBC0A"
@@ -516,15 +521,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E97BE1F68E695BDCEFEE43E8076C25D8"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EA8A3A7E51F235F515C56400D76033DE"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:ServiceConfigurator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_EA8A3A7E51F235F515C56400D76033DE"
+                    {
+                    "Name" = "8:ServiceConfigurator.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
-            "SourcePath" = "8:Utilities.dll"
+            "SourcePath" = "8:ServiceConfigurator.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_ACA42DBD8EC64991ABB3254FB6DDBC0A"
