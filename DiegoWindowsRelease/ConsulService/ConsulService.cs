@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.ServiceProcess;
 using Utilities;
 
@@ -10,6 +11,10 @@ namespace ConsulService
 
     public partial class ConsulService : ServiceBase
     {
+        [DllImport("dnsapi.dll", EntryPoint = "DnsFlushResolverCache")]
+        private static extern UInt32 DnsFlushResolverCache();
+
+
         private Process process;
         private const string eventSource = "Consul";
 
@@ -112,6 +117,8 @@ namespace ConsulService
             process.Start();
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
+
+            DnsFlushResolverCache();
         }
 
         void process_Exited(object sender, EventArgs e)
