@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Sockets;
-using System.Security.Policy;
 
 namespace Utilities
 {
@@ -16,18 +14,9 @@ namespace Utilities
             var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             var jsonString = System.IO.File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "parameters.json");
             var hash = javaScriptSerializer.Deserialize<Dictionary<string, string>>(jsonString);
-            SetExternalIP(hash);
             SetMachineName(hash);
             SetBbsAddress(hash);
             return hash;
-        }
-
-        private static void SetExternalIP(Dictionary<string, string> p)
-        {
-            if (!p.ContainsKey("EXTERNAL_IP") || string.IsNullOrWhiteSpace(p["EXTERNAL_IP"]))
-            {
-                p["EXTERNAL_IP"] = findExternalIP(p["CONSUL_IPS"]);
-            }
         }
 
         private static void SetMachineName(Dictionary<string, string> p)
@@ -35,16 +24,6 @@ namespace Utilities
             if (!p.ContainsKey("MACHINE_NAME") || string.IsNullOrWhiteSpace(p["MACHINE_NAME"]))
             {
                 p["MACHINE_NAME"] = Dns.GetHostName();
-            }
-        }
-
-        private static string findExternalIP(string ips)
-        {
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
-            {
-                socket.Connect(ips.Split(',')[0], 65530);
-                var endPoint = socket.LocalEndPoint as IPEndPoint;
-                return endPoint.Address.ToString();
             }
         }
 

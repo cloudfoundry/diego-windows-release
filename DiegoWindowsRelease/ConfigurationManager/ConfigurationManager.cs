@@ -35,6 +35,7 @@ namespace ConfigurationManager
                 "LOGGREGATOR_SHARED_SECRET",
                 "REDUNDANCY_ZONE",
                 "STACK",
+                "EXTERNAL_IP",
             };
 
             var optional = new List<string>
@@ -46,7 +47,6 @@ namespace ConfigurationManager
                 "BBS_CA_FILE",
                 "BBS_CLIENT_CERT_FILE",
                 "BBS_CLIENT_KEY_FILE",
-                "EXTERNAL_IP",
                 "MACHINE_NAME",
                 "SYSLOG_HOST_IP",
                 "SYSLOG_PORT"
