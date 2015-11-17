@@ -34,17 +34,12 @@ namespace MetronService
             {
                 EtcdUrls = new List<string> { hash["CF_ETCD_CLUSTER"] },
                 EtcdMaxConcurrentRequests = 10,
+                EtcdQueryIntervalMilliseconds = 5000,
                 SharedSecret = hash["LOGGREGATOR_SHARED_SECRET"],
-                LegacyIncomingMessagesPort = 3456,
                 DropsondeIncomingMessagesPort = 3457,
                 Index = 0,
                 Job = hash["MACHINE_NAME"],
-                VarzUser = "",
-                VarzPass = "",
-                VarzPort = 0,
-                CollectorRegistrarIntervalMilliseconds = 60000,
-                EtcdQueryIntervalMilliseconds = 5000,
-                LoggregatorLegacyPort = 3456,
+                PreferredProtocol = "udp",
                 LoggregatorDropsondePort = 3457
             };
             var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
