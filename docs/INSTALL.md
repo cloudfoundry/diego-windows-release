@@ -54,7 +54,7 @@ failed install, set "Rollback on failure" to "No" under advanced options.
 ### Manual Setup
 
 1. Download the `setup.ps1` script from
-our [latest release](https://github.com/cloudfoundry-incubator/diego-windows-release/releases/latest).
+our [latest release](https://github.com/cloudfoundry-incubator/garden-windows-release/releases/latest).
 From inside File explorer, right click on the file and click `Run with powershell`.
 The script will enable the required Windows features, 
 configure the DNS settings, and configure the firewall to the way that the cell needs.
