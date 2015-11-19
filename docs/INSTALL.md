@@ -5,7 +5,7 @@ working CF/Diego deployment
 
 ## Requirements
 
-- working CF/Diego deployment
+- A working CF/Diego deployment with [the Windows stack added](https://github.com/cloudfoundry-incubator/diego-release/blob/9daae2c5ecff2ee8a9f67e3858e5d797815326ff/stubs-for-cf-release/enable_diego_windows_in_cc.yml)
 - Windows Server 2012R2 VM (we recommend r3.xlarge, per https://github.com/cloudfoundry-incubator/diego-release/commit/c9331bc1b1000bd135cb99a025a3680d1a12ac87)
   - Recommended Windows ISO SHA1: B6F063436056510357CB19CB77DB781ED9C11DF3
 
