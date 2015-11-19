@@ -6,5 +6,6 @@ This repo contains submodules with all of the source requirements to run the
 Diego components for Cloud Foundry on Windows. After an install all of the
 necessary programs (consul, rep, and metron) will be running as services.
 
-- [Building instructions](docs/BUILDING.md) contains information for generating an MSI 
-- [Installation instructions](docs/INSTALL.md) contains information on how to install the project
+- [Building instructions](docs/BUILDING.md)
+- [Installation instructions](docs/INSTALL.md)
+- [Operator instructions](docs/OPERATOR-NOTES.md)
