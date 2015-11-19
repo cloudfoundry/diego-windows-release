@@ -120,19 +120,7 @@ namespace RepService
             };
 
             process.EnableRaisingEvents = true;
-            process.Exited += (object sender, EventArgs e) =>
-            {
-                EventLog.WriteEntry(eventSource, "Rep exited with code: " + process.ExitCode, EventLogEntryType.Error, 0);
-                this.ExitCode = process.ExitCode;
-                if (process.ExitCode == 0)
-                {
-                    base.Stop();
-                }
-                else
-                {
-                    System.Environment.Exit(process.ExitCode);
-                }
-            };
+            process.Exited += process_Exited;
 
             var syslog = Syslog.Build(Config.Params(), eventSource);
             process.OutputDataReceived += (object sender, DataReceivedEventArgs e) =>
@@ -150,6 +138,13 @@ namespace RepService
             process.Start();
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
+        }
+
+        void process_Exited(object sender, EventArgs e)
+        {
+            EventLog.WriteEntry(eventSource, "Exiting", EventLogEntryType.Error, 0);
+            this.ExitCode = 0XDEAD;
+            System.Environment.Exit(this.ExitCode);
         }
 
         protected override void OnStop()
