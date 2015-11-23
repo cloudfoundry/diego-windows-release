@@ -71,6 +71,7 @@ generate.exe -outputDir=[the directory where the script will output its files]
              -windowsUsername=[the username of an administrator user for Containerizer to run as]
              -windowsPassword=[the password for the same user] 
              -boshUrl=[the URL for your BOSH director, with credentials]
+             -externalIp=[(optional) IP address of this cell. Auto-discovered if ommitted]
 ```
 
 _**NOTE:** The windowsPassword argument cannot contain `"` characters due to a limitation in `msiexec.exe`._
@@ -78,7 +79,7 @@ _**NOTE:** The windowsPassword argument cannot contain `"` characters due to a l
 For example:
 
 ```
-generate.exe -outputDir=C:\diego-install-dir -windowsUsername=Administrator -windowsPassword=MyPass123 -boshUrl=https://10.10.0.54:25555
+generate.exe -outputDir=C:\diego-install-dir -windowsUsername=Administrator -windowsPassword=MyPass123 -boshUrl=https://10.10.0.54:25555 -externalIp=192.168.50.4
 ```
 
 The output of `generate.exe` is a batch file called `install.bat`, which appears in the same directory.
@@ -118,7 +119,6 @@ msiexec /norestart /i c:\temp\DiegoWindows.msi ^
           STACK=[CF stack, eg. windows2012R2] ^
           REDUNDANCY_ZONE=windows ^
           LOGGREGATOR_SHARED_SECRET=[loggregator secret from your BOSH deploy of cf] ^
-          EXTERNAL_IP=[(optional) External IP of box] ^
           MACHINE_NAME=[(optional) This machine's name (must be unique across your cluster)] ^
           SYSLOG_HOST_IP=[(optional) Syslog host IP to send logs to] ^
           SYSLOG_PORT=[(optional) Syslog port to send logs to]
