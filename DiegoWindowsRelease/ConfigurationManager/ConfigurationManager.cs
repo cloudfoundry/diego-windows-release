@@ -47,6 +47,9 @@ namespace ConfigurationManager
                 "BBS_CA_FILE",
                 "BBS_CLIENT_CERT_FILE",
                 "BBS_CLIENT_KEY_FILE",
+                "METRON_CA_FILE",
+                "METRON_AGENT_CERT_FILE",
+                "METRON_AGENT_KEY_FILE",
                 "MACHINE_NAME",
                 "SYSLOG_HOST_IP",
                 "SYSLOG_PORT"
