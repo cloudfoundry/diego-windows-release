@@ -30,6 +30,27 @@ namespace MetronService
         private void WriteConfigFile()
         {
             var hash = Config.Params();
+
+            string preferredProtocol;
+            object tlsConfig;
+
+            var metronTlsKeys = new string[] { "METRON_CA_FILE", "METRON_AGENT_CERT_FILE", "METRON_AGENT_KEY_FILE" };
+            if (metronTlsKeys.All(keyName => hash.ContainsKey(keyName) && !string.IsNullOrWhiteSpace(hash[keyName])))
+            {
+                preferredProtocol = "tls";
+                tlsConfig = new
+                {
+                    KeyFile = hash["METRON_AGENT_KEY_FILE"],
+                    CertFile = hash["METRON_AGENT_CERT_FILE"],
+                    CAFile = hash["METRON_CA_FILE"],
+                };
+            }
+            else
+            {
+                preferredProtocol = "udp";
+                tlsConfig = null;
+            }
+
             var metronConfig = new
             {
                 EtcdUrls = new List<string> { hash["CF_ETCD_CLUSTER"] },
@@ -39,9 +60,11 @@ namespace MetronService
                 DropsondeIncomingMessagesPort = 3457,
                 Index = 0,
                 Job = hash["MACHINE_NAME"],
-                PreferredProtocol = "udp",
-                LoggregatorDropsondePort = 3457
+                LoggregatorDropsondePort = 3457,
+                PreferredProtocol = preferredProtocol,
+                TLSConfig = tlsConfig,
             };
+
             var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             string jsonString = javaScriptSerializer.Serialize(metronConfig);
             var configDir = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "metron"));
