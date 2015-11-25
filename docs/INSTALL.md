@@ -116,6 +116,9 @@ msiexec /norestart /i c:\temp\DiegoWindows.msi ^
           CONSUL_AGENT_KEY_FILE=[path to the consul agent key] ^
           CF_ETCD_CLUSTER=[URI of your Elastic Runtime cf etcd cluster from BOSH deploy of cf] ^
           EXTERNAL_IP=[The IP address of the network interface to bind to] ^
+          METRON_CA_FILE=[path to the Metron CA certificate] ^
+          METRON_AGENT_CERT_FILE=[path to the Metron agent certificate] ^
+          METRON_AGENT_KEY_FILE=[path to the Metron agent key] ^
           STACK=[CF stack, eg. windows2012R2] ^
           REDUNDANCY_ZONE=windows ^
           LOGGREGATOR_SHARED_SECRET=[loggregator secret from your BOSH deploy of cf] ^
@@ -146,6 +149,9 @@ msiexec /norestart /i c:\temp\DiegoWindows.msi ^
           CONSUL_AGENT_KEY_FILE=c:\temp\consul_agent.key ^
           CF_ETCD_CLUSTER=http://10.244.0.42:4001 ^
           EXTERNAL_IP=192.168.50.4 ^
+          METRON_CA_FILE=c:\temp\metron_ca.crt ^
+          METRON_AGENT_CERT_FILE=c:\temp\metron_agent.crt ^
+          METRON_AGENT_KEY_FILE=c:\temp\metron_agent.key ^
           STACK=windows2012R2 ^
           REDUNDANCY_ZONE=windows ^
           LOGGREGATOR_SHARED_SECRET=loggregator-secret ^
