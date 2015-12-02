@@ -11,12 +11,7 @@
     * When no `*.exe` or `Web.config` present
 
       ```
-      2015-09-09T11:32:12.07-0400 [STG/0]      ERR No start command detected
-      2015-09-09T11:32:30.96-0400 [APP/0]      ERR Unhandled Exception: System.InvalidOperationException: Cannot start process because a file name has not been provided.
-      2015-09-09T11:32:30.96-0400 [APP/0]      ERR    at System.Diagnostics.Process.Start()
-      2015-09-09T11:32:30.96-0400 [APP/0]      ERR    at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
-      2015-09-09T11:32:30.96-0400 [APP/0]      ERR    at Launcher.Program.Main(String[] args) in c:\dwm\src\github.com\cloudfoundry-incubator\windows_app_lifecycle\Launcher\Program.cs:line 58
-      2015-09-09T11:32:33.00-0400 [HEALTH/0]   OUT healthcheck failed
+    2015-12-02T10:55:27.04-0500 [APP/0]      ERR Could not determine a start command. Use the -c flag to 'cf push' to specify a custom start command.
       ```
 
     * When `Web.config` present but missing a required `.dll`
