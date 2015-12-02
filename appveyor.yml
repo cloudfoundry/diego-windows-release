@@ -1,8 +1,6 @@
 version: 0.{build}
 skip_tags: true
 cache: C:\Users\appveyor\AppData\Local\NuGet\Cache
-before_build:
-  - ps: $env:PATH=C:\go14;$env:PATH
 build_script:
 - git submodule update --init --recursive
 - powershell "& .\scripts\replace-version.ps1"
