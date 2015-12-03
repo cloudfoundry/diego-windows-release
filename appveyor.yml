@@ -5,6 +5,7 @@ build_script:
 - git submodule update --init --recursive
 - powershell "& .\scripts\replace-version.ps1"
 - set PATH=C:\go14\bin;%PATH%
+- set GOROOT=C:\go14
 - scripts\make.bat
 - 7z a output-%APPVEYOR_BUILD_VERSION%-%APPVEYOR_REPO_COMMIT%.zip output/*
 test: off
