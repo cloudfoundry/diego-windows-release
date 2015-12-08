@@ -71,7 +71,7 @@ generate.exe -outputDir=[the directory where the script will output its files]
              -windowsUsername=[the username of an administrator user for Containerizer to run as]
              -windowsPassword=[the password for the same user] 
              -boshUrl=[the URL for your BOSH director, with credentials]
-             -externalIp=[(optional) IP address of this cell. Auto-discovered if ommitted]
+             -machineIp=[(optional) IP address of this cell. Auto-discovered if ommitted]
 ```
 
 _**NOTE:** The windowsPassword argument cannot contain `"` characters due to a limitation in `msiexec.exe`._
@@ -79,7 +79,7 @@ _**NOTE:** The windowsPassword argument cannot contain `"` characters due to a l
 For example:
 
 ```
-generate.exe -outputDir=C:\diego-install-dir -windowsUsername=Administrator -windowsPassword=MyPass123 -boshUrl=https://10.10.0.54:25555 -externalIp=192.168.50.4
+generate.exe -outputDir=C:\diego-install-dir -windowsUsername=Administrator -windowsPassword=MyPass123 -boshUrl=https://10.10.0.54:25555 -machineIp=192.168.50.4
 ```
 
 The output of `generate.exe` is a batch file called `install.bat`, which appears in the same directory.
@@ -101,7 +101,7 @@ msiexec /norestart /i c:\temp\GardenWindows.msi ^
           ADMIN_USERNAME=[Username with admin privileges] ^
           ADMIN_PASSWORD=[Previous user password] ^
           CONTAINER_DIRECTORY=[(optional) An absolute path to the directory Containerizer will use to store container files, default is C:\containerizer] ^
-          EXTERNAL_IP=[The IP address of the network interface to bind to] ^
+          MACHINE_IP=[The IP address of the network interface to bind to] ^
           SYSLOG_HOST_IP=[(optional) Syslog host IP to send logs to] ^
           SYSLOG_PORT=[(optional) Syslog port to send logs to]
 
@@ -115,7 +115,7 @@ msiexec /norestart /i c:\temp\DiegoWindows.msi ^
           CONSUL_AGENT_CERT_FILE=[path to the consul agent certificate] ^
           CONSUL_AGENT_KEY_FILE=[path to the consul agent key] ^
           CF_ETCD_CLUSTER=[URI of your Elastic Runtime cf etcd cluster from BOSH deploy of cf] ^
-          EXTERNAL_IP=[The IP address of the network interface to bind to] ^
+          MACHINE_IP=[The IP address of the network interface to bind to] ^
           METRON_CA_FILE=[path to the Metron CA certificate] ^
           METRON_AGENT_CERT_FILE=[path to the Metron agent certificate] ^
           METRON_AGENT_KEY_FILE=[path to the Metron agent key] ^
@@ -134,7 +134,7 @@ msiexec /norestart /i c:\temp\GardenWindows.msi ^
           ADMIN_USERNAME=Administrator ^
           ADMIN_PASSWORD=secret0password ^
           CONTAINER_DIRECTORY=D:\containers ^
-          EXTERNAL_IP=192.168.50.4 ^
+          MACHINE_IP=192.168.50.4 ^
           SYSLOG_HOST_IP=syslog-server.example.com ^
           SYSLOG_PORT=514
 
@@ -148,7 +148,7 @@ msiexec /norestart /i c:\temp\DiegoWindows.msi ^
           CONSUL_AGENT_CERT_FILE=c:\temp\consul_agent.crt ^
           CONSUL_AGENT_KEY_FILE=c:\temp\consul_agent.key ^
           CF_ETCD_CLUSTER=http://10.244.0.42:4001 ^
-          EXTERNAL_IP=192.168.50.4 ^
+          MACHINE_IP=192.168.50.4 ^
           METRON_CA_FILE=c:\temp\metron_ca.crt ^
           METRON_AGENT_CERT_FILE=c:\temp\metron_agent.crt ^
           METRON_AGENT_KEY_FILE=c:\temp\metron_agent.key ^
