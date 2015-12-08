@@ -53,7 +53,7 @@ namespace ConsulService
                 server = false,
                 ports = new { dns = 53 },
                 domain = "cf.internal",
-                bind_addr = config["EXTERNAL_IP"],
+                bind_addr = config["MACHINE_IP"],
                 rejoin_after_leave = true,
                 disable_remote_exec = true,
                 disable_update_check = true,

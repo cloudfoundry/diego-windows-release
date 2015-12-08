@@ -35,7 +35,7 @@ namespace ConfigurationManager
                 "LOGGREGATOR_SHARED_SECRET",
                 "REDUNDANCY_ZONE",
                 "STACK",
-                "EXTERNAL_IP",
+                "MACHINE_IP",
             };
 
             var optional = new List<string>
