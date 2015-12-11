@@ -112,6 +112,9 @@ namespace RepService
                                 " -metricsWorkPoolSize=8" +
                                 " -healthCheckWorkPoolSize=64" +
                                 " -tempDir=" + Path.Combine(Path.GetTempPath(), "executor", "tmp") +
+                                " -gardenHealthcheckProcessUser=vcap" +
+                                " -gardenHealthcheckProcessPath=" + Path.Combine(Environment.SystemDirectory, "cmd.exe") +
+                                " -gardenHealthcheckProcessArgs=/c,dir" +
                                 " -logLevel=debug",
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
