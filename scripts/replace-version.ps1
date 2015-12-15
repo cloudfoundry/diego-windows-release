@@ -9,5 +9,7 @@ push-location $dir
   $productcode = """ProductCode"" = ""8:{$productcode}"""
   $oldpackagecode = """PackageCode"" = ""8:{E5C8395D-FB02-4615-9865-0BBECC3076D6}"""
   $packagecode = """PackageCode"" = ""8:{$packagecode}"""
-  (get-content ..\DiegoWindowsRelease\DiegoWindowsMSI\DiegoWindowsMSI.vdproj).replace("$oldversion","$version").replace("$oldproductcode", "$productcode").replace("$oldpackagecode", "$packagecode") | set-content ..\DiegoWindowsRelease\DiegoWindowsMSI\DiegoWindowsMSI.vdproj
+  $oldsubject = """Subject"" = ""8:"""
+  $subject = """Subject"" = ""8:DiegoWindows-$env:APPVEYOR_BUILD_VERSION-$env:APPVEYOR_REPO_COMMIT"""
+  (get-content ..\DiegoWindowsRelease\DiegoWindowsMSI\DiegoWindowsMSI.vdproj).replace("$oldversion","$version").replace("$oldproductcode", "$productcode").replace("$oldpackagecode", "$packagecode").replace("$oldsubject", "$subject") | set-content ..\DiegoWindowsRelease\DiegoWindowsMSI\DiegoWindowsMSI.vdproj
 pop-location
