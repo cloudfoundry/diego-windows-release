@@ -4,6 +4,7 @@ cache: C:\Users\appveyor\AppData\Local\NuGet\Cache
 build_script:
 - git submodule update --init --recursive
 - powershell "& .\scripts\replace-version.ps1"
+- powershell "& .\greenhouse-install-script-generator\scripts\replace-version.ps1"
 - set PATH=C:\go14\bin;%PATH%
 - set GOROOT=C:\go14
 - scripts\make.bat
