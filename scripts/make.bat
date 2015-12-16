@@ -23,7 +23,9 @@ pushd greenhouse-install-script-generator || exit /b 1
   SET GOPATH=%CD%
   go install github.com/onsi/ginkgo/ginkgo || exit /b 1
   ginkgo -r -noColor src\integration || exit /b 1
+  go get github.com/josephspurrier/goversioninfo/cmd/goversioninfo || exit /b 1
   cd src\generate
+  go generate || exit /b 1
   go install || exit /b 1
 popd
 echo F | xcopy bin\generate.exe output\generate-%VERSION%.exe || exit /b 1
