@@ -49,7 +49,7 @@ pushd diego-release || exit /b 1
   SET GOPATH=%CD%
   :: windows cmd doesn't like quoting arguments, use -skip=foo.bar
   :: instead of -skip='foo bar'
-  ginkgo -r -noColor -skipPackage depot\\metrics src/github.com/cloudfoundry-incubator/executor || exit /b 1
+  ginkgo -r -noColor -skipPackage depot\metrics src/github.com/cloudfoundry-incubator/executor || exit /b 1
   ginkgo -noColor src/github.com/cloudfoundry-incubator/rep || exit /b 1
 
   go install github.com/cloudfoundry-incubator/rep/cmd/rep || exit /b 1
