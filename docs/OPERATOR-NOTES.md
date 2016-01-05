@@ -10,7 +10,7 @@ Set-Service RepService -startuptype "Disabled"
 
 Invoke-WebRequest -Uri http://localhost:1800/evacuate -Method Post
 
-while (true) {
+while ($true) {
     try {
         Get-WebRequest "http://localhost:1800/ping"
     } catch {
