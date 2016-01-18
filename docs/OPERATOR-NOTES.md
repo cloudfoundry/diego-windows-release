@@ -21,3 +21,11 @@ while ($true) {
 
 Set-Service RepService -startuptype "Automatic"
 ```
+
+## Getting versions of things
+
+```
+powershell .\setup.ps1 -version
+```
+
+All executables and MSIs include version numbers in their Properties tab, by right-clicking on the file and going to properties.
