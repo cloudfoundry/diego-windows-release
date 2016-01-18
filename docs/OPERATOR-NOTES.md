@@ -24,8 +24,11 @@ Set-Service RepService -startuptype "Automatic"
 
 ## Getting versions
 
+All executables and MSIs include version numbers in their Properties tab, by right-clicking on the file and going to properties.
+
+For `setup.ps1`, pass the version flag on the command line:
+
 ```
 powershell .\setup.ps1 -version
 ```
 
-All executables and MSIs include version numbers in their Properties tab, by right-clicking on the file and going to properties.
