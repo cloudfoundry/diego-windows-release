@@ -22,7 +22,7 @@ while ($true) {
 Set-Service RepService -startuptype "Automatic"
 ```
 
-## Getting versions of things
+## Getting versions
 
 ```
 powershell .\setup.ps1 -version
