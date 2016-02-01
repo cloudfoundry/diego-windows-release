@@ -147,6 +147,15 @@
                   "PowerShell.exe -ExecutionPolicy Unrestricted C:\\tmp\\dwminst\\setup.ps1 -quiet",
                   "\n",
 
+                  "PowerShell.exe /C New-NetFirewallRule -DisplayName NTP -Direction Inbound -LocalPort 123 -Protocol UDP -Action Allow",
+                  "\n",
+
+                  "PowerShell.exe /C New-NetFirewallRule -DisplayName NTP -Direction Outbound -RemotePort 123 -Protocol UDP -Action Allow",
+                  "\n",
+
+                  "PowerShell.exe /C Set-Service W32Time -StartupType Automatic -Status Running",
+                  "\n",
+
                   "C:\\tmp\\dwminst\\install.bat",
                   "\n",
 
