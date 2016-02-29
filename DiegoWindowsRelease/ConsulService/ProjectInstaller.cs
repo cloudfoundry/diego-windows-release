@@ -2,6 +2,7 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Configuration.Install;
+using System.IO;
 using System.ServiceProcess;
 
 namespace ConsulService
@@ -17,6 +18,13 @@ namespace ConsulService
         public override string ServiceName()
         {
             return this.serviceInstaller.ServiceName;
+        }
+
+        protected override void OnAfterUninstall(IDictionary savedState)
+        {
+            base.OnAfterUninstall(savedState);
+
+            Directory.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "ConsulService"), true);
         }
     }
 }

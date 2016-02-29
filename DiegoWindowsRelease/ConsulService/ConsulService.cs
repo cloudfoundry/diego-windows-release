@@ -45,10 +45,13 @@ namespace ConsulService
                 encrypt = System.IO.File.ReadAllText(config["CONSUL_ENCRYPT_FILE"]);
             }
 
+            var dataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "ConsulService");
+            Directory.CreateDirectory(dataDir);
+
             var consulConfig = new
             {
                 datacenter = "dc1",
-                data_dir = Path.GetTempPath(),
+                data_dir = dataDir,
                 node_name = config["MACHINE_NAME"],
                 server = false,
                 ports = new { dns = 53 },
