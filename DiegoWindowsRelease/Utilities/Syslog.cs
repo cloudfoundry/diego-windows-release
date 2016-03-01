@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Net.Sockets;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 
 namespace Utilities
@@ -10,27 +10,34 @@ namespace Utilities
     public class Syslog
     {
         const SyslogFacility Facility = SyslogFacility.Daemons;
+        private const string EventSource = "InstallerSyslog";
         private readonly UdpClient udp;
         private readonly string prefix;
 
         public Syslog(string host, int port, string machineName, string sender)
         {
             udp = new UdpClient(host, port);
-            this.prefix = machineName + " " + sender + ": ";
+            prefix = machineName + " " + sender + ": ";
         }
 
         public static Syslog Build(Dictionary<string, string> p, string eventSource)
         {
             if (!p.ContainsKey("SYSLOG_HOST_IP") || !p.ContainsKey("SYSLOG_PORT"))
-                return null as Syslog;
+                return null;
             var port = SafeStringToInt(p["SYSLOG_PORT"]);
             if (p["SYSLOG_HOST_IP"].Length > 0 && port > 0)
             {
-                return new Syslog(p["SYSLOG_HOST_IP"], port, p["MACHINE_NAME"], eventSource);
+                try
+                {
+                    return new Syslog(p["SYSLOG_HOST_IP"], port, p["MACHINE_NAME"], eventSource);
+                }
+                catch (SocketException e)
+                {
+                   EventLog.WriteEntry(EventSource, String.Format("Failed to connect to syslog for service: {0}\r\n{1}", eventSource, e), EventLogEntryType.Error);
+                }
             }
-            return null as Syslog;
+            return null;
         }
-
         public void Send(string message, SyslogSeverity priority)
         {
             var msg = Message(message, priority);
