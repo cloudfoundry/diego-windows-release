@@ -9,3 +9,5 @@ necessary programs (consul, rep, and metron) will be running as services.
 - [Building instructions](docs/BUILDING.md)
 - [Installation instructions](docs/INSTALL.md)
 - [Operator instructions](docs/OPERATOR-NOTES.md)
+
+Experiencing any issues with your Diego-Windows installation? Check out our convenient [Troubleshooting guide](docs/TROUBLESHOOT.md).
