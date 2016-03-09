@@ -74,7 +74,7 @@ generate.exe -outputDir=[the directory where the script will output its files]
              -machineIp=[(optional) IP address of this cell. Auto-discovered if ommitted]
 ```
 
-_**NOTE:** The windowsPassword argument cannot contain `"` characters due to a limitation in `msiexec.exe`._
+_**NOTE:**  windowsUsername must be a local user account that has administrative privileges. At this time both the username and password must contain alphanumeric characters only.
 
 For example:
 
