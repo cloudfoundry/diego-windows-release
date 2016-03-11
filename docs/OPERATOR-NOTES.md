@@ -32,3 +32,12 @@ For `setup.ps1`, pass the version flag on the command line:
 powershell .\setup.ps1 -version
 ```
 
+## Custom CA Certificates
+
+If your applications require custom CA certificates in order to communicate
+with other components, the certificates may be installed on the cell.
+Certificates trusted by the local computer or domain will then be trusted by
+applications running on that cell.
+
+See [this](https://technet.microsoft.com/en-us/library/cc754841.aspx) TechNet
+article on managing trusted root certificates.
