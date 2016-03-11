@@ -22,6 +22,13 @@ namespace ConfigurationManager
             EventLog.WriteEntry(eventSource, "Service Initializing", EventLogEntryType.Information, 0);
         }
 
+        protected override void OnBeforeUninstall(IDictionary savedState)
+        {
+            RemoveMiscellaneousFiles();
+            File.Delete(DestinationFilename("parameters.json"));
+            base.OnBeforeUninstall(savedState);
+        }
+
         protected override void OnBeforeInstall(IDictionary savedState)
         {
             base.OnBeforeInstall(savedState);
@@ -99,6 +106,21 @@ namespace ConfigurationManager
             string jsonString = javaScriptSerializer.Serialize(parameters);
             var configFile = DestinationFilename("parameters.json");
             File.WriteAllText(configFile, jsonString);
+        }
+
+        private void RemoveMiscellaneousFiles()
+        {
+            var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            var configFile = DestinationFilename("parameters.json");
+            var content = File.ReadAllText(configFile);
+            var parameters = javaScriptSerializer.Deserialize<Dictionary<string, string>>(content);
+            foreach (var p in parameters.Where(i => i.Key.EndsWith("_FILE")))
+            {
+                if (File.Exists(p.Value))
+                {
+                    File.Delete(p.Value);
+                }
+            }
         }
 
         private void CopyMiscellaneousFiles(IEnumerable<string> keys)

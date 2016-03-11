@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.ComponentModel;
-using System.Configuration.Install;
-using System.ServiceProcess;
+using System.IO;
 
 namespace MetronService
 {
@@ -18,6 +15,13 @@ namespace MetronService
         public override string ServiceName()
         {
             return this.serviceInstaller.ServiceName;
+        }
+
+        protected override void OnAfterUninstall(IDictionary savedState)
+        {
+            base.OnAfterUninstall(savedState);
+            var configDir = Path.Combine(Context.Parameters["assemblypath"], "..", "metron");
+            Directory.Delete(configDir, true);
         }
     }
 }
