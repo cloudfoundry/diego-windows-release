@@ -74,6 +74,19 @@ For your Windows cell, use the same NTP server as the rest of your CF deployment
 
 ##<a id='other'></a>Troubleshoot Other Issues
 
+- `The stack could not be found` error.
+This error occurs on application push, and provides CLI output similar to the follwing:
+
+	<pre class='terminal'>
+	Starting app mytestapp in org ORG / space SPACE as admin...
+	FAILED
+	Server error, status code: 404, error code: 250003, message: The stack could not be found: The requested app stack windows2012R2 is not available on this system.
+	</pre>
+This error is resolved by enabling Diego for the application `cf enable-diego APPNAME`. The application must be stopped (or pushed with `--no-start`) before enabling Diego, and then manually starting the application.
+
+
+###<a id='diagnostics'></a>Collecting Diagnostic Information
+
 Look at the **Event Viewer** logs in Windows to troubleshoot other issues:
 
 1. Navigate to **Windows Logs** > **Application**. 
