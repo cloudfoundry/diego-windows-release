@@ -85,7 +85,17 @@ This error occurs on application push, and provides CLI output similar to the fo
 This error is resolved by enabling Diego for the application `cf enable-diego APPNAME`. The application must be stopped (or pushed with `--no-start`) before enabling Diego, and then manually starting the application.
 
 
-###<a id='diagnostics'></a>Collecting Diagnostic Information
+- Application failed to stage:
+	<pre class='terminal'>
+	Starting app myApp in org ORG / space SPACE as admin...
+	FAILED
+	StagingError
+	<...>
+	[API/0] ERR Failed to stage application: staging failed
+	</pre>
+This error is often caused by a mismatch between the version of DiegoWindows that is installed on the cell and the version of Diego or Elastic Runtime. 
+
+##<a id='diagnostics'></a>Collecting Additional Diagnostic Information
 
 Look at the **Event Viewer** logs in Windows to troubleshoot other issues:
 
