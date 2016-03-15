@@ -74,6 +74,8 @@ For your Windows cell, use the same NTP server as the rest of your CF deployment
 
 ##<a id='other'></a>Troubleshoot Other Issues
 
+- Tring to debug or investigate a DNS issue? Try using both `ping.exe` and `nslookup.exe`. `nslookup` suffers from an issue of only using a single DNS server, so it may report failures that are not "real".
+
 - `The stack could not be found` error.
 This error occurs on application push, and provides CLI output similar to the follwing:
 
