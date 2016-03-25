@@ -37,6 +37,7 @@ namespace ConfigurationManager
 
             var required = new List<string>()
             {
+                "CONSUL_DOMAIN",
                 "CONSUL_IPS",
                 "CF_ETCD_CLUSTER",
                 "LOGGREGATOR_SHARED_SECRET",
