@@ -70,6 +70,8 @@ Hakim only outputs to the console if it detects errors. Here are some common err
 - `There was an error detecting ntp synchronization on your machine` Clock skew with other CF components can occur if NTP is not configured. Clock skew can result in odd errors, for example not receiving any application metrics for apps running on the affected machine.
 For your Windows cell, use the same NTP server as the rest of your CF deployment.
 
+- `Logon failure: the user created by Containerizer has not been granted the requested logon type at this computer. Local accounts require permissions to logon locally.` The container users created by DiegoWindows need the privilege to log on locally. Granting the `IIS_IUSRS` group the ["Allow log on locally"](https://technet.microsoft.com/en-us/library/cc756809(v=ws.10).aspx) privilege will resolve this error.
+
 - `Failed to create container` This usually indicates an issue with the Windows containerization service. Contact support and provide the full output of this error.
 
 ##<a id='other'></a>Troubleshoot Other Issues
