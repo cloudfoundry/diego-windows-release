@@ -18,13 +18,6 @@
       "Description": "Bosh director (e.g. 127.0.0.1).",
       "Type": "String"
     },
-    "ContainerizerPassword": {
-      "Description": "Password for containerizer user e.g. Password123.",
-      "Type": "String",
-      "NoEcho" : "true",
-      "AllowedPattern": "[a-zA-Z0-9]+",
-      "ConstraintDescription": "Must be alphanumeric, with at least one capital letter, one lowercase letter, and one number."
-    },
     "CellName": {
       "Description": "The name for your cell",
       "Type": "String",
@@ -131,17 +124,9 @@
             "files": {
               "C:\\tmp\\dwminst\\init.bat" : {
                 "content" : { "Fn::Join" : ["", [
-                  "net user containerizer ", { "Ref": "ContainerizerPassword" }, " /ADD",
-                  "\n",
-
-                  "net localgroup administrators containerizer /ADD",
-                  "\n",
-
                   "C:\\tmp\\dwminst\\generate.exe",
                   " -boshUrl=https://", { "Ref": "BoshUserName" }, ":", { "Ref": "BoshPassword" }, "@", { "Ref": "BoshHost" }, ":25555",
                   " -outputDir=C:\\tmp\\dwminst",
-                  " -windowsUsername=containerizer",
-                  " -windowsPassword=", { "Ref": "ContainerizerPassword" },
                   "\n",
 
                   "PowerShell.exe -ExecutionPolicy Unrestricted C:\\tmp\\dwminst\\setup.ps1 -quiet",
