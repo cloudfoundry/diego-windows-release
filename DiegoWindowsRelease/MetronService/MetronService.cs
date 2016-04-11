@@ -63,6 +63,7 @@ namespace MetronService
                 LoggregatorDropsondePort = 3457,
                 PreferredProtocol = preferredProtocol,
                 TLSConfig = tlsConfig,
+                Deployment = "cf"
             };
 
             var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
