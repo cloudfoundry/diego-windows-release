@@ -88,7 +88,6 @@ This error occurs on application push, and provides CLI output similar to the fo
 	</pre>
 This error is resolved by enabling Diego for the application `cf enable-diego APPNAME`. The application must be stopped (or pushed with `--no-start`) before enabling Diego, and then manually starting the application.
 
-
 - Application failed to stage:
 	<pre class='terminal'>
 	Starting app myApp in org ORG / space SPACE as admin...
@@ -98,6 +97,9 @@ This error is resolved by enabling Diego for the application `cf enable-diego AP
 	[API/0] ERR Failed to stage application: staging failed
 	</pre>
 This error is often caused by a mismatch between the version of DiegoWindows that is installed on the cell and the version of Diego or Elastic Runtime. 
+
+- Unexpected flapping of applications:
+  An application may start and then unexpectedly restart due to duplicate cell hostnames. Diego components rely on a unique hostname to communicate with each other. The `hostname` command will show the currently configured name.
 
 ##<a id='diagnostics'></a>Collecting Additional Diagnostic Information
 
