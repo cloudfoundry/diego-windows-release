@@ -57,7 +57,7 @@ namespace MetronService
                 EtcdMaxConcurrentRequests = 10,
                 EtcdQueryIntervalMilliseconds = 5000,
                 SharedSecret = hash["LOGGREGATOR_SHARED_SECRET"],
-                DropsondeIncomingMessagesPort = 3457,
+                IncomingUDPPort = 3457,
                 Index = 0,
                 Job = hash["MACHINE_NAME"],
                 LoggregatorDropsondePort = 3457,
