@@ -10,9 +10,13 @@ Make sure that your .NET app is ready for deployment. You usually see the follow
 
 ![diegoWindows-no-compatible-cell](images/no-compatible-cell.png)
 
-This error usually indicates that the RepService has not yet registered your Windows cell with the rest of your Cloud Foundry (CF) deployment. The RepService attempts to reconnect on an interval, and can sometimes resolve itself within a few minutes. 
+This error has two root causes. Either:
+- There is no available capacity on the cells. For example, you may be pushing an application requesting 2GB of memory when there is no available Windows cell with capcacity for a 2GB application.
+- Or the RepService has not yet registered your Windows cell with the rest of your Cloud Foundry (CF) deployment. The RepService attempts to reconnect on an interval, and can sometimes resolve itself within a few minutes.
+ 
+To resolve the first error, try reducing the resource requirements of your app, adding additional cells, or removing or reducing the resource requirements of other deployed applications.
 
-* Restart the RepService within your cell to trigger an  immediate reconnection. 
+To resolve the second error, you can restart the RepService within the cell to trigger an immediate reconnection:
 
 ![diegoWindows-no-compatible-cell](images/restart-rep.png)
 
