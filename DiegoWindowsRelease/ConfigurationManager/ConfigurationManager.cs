@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Utilities;
 
 namespace ConfigurationManager
 {
@@ -25,7 +26,7 @@ namespace ConfigurationManager
         protected override void OnBeforeUninstall(IDictionary savedState)
         {
             RemoveMiscellaneousFiles();
-            File.Delete(DestinationFilename("parameters.json"));
+            Directory.Delete(Destination(), true);
             base.OnBeforeUninstall(savedState);
         }
 
@@ -126,6 +127,7 @@ namespace ConfigurationManager
 
         private void CopyMiscellaneousFiles(IEnumerable<string> keys)
         {
+            Directory.CreateDirectory(Destination());
             foreach (string key in keys.Where(x => x.EndsWith("_FILE")))
             {
                 var path = Context.Parameters[key];
@@ -134,7 +136,7 @@ namespace ConfigurationManager
         }
         private string Destination()
         {
-            return Path.GetFullPath(Path.Combine(Context.Parameters["assemblypath"], ".."));
+            return Config.ConfigDir();
         }
 
         private string DestinationFilename(string path)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
@@ -27,7 +28,7 @@ namespace MetronService
             EventLog.WriteEntry(eventSource, "Service Initializing", EventLogEntryType.Information, 0);
         }
 
-        private void WriteConfigFile()
+        private string WriteConfigFile()
         {
             var hash = Config.Params();
 
@@ -68,20 +69,22 @@ namespace MetronService
 
             var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             string jsonString = javaScriptSerializer.Serialize(metronConfig);
-            var configDir = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "metron"));
-            System.IO.Directory.CreateDirectory(configDir);
-            System.IO.File.WriteAllText(System.IO.Path.Combine(configDir, "config.json"), jsonString);
+            var configDir = Config.ConfigDir("metron");
+            Directory.CreateDirectory(configDir);
+            var configPath = Path.Combine(configDir, "config.json");
+            File.WriteAllText(configPath, jsonString);
+            return configPath;
         }
 
         protected override void OnStart(string[] args)
         {
-            WriteConfigFile();
+            var configPath = WriteConfigFile();
             process = new Process
             {
                 StartInfo =
                 {
                     FileName = "metron.exe",
-                    Arguments = @"--config=metron\config.json",
+                    Arguments = @"--config="+configPath,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,

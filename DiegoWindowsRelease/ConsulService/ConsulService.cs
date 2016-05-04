@@ -76,9 +76,9 @@ namespace ConsulService
 
             var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             string jsonString = javaScriptSerializer.Serialize(consulConfig);
-            var configDir = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "consul"));
-            System.IO.Directory.CreateDirectory(configDir);
-            System.IO.File.WriteAllText(System.IO.Path.Combine(configDir, "config.json"), jsonString);
+            var configDir = Config.ConfigDir("consul");
+            Directory.CreateDirectory(configDir);
+            File.WriteAllText(Path.Combine(configDir, "config.json"), jsonString);
         }
 
         protected override void OnStart(string[] args)
@@ -89,7 +89,7 @@ namespace ConsulService
                 StartInfo =
                 {
                     FileName = "consul.exe",
-                    Arguments = @"agent -config-dir=consul",
+                    Arguments = @"agent -config-dir="+Config.ConfigDir("consul"),
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,

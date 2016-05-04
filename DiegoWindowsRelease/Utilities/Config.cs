@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 
@@ -7,10 +8,23 @@ namespace Utilities
 {
     public class Config
     {
+        public static string ConfigDir()
+        {
+            return ConfigDir("");
+        }
+
+        public static string ConfigDir(string service)
+        {
+            return
+                Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                    "DiegoWindows", service));
+        }
+
         public static Dictionary<string, string> Params()
         {
             var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            var jsonString = System.IO.File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "parameters.json");
+            var parametersPath = Path.Combine(ConfigDir(), "parameters.json");
+            var jsonString = File.ReadAllText(parametersPath);
             var hash = javaScriptSerializer.Deserialize<Dictionary<string, string>>(jsonString);
             SetMachineName(hash);
             SetBbsAddress(hash);
