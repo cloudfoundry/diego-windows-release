@@ -78,6 +78,10 @@ For your Windows cell, use the same NTP server as the rest of your CF deployment
 
 - `Failed to create container` This usually indicates an issue with the Windows containerization service. Contact support and provide the full output of this error.
 
+- `NoCompatibleCell` when pushing an application. In addition to the root causes listed above, this could also be an issue with the registration of the Consul service due to bad certificates on the Cell (e.g. due to a CF redeploy).
+In this scenario, the Consul service will be seen as repeatedly restarting (as seen in Task Manager), and a directory will be visible either at `%WINDIR%\Temp\serf` or `%PROGRAMDATA%\ConsulService\serf` with some CF certificates. 
+The issue can be resolved by deleting this directory, re-running `generate.exe` and uninstalling and re-installing the MSI installers. (This directory is cleaned up automatically by the uninstall process as of [this commit](https://github.com/cloudfoundry/diego-windows-release/commit/53c423f70478d7b3641ac0b96f6fe9b36af5d404)).
+
 ##<a id='other'></a>Troubleshoot Other Issues
 
 - Trying to debug or investigate a DNS issue? Try using both `ping.exe` and `nslookup.exe`. `nslookup` suffers from an issue of only using a single DNS server, so it may report failures that are not "real".
