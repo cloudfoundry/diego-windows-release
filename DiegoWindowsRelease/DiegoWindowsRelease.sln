@@ -3,13 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7A1C6962-1A67-43B9-8CBF-2944B1008698}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DiegoWindowsMSI", "DiegoWindowsMSI\DiegoWindowsMSI.vdproj", "{E59E28F3-8214-4EAF-B1E4-F6AAEA541235}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationManager", "ConfigurationManager\ConfigurationManager.csproj", "{47A78AC3-D749-46E2-B7B6-A7DC1A8C2B70}"
@@ -23,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetronService", "MetronService\MetronService.csproj", "{7ACF3253-98BB-44B2-8451-2089B6B95099}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{5BF61F53-923F-46C5-B160-D503B08B9B5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -140,6 +135,20 @@ Global
 		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Release|x64.ActiveCfg = Release|Any CPU
 		{5BF61F53-923F-46C5-B160-D503B08B9B5A}.Release|x86.ActiveCfg = Release|Any CPU
+		{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}.Release|x64.ActiveCfg = Release|Any CPU
+		{C376857D-44AE-45BD-A89A-CF3A3C1A90D3}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

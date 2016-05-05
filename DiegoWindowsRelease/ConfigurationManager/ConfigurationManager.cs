@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using Utilities;
 
 namespace ConfigurationManager
@@ -94,6 +96,14 @@ namespace ConfigurationManager
 
         private void WriteParametersFile(IEnumerable<string> keys)
         {
+            if (!Directory.Exists(Destination()))
+            {
+                Directory.CreateDirectory(Destination());
+            }
+            var directorySecurity = new DirectorySecurity();
+            directorySecurity.SetAccessRuleProtection(true, false);
+            directorySecurity.SetAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null), FileSystemRights.FullControl, AccessControlType.Allow));
+            Directory.SetAccessControl(Destination(), directorySecurity);
             var parameters = new Dictionary<string, string>();
             foreach (string key in keys)
             {
@@ -134,7 +144,7 @@ namespace ConfigurationManager
                 File.Copy(path, DestinationFilename(path), true);
             }
         }
-        private string Destination()
+        protected virtual string Destination()
         {
             return Config.ConfigDir();
         }
