@@ -2,19 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration.Install;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using System.Web.Script.Serialization;
 using Utilities;
 
 namespace ConfigurationManager
 {
     [RunInstaller(true)]
-    public partial class ConfigurationManager : System.Configuration.Install.Installer
+    public partial class ConfigurationManager : Installer
     {
         private const string eventSource = "Diego MSI Windows Features Installer";
+
+        private readonly FileSystemAccessRule fileSystemAccessRule =
+            new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null),
+                FileSystemRights.FullControl, AccessControlType.Allow);
 
         public ConfigurationManager()
         {
@@ -38,7 +44,7 @@ namespace ConfigurationManager
 
             var missing = new List<string>();
 
-            var required = new List<string>()
+            var required = new List<string>
             {
                 "CONSUL_DOMAIN",
                 "CONSUL_IPS",
@@ -66,7 +72,7 @@ namespace ConfigurationManager
                 "SYSLOG_PORT"
             };
 
-            foreach (var key in required)
+            foreach (string key in required)
             {
                 if (Context.Parameters[key] == null || Context.Parameters[key] == "")
                     missing.Add(key);
@@ -88,43 +94,47 @@ namespace ConfigurationManager
                     "CF_ETCD_CLUSTER values must be URIs (i.e. http://192.168.0.1:4001 instead of 192.168.0.1:4001).");
             }
 
-            var presentOptional = optional.Where(key => Context.Parameters[key] != null && Context.Parameters[key] != "");
-            var keys = required.Concat(presentOptional).ToList();
+            IEnumerable<string> presentOptional =
+                optional.Where(key => Context.Parameters[key] != null && Context.Parameters[key] != "");
+            List<string> keys = required.Concat(presentOptional).ToList();
+
+            CreateDestination();
             CopyMiscellaneousFiles(keys);
             WriteParametersFile(keys);
         }
 
-        private void WriteParametersFile(IEnumerable<string> keys)
+        private void CreateDestination()
         {
-            if (!Directory.Exists(Destination()))
-            {
-                Directory.CreateDirectory(Destination());
-            }
+            Directory.CreateDirectory(Destination());
             var directorySecurity = new DirectorySecurity();
             directorySecurity.SetAccessRuleProtection(true, false);
-            directorySecurity.SetAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null), FileSystemRights.FullControl, AccessControlType.Allow));
+            directorySecurity.SetAccessRule(fileSystemAccessRule);
             Directory.SetAccessControl(Destination(), directorySecurity);
+        }
+
+        private void WriteParametersFile(IEnumerable<string> keys)
+        {
             var parameters = new Dictionary<string, string>();
             foreach (string key in keys)
             {
-                var value = Context.Parameters[key];
+                string value = Context.Parameters[key];
                 if (key.EndsWith("_FILE"))
                 {
                     value = DestinationFilename(value);
                 }
                 parameters.Add(key, value);
             }
-            var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            var javaScriptSerializer = new JavaScriptSerializer();
             string jsonString = javaScriptSerializer.Serialize(parameters);
-            var configFile = DestinationFilename("parameters.json");
+            string configFile = DestinationFilename("parameters.json");
             File.WriteAllText(configFile, jsonString);
         }
 
         private void RemoveMiscellaneousFiles()
         {
-            var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            var configFile = DestinationFilename("parameters.json");
-            var content = File.ReadAllText(configFile);
+            var javaScriptSerializer = new JavaScriptSerializer();
+            string configFile = DestinationFilename("parameters.json");
+            string content = File.ReadAllText(configFile);
             var parameters = javaScriptSerializer.Deserialize<Dictionary<string, string>>(content);
             foreach (var p in parameters.Where(i => i.Key.EndsWith("_FILE")))
             {
@@ -137,13 +147,18 @@ namespace ConfigurationManager
 
         private void CopyMiscellaneousFiles(IEnumerable<string> keys)
         {
-            Directory.CreateDirectory(Destination());
+            var fileSecurity = new FileSecurity();
+            fileSecurity.SetAccessRuleProtection(true, false);
+            fileSecurity.SetAccessRule(fileSystemAccessRule);
             foreach (string key in keys.Where(x => x.EndsWith("_FILE")))
             {
-                var path = Context.Parameters[key];
-                File.Copy(path, DestinationFilename(path), true);
+                string path = Context.Parameters[key];
+                string destFileName = DestinationFilename(path);
+                File.Copy(path, destFileName, true);
+                File.SetAccessControl(destFileName, fileSecurity);
             }
         }
+
         protected virtual string Destination()
         {
             return Config.ConfigDir();
@@ -151,7 +166,7 @@ namespace ConfigurationManager
 
         private string DestinationFilename(string path)
         {
-            var filename = Path.GetFileName(path);
+            string filename = Path.GetFileName(path);
             return Path.GetFullPath(Path.Combine(Destination(), filename));
         }
     }

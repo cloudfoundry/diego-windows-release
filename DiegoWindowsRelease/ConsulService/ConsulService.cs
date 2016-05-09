@@ -42,7 +42,7 @@ namespace ConsulService
                 caFile = config["CONSUL_CA_FILE"];
                 keyFile = config["CONSUL_AGENT_KEY_FILE"];
                 certFile = config["CONSUL_AGENT_CERT_FILE"];
-                encrypt = System.IO.File.ReadAllText(config["CONSUL_ENCRYPT_FILE"]);
+                encrypt = File.ReadAllText(config["CONSUL_ENCRYPT_FILE"]);
             }
 
             var dataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "ConsulService");
