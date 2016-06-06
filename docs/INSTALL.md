@@ -56,7 +56,7 @@ failed install, set "Rollback on failure" to "No" under advanced options.
 1. Download the `setup.ps1` script from
 our [latest release](https://github.com/cloudfoundry-incubator/garden-windows-release/releases/latest).
 From inside File explorer, right click on the file and click `Run with powershell`.
-The script will enable the required Windows features, 
+The script will enable the required Windows features,
 configure the DNS settings, and configure the firewall to the way that the cell needs.
 
 ## Install the MSIs
@@ -68,25 +68,21 @@ configure the DNS settings, and configure the firewall to the way that the cell 
 
 ```
 generate.exe -outputDir=[the directory where the script will output its files]
-             -windowsUsername=[the username of an administrator user for Containerizer to run as]
-             -windowsPassword=[the password for the same user] 
              -boshUrl=[the URL for your BOSH director, with credentials]
              -machineIp=[(optional) IP address of this cell. Auto-discovered if ommitted]
 ```
 
-_**NOTE:**  windowsUsername must be a local user account that has administrative privileges. At this time both the username and password must contain alphanumeric characters only.
-
 For example:
 
 ```
-generate.exe -outputDir=C:\diego-install-dir -windowsUsername=Administrator -windowsPassword=MyPass123 -boshUrl=https://10.10.0.54:25555 -machineIp=192.168.50.4
+generate.exe -outputDir=C:\diego-install-dir -boshUrl=https://10.10.0.54:25555 -machineIp=192.168.50.4
 ```
 
 The output of `generate.exe` is a batch file called `install.bat`, which appears in the same directory.
 
 
 1. Download `DiegoWindows.msi` and `GardenWindows.msi` to the output directory
-you specified to the generate command. The filenames must remain unchanged, 
+you specified to the generate command. The filenames must remain unchanged,
 since the script assumes these will be the MSI file names.
 
 1. Run the `install.bat` script in the output directory. This will install
@@ -98,8 +94,6 @@ The following instructions assume that the MSIs were downloaded to `c:\temp`
 
 ```
 msiexec /norestart /i c:\temp\GardenWindows.msi ^
-          ADMIN_USERNAME=[Username with admin privileges] ^
-          ADMIN_PASSWORD=[Previous user password] ^
           CONTAINER_DIRECTORY=[(optional) An absolute path to the directory Containerizer will use to store container files, default is C:\containerizer] ^
           MACHINE_IP=[The IP address of the network interface to bind to] ^
           SYSLOG_HOST_IP=[(optional) Syslog host IP to send logs to] ^
@@ -131,8 +125,6 @@ An example would be:
 
 ```
 msiexec /norestart /i c:\temp\GardenWindows.msi ^
-          ADMIN_USERNAME=Administrator ^
-          ADMIN_PASSWORD=secret0password ^
           CONTAINER_DIRECTORY=D:\containers ^
           MACHINE_IP=192.168.50.4 ^
           SYSLOG_HOST_IP=syslog-server.example.com ^
