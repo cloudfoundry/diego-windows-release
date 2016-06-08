@@ -38,7 +38,6 @@ The CloudFormation wizard will ask for a number of parameters.
 1. BoshUserName: Username for BOSH director
 1. BoshPassword: Pasword for BOSH director
 1. BoshHost: Bosh director host
-1. ContainerizerPassword: Password for containerizer user e.g. `Password123`. _Must be alphanumeric and contain at least one capital, one lowercase, and one numeric character. Cannot contain `"` characters due to a limitation in `msiexec.exe`._
 1. CellName: The name for your cell
 1. VPCID: the id of the vpc in which the cell and the subnet will be created
 1. NAT Instance: the instance ID of the NAT box. Search for `NAT` in the CloudFormation dropdown, it will typically be the first result. Note that the NAT will need to have a security group that allows traffic from the subnet you are setting up the cell within.
