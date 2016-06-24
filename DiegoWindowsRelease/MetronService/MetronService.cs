@@ -59,7 +59,7 @@ namespace MetronService
                 EtcdQueryIntervalMilliseconds = 5000,
                 SharedSecret = hash["LOGGREGATOR_SHARED_SECRET"],
                 IncomingUDPPort = 3457,
-                Index = 0,
+                Index = "0",
                 Job = hash["MACHINE_NAME"],
                 LoggregatorDropsondePort = 3457,
                 PreferredProtocol = preferredProtocol,
