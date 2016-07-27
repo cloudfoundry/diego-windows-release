@@ -51,6 +51,7 @@ pushd diego-release || exit /b 1
   :: instead of -skip='foo bar'
   ginkgo -r -noColor -skipPackage depot\metrics src/code.cloudfoundry.org/executor || exit /b 1
   ginkgo -noColor src/code.cloudfoundry.org/rep || exit /b 1
+  ginkgo -noColor src/code.cloudfoundry.org/cacheddownloader || exit /b 1
 
   go install code.cloudfoundry.org/rep/cmd/rep || exit /b 1
 popd
