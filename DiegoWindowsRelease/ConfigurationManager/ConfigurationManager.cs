@@ -107,7 +107,6 @@ namespace ConfigurationManager
         {
             Directory.CreateDirectory(Destination());
             var directorySecurity = new DirectorySecurity();
-            directorySecurity.SetAccessRuleProtection(true, false);
             directorySecurity.SetAccessRule(fileSystemAccessRule);
             Directory.SetAccessControl(Destination(), directorySecurity);
         }
@@ -148,7 +147,6 @@ namespace ConfigurationManager
         private void CopyMiscellaneousFiles(IEnumerable<string> keys)
         {
             var fileSecurity = new FileSecurity();
-            fileSecurity.SetAccessRuleProtection(true, false);
             fileSecurity.SetAccessRule(fileSystemAccessRule);
             foreach (string key in keys.Where(x => x.EndsWith("_FILE")))
             {
