@@ -26,4 +26,5 @@ clone_folder: c:\diego-windows-release
 branches:
   only:
   - master
+  - lts-18
   - /appveyor/
