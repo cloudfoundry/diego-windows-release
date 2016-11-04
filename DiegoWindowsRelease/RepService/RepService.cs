@@ -41,6 +41,11 @@ namespace RepService
   -bbsCACert="": path to certificate authority cert used for mutually authenticated TLS BBS communication
   -bbsClientCert="": path to client cert used for mutually authenticated TLS BBS communication
   -bbsClientKey="": path to client key used for mutually authenticated TLS BBS communication
+  -requireTLS="": rep require TLS
+  -caFile="": path to rep ca certificate file
+  -certFile="": path to server certificate file
+  -keyFile="": path to server certificate key file
+  -skipCertVerify="" : skip SSL certificate verification
   -cachePath="/tmp/cache": location to cache assets
   -cellID="": the ID used by the rep to identify itself to external systems - must be specified
   -communicationTimeout=10s: Timeout applied to all HTTP requests.
@@ -73,7 +78,6 @@ namespace RepService
   -readWorkPoolSize=64: Number of concurrent read operations in garden
   -rootFSProvider=[]: List of RootFS providers
   -sessionName="rep": consul session name
-  -skipCertVerify=false: skip SSL certificate verification
   -tempDir="/tmp": location to store temporary assets
   -unhealthyMonitoringInterval=500ms: interval on which to check unhealthy containers
   -zone="": the availability zone associated with the rep
@@ -86,6 +90,11 @@ namespace RepService
                                 " -bbsCACert=\"" + tryGetKey(hash, "BBS_CA_FILE") + "\"" +
                                 " -bbsClientCert=\"" + tryGetKey(hash, "BBS_CLIENT_CERT_FILE") + "\"" +
                                 " -bbsClientKey=\"" + tryGetKey(hash, "BBS_CLIENT_KEY_FILE") + "\"" +
+                                " -requireTLS=" + hash["REP_REQUIRE_TLS"] +
+                                " -caFile=\"" + tryGetKey(hash, "REP_CA_CERT_FILE") + "\"" +
+                                " -certFile=\"" + tryGetKey(hash, "REP_SERVER_CERT_FILE") + "\"" +
+                                " -keyFile=\"" + tryGetKey(hash, "REP_SERVER_KEY_FILE") + "\"" +
+                                " -skipCertVerify=true"+
                                 " -consulCluster=http://127.0.0.1:8500" +
                                 " -debugAddr=0.0.0.0:17008" +
                                 " -listenAddr=0.0.0.0:" + RepPort +
@@ -95,7 +104,6 @@ namespace RepService
                                 " -pollingInterval=30s" +
                                 " -evacuationPollingInterval=10s" +
                                 " -evacuationTimeout=600s" +
-                                " -skipCertVerify=true" +
                                 " -gardenNetwork=tcp" +
                                 " -gardenAddr=127.0.0.1:9241" +
                                 " -memoryMB=auto" +

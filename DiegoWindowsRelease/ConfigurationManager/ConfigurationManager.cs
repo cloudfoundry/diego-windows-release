@@ -53,6 +53,7 @@ namespace ConfigurationManager
                 "REDUNDANCY_ZONE",
                 "STACK",
                 "MACHINE_IP",
+                "REP_REQUIRE_TLS",
             };
 
             var optional = new List<string>
@@ -64,6 +65,9 @@ namespace ConfigurationManager
                 "BBS_CA_FILE",
                 "BBS_CLIENT_CERT_FILE",
                 "BBS_CLIENT_KEY_FILE",
+                "REP_CA_CERT_FILE",
+                "REP_SERVER_CERT_FILE",
+                "REP_SERVER_KEY_FILE",
                 "METRON_CA_FILE",
                 "METRON_AGENT_CERT_FILE",
                 "METRON_AGENT_KEY_FILE",

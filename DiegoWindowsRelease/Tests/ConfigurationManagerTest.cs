@@ -77,6 +77,7 @@ namespace Tests
             context.Parameters.Add("STACK", stack);
             context.Parameters.Add("MACHINE_IP", machineIp);
             context.Parameters.Add("CONSUL_ENCRYPT_FILE", consulEncryptFile);
+            context.Parameters.Add("REP_REQUIRE_TLS", false.ToString());
             configurationManager.Context = context;
             configurationManager.OnBeforeInstall(null);
 
@@ -109,6 +110,7 @@ namespace Tests
             Assert.Equal(hash["STACK"], stack);
             Assert.Equal(hash["MACHINE_IP"], machineIp);
             Assert.Equal(hash["CONSUL_ENCRYPT_FILE"], Path.Combine(tempDirectory.ToString(), "encrypt_key"));
+            Assert.Equal(hash["REP_REQUIRE_TLS"], false.ToString());
         }
     }
 }
