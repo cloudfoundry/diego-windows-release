@@ -27,103 +27,81 @@ namespace RepService
             EventLog.WriteEntry(eventSource, "Service Initializing", EventLogEntryType.Information, 0);
         }
 
-        protected override void OnStart(string[] args)
+        private string WriteConfigFile()
         {
             var hash = Config.Params();
-
             Func<Dictionary<string, string>, string, string> tryGetKey = (d, s) => d.ContainsKey(s) ? d[s] : "";
+
+            var repConfig = new
+            {
+                dropsonde_port = 3457,
+                consul_cluster = "http://127.0.0.1:8500",
+                debug_address = "127.0.0.1:17008",
+                listen_addr = "0.0.0.0:" + RepPort,
+                listen_addr_securable = "0.0.0.0:1801",
+                require_tls = false,
+                advertise_domain = "cell.service.cf.internal",
+                enable_legacy_api_endpoints = true,
+                preloaded_root_fs = new string[] {hash["STACK"] + ":/tmp/"+ hash["STACK"]},
+                placement_tags = new string[] {},
+                optional_placement_tags = new string[] {},
+                cell_id = hash["MACHINE_NAME"],
+                zone = hash["REDUNDANCY_ZONE"],
+                polling_interval = "30s",
+                evacuation_polling_interval = "10s",
+                evacuation_timeout = "600s",
+                skip_cert_verify = true,
+                garden_network = "tcp",
+                garden_addr = "127.0.0.1:9241",
+                memory_mb = "auto",
+                disk_mb = "auto",
+                container_inode_limit = 200000,
+                container_max_cpu_shares = 1,
+                cache_path = Path.Combine(Path.GetTempPath(), "executor", "cache"),
+                max_cache_size_in_bytes = 5000000000,
+                export_network_env_vars = true,
+                healthy_monitoring_interval = "30s",
+                unhealthy_monitoring_interval = "0.5s",
+                create_work_pool_size = 32,
+                delete_work_pool_size = 32,
+                read_work_pool_size = 64,
+                metrics_work_pool_size = 8,
+                healthcheck_work_pool_size = 64,
+                max_concurrent_downloads = 5,
+                temp_dir = Path.Combine(Path.GetTempPath(), "executor", "tmp"),
+                log_level = "info",
+                garden_healthcheck_interval = "10m",
+                garden_healthcheck_timeout = "10m",
+                garden_healthcheck_command_retry_pause = "1s",
+                garden_healthcheck_process_path = Path.Combine(Environment.SystemDirectory, "cmd.exe"),
+                garden_healthcheck_process_user = "vcap",
+                volman_driver_paths = "/var/vcap/data/voldrivers",
+                bbs_ca_cert_file = tryGetKey(hash, "BBS_CA_FILE"),
+                bbs_client_cert_file = tryGetKey(hash, "BBS_CLIENT_CERT_FILE"),
+                bbs_client_key_file = tryGetKey(hash, "BBS_CLIENT_KEY_FILE"),
+                bbs_api_url = hash["BBS_ADDRESS"],
+                garden_healthcheck_process_args = new string[] { "/c","dir" },
+            };
+
+            var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            string jsonString = javaScriptSerializer.Serialize(repConfig);
+            var configDir = Config.ConfigDir("rep");
+            Directory.CreateDirectory(configDir);
+            var configPath = Path.Combine(configDir, "rep.json");
+            File.WriteAllText(configPath, jsonString);
+            return configPath;
+        }
+
+        protected override void OnStart(string[] args)
+        {
+            var configPath = WriteConfigFile();
 
             process = new Process
             {
-                /*
- Usage of c:\dwm\bin\rep.exe:
-  -bbsAddress="": Address to the BBS Server
-  -bbsCACert="": path to certificate authority cert used for mutually authenticated TLS BBS communication
-  -bbsClientCert="": path to client cert used for mutually authenticated TLS BBS communication
-  -bbsClientKey="": path to client key used for mutually authenticated TLS BBS communication
-  -requireTLS="": rep require TLS
-  -caFile="": path to rep ca certificate file
-  -certFile="": path to server certificate file
-  -keyFile="": path to server certificate key file
-  -skipCertVerify="" : skip SSL certificate verification
-  -cachePath="/tmp/cache": location to cache assets
-  -cellID="": the ID used by the rep to identify itself to external systems - must be specified
-  -communicationTimeout=10s: Timeout applied to all HTTP requests.
-  -consulCluster="": comma-separated list of consul server URLs (scheme://ip:port)
-  -containerInodeLimit=200000: max number of inodes per container
-  -containerMaxCpuShares=0: cpu shares allocatable to a container
-  -containerOwnerName="executor": owner name with which to tag containers
-  -createWorkPoolSize=32: Number of concurrent create operations in garden
-  -debugAddr="": host:port for serving pprof debugging info
-  -deleteWorkPoolSize=32: Number of concurrent delete operations in garden
-  -diskMB="auto": the amount of disk the executor has available in megabytes
-  -etcdCluster="http://127.0.0.1:4001": comma-separated list of etcd URLs (scheme://ip:port)
-  -evacuationPollingInterval=10s: the interval on which to scan the executor during evacuation
-  -evacuationTimeout=10m0s: Timeout to wait for evacuation to complete
-  -exportNetworkEnvVars=false: export network environment variables into container (e.g. CF_INSTANCE_IP, CF_INSTANCE_PORT)
-  -gardenAddr="/tmp/garden.sock": network address for garden server
-  -gardenNetwork="unix": network mode for garden server (tcp, unix)
-  -healthCheckWorkPoolSize=64: Number of concurrent ping operations in garden
-  -healthyMonitoringInterval=30s: interval on which to check healthy containers
-  -listenAddr="0.0.0.0:1800": host:port to serve auction and LRP stop requests on
-  -lockRetryInterval=5s: interval to wait before retrying a failed lock acquisition
-  -lockTTL=10s: TTL for service lock
-  -logLevel="info": log level: debug, info, error or fatal
-  -maxCacheSizeInBytes=10737418240: maximum size of the cache (in bytes) - you should include a healthy amount of overhead
-  -memoryMB="auto": the amount of memory the executor has available in megabytes
-  -metricsWorkPoolSize=8: Number of concurrent metrics operations in garden
-  -pollingInterval=30s: the interval on which to scan the executor
-  -preloadedRootFS=map[]: List of preloaded RootFSes
-  -pruneInterval=1m0s: amount of time during which a container can remain in the allocated state
-  -readWorkPoolSize=64: Number of concurrent read operations in garden
-  -rootFSProvider=[]: List of RootFS providers
-  -sessionName="rep": consul session name
-  -tempDir="/tmp": location to store temporary assets
-  -unhealthyMonitoringInterval=500ms: interval on which to check unhealthy containers
-  -zone="": the availability zone associated with the rep
-                 */
                 StartInfo =
                 {
                     FileName = "rep.exe",
-                    // REMOVED //-rootFSProvider docker //-containerInodeLimit=200000
-                    Arguments = " -bbsAddress=" + hash["BBS_ADDRESS"] +
-                                " -bbsCACert=\"" + tryGetKey(hash, "BBS_CA_FILE") + "\"" +
-                                " -bbsClientCert=\"" + tryGetKey(hash, "BBS_CLIENT_CERT_FILE") + "\"" +
-                                " -bbsClientKey=\"" + tryGetKey(hash, "BBS_CLIENT_KEY_FILE") + "\"" +
-                                " -requireTLS=" + hash["REP_REQUIRE_TLS"] +
-                                " -caFile=\"" + tryGetKey(hash, "REP_CA_CERT_FILE") + "\"" +
-                                " -certFile=\"" + tryGetKey(hash, "REP_SERVER_CERT_FILE") + "\"" +
-                                " -keyFile=\"" + tryGetKey(hash, "REP_SERVER_KEY_FILE") + "\"" +
-                                " -skipCertVerify=true"+
-                                " -consulCluster=http://127.0.0.1:8500" +
-                                " -debugAddr=0.0.0.0:17008" +
-                                " -listenAddr=0.0.0.0:" + RepPort +
-                                " -preloadedRootFS=" + hash["STACK"] + ":/tmp/"+ hash["STACK"] +
-                                " -cellID="+hash["MACHINE_NAME"] +
-                                " -zone="+hash["REDUNDANCY_ZONE"] +
-                                " -pollingInterval=30s" +
-                                " -evacuationPollingInterval=10s" +
-                                " -evacuationTimeout=600s" +
-                                " -gardenNetwork=tcp" +
-                                " -gardenAddr=127.0.0.1:9241" +
-                                " -memoryMB=auto" +
-                                " -diskMB=auto" +
-                                " -containerMaxCpuShares=1" +
-                                " -cachePath=" + Path.Combine(Path.GetTempPath(), "executor", "cache") +
-                                " -maxCacheSizeInBytes=5000000000" +
-                                " -exportNetworkEnvVars=true" +
-                                " -healthyMonitoringInterval=30s" +
-                                " -unhealthyMonitoringInterval=0.5s" +
-                                " -createWorkPoolSize=32" +
-                                " -deleteWorkPoolSize=32" +
-                                " -readWorkPoolSize=64" +
-                                " -metricsWorkPoolSize=8" +
-                                " -healthCheckWorkPoolSize=64" +
-                                " -tempDir=" + Path.Combine(Path.GetTempPath(), "executor", "tmp") +
-                                " -gardenHealthcheckProcessUser=vcap" +
-                                " -gardenHealthcheckProcessPath=" + Path.Combine(Environment.SystemDirectory, "cmd.exe") +
-                                " -gardenHealthcheckProcessArgs=/c,dir" +
-                                " -logLevel=debug",
+                    Arguments = @"-config="+configPath,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,
