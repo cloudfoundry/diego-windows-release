@@ -64,7 +64,10 @@ namespace MetronService
                 LoggregatorDropsondePort = 3457,
                 PreferredProtocol = preferredProtocol,
                 TLSConfig = tlsConfig,
-                Deployment = "cf"
+                GRPC = tlsConfig,
+                Deployment = "cf",
+                DopplerAddr = "doppler.service.cf.internal:8082",
+                DopplerAddrUDP = "doppler.service.cf.internal:3457"
             };
 
             var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
