@@ -60,10 +60,9 @@ configure the DNS settings, and configure the firewall to the way that the cell 
 
 ## Install the MSIs
 
-### Option 1: Using the [Install Script Generator](https://github.com/cloudfoundry-incubator/greenhouse-install-script-generator)
+- Download the `generate.exe` from the same [garden-windows-release](https://github.com/cloudfoundry-incubator/garden-windows-release/releases/latest) release. **Note** that if you are using Internet Explorer to download the file it may remove the `.exe` extension from the file, so you will have to rename the file and add the extension.
 
-1. Download the `generate.exe` from the same release. **Note** that if you are using Internet Explorer to download the file it may remove the `.exe` extension from the file, so you will have to rename the file and add the extension.
-2. Run `generate.exe` with the following argument template:
+- Run `generate.exe` with the following argument template:
 
 ```
 generate.exe -outputDir=[the directory where the script will output its files]
@@ -80,75 +79,15 @@ generate.exe -outputDir=C:\diego-install-dir -boshUrl=https://10.10.0.54:25555 -
 The output of `generate.exe` is a batch file called `install.bat`, which appears in the same directory.
 
 
-1. Download `DiegoWindows.msi` and `GardenWindows.msi` to the output directory
+- Download `DiegoWindows.msi` and `GardenWindows.msi` to the output directory
 you specified to the generate command. The filenames must remain unchanged,
 since the script assumes these will be the MSI file names.
 
-1. Run the `install.bat` script in the output directory. This will install
+- Change any properties in the generated `install.bat` if desired.
+
+- Run the `install.bat` script in the output directory. This will install
 both of the MSIs with all of the arguments they require.
 
-### Option 2: Manually
-
-The following instructions assume that the MSIs were downloaded to `c:\temp`
-
-```
-msiexec /norestart /i c:\temp\GardenWindows.msi ^
-          CONTAINER_DIRECTORY=[(optional) An absolute path to the directory Containerizer will use to store container files, default is C:\containerizer] ^
-          MACHINE_IP=[The IP address of the network interface to bind to] ^
-          SYSLOG_HOST_IP=[(optional) Syslog host IP to send logs to] ^
-          SYSLOG_PORT=[(optional) Syslog port to send logs to]
-
-msiexec /norestart /i c:\temp\DiegoWindows.msi ^
-          BBS_CA_FILE=[(optional) path to the BBS CA certificate] ^
-          BBS_CLIENT_CERT_FILE=[(optional) path to the BBS client certificate] ^
-          BBS_CLIENT_KEY_FILE=[(optional) path to the BBS client key] ^
-          CONSUL_IPS=[Comma-separated IP addresses of consul agents from BOSH deploy of CF] ^
-          CONSUL_ENCRYPT_FILE=[path to the consul encryption key] ^
-          CONSUL_CA_FILE=[path to the consul CA certificate] ^
-          CONSUL_AGENT_CERT_FILE=[path to the consul agent certificate] ^
-          CONSUL_AGENT_KEY_FILE=[path to the consul agent key] ^
-          CF_ETCD_CLUSTER=[URI of your Elastic Runtime cf etcd cluster from BOSH deploy of cf] ^
-          MACHINE_IP=[The IP address of the network interface to bind to] ^
-          METRON_CA_FILE=[path to the Metron CA certificate] ^
-          METRON_AGENT_CERT_FILE=[path to the Metron agent certificate] ^
-          METRON_AGENT_KEY_FILE=[path to the Metron agent key] ^
-          STACK=[CF stack, eg. windows2012R2] ^
-          REDUNDANCY_ZONE=windows ^
-          LOGGREGATOR_SHARED_SECRET=[loggregator secret from your BOSH deploy of cf] ^
-          MACHINE_NAME=[(optional) This machine's name (must be unique across your cluster)] ^
-          SYSLOG_HOST_IP=[(optional) Syslog host IP to send logs to] ^
-          SYSLOG_PORT=[(optional) Syslog port to send logs to]
-```
-
-An example would be:
-
-```
-msiexec /norestart /i c:\temp\GardenWindows.msi ^
-          CONTAINER_DIRECTORY=D:\containers ^
-          MACHINE_IP=192.168.50.4 ^
-          SYSLOG_HOST_IP=syslog-server.example.com ^
-          SYSLOG_PORT=514
-
-msiexec /norestart /i c:\temp\DiegoWindows.msi ^
-          BBS_CA_FILE=c:\temp\bbs_ca.crt ^
-          BBS_CLIENT_CERT_FILE=c:\temp\bbs_client.crt ^
-          BBS_CLIENT_KEY_FILE=c:\temp\bbs_client.key ^
-          CONSUL_IPS=10.10.5.11,10.10.6.11,10.10.7.11 ^
-          CONSUL_ENCRYPT_FILE=c:\temp\consul_encrypt.key ^
-          CONSUL_CA_FILE=c:\temp\consul_ca.crt ^
-          CONSUL_AGENT_CERT_FILE=c:\temp\consul_agent.crt ^
-          CONSUL_AGENT_KEY_FILE=c:\temp\consul_agent.key ^
-          CF_ETCD_CLUSTER=http://10.244.0.42:4001 ^
-          MACHINE_IP=192.168.50.4 ^
-          METRON_CA_FILE=c:\temp\metron_ca.crt ^
-          METRON_AGENT_CERT_FILE=c:\temp\metron_agent.crt ^
-          METRON_AGENT_KEY_FILE=c:\temp\metron_agent.key ^
-          STACK=windows2012R2 ^
-          REDUNDANCY_ZONE=windows ^
-          LOGGREGATOR_SHARED_SECRET=loggregator-secret ^
-          SYSLOG_HOST_IP=syslog-server.example.com ^
-          SYSLOG_PORT=514
-```
 
 #### Changing BOSH properties
 
