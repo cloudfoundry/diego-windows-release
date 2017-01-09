@@ -39,7 +39,7 @@ namespace RepService
                 debug_address = "127.0.0.1:17008",
                 listen_addr = "0.0.0.0:" + RepPort,
                 listen_addr_securable = "0.0.0.0:1801",
-                require_tls = hash["REP_REQUIRE_TLS"],
+                require_tls = (hash["REP_REQUIRE_TLS"] == "true"),
                 ca_cert_file = tryGetKey(hash, "REP_CA_CERT_FILE"),
                 server_cert_file = tryGetKey(hash, "REP_SERVER_CERT_FILE"),
                 server_key_file = tryGetKey(hash, "REP_SERVER_KEY_FILE"),
