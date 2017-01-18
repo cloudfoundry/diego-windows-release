@@ -82,7 +82,7 @@ namespace RepService
                 bbs_ca_cert_file = tryGetKey(hash, "BBS_CA_FILE"),
                 bbs_client_cert_file = tryGetKey(hash, "BBS_CLIENT_CERT_FILE"),
                 bbs_client_key_file = tryGetKey(hash, "BBS_CLIENT_KEY_FILE"),
-                bbs_api_url = hash["BBS_ADDRESS"],
+                bbs_address = hash["BBS_ADDRESS"],
                 garden_healthcheck_process_args = new string[] { "/c","dir" },
             };
 
