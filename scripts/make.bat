@@ -47,8 +47,6 @@ popd
 
 pushd diego-release || exit /b 1
   SET GOPATH=%CD%
-  :: windows cmd doesn't like quoting arguments, use -skip=foo.bar
-  :: instead of -skip='foo bar'
   ginkgo -r -noColor src/code.cloudfoundry.org/executor || exit /b 1
   ginkgo -noColor src/code.cloudfoundry.org/rep || exit /b 1
 
