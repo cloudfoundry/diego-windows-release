@@ -60,7 +60,7 @@ configure the DNS settings, and configure the firewall to the way that the cell 
 
 ## Install the MSIs
 
-- Download the `generate.exe` from the same [garden-windows-release](https://github.com/cloudfoundry-incubator/garden-windows-release/releases/latest) release. **Note** that if you are using Internet Explorer to download the file it may remove the `.exe` extension from the file, so you will have to rename the file and add the extension.
+- Download the `generate.exe` from the a compatible [diego-windows-release](https://github.com/cloudfoundry/diego-windows-release/releases) release. **Note** that if you are using Internet Explorer to download the file it may remove the `.exe` extension from the file, so you will have to rename the file and add the extension.
 
 - Run `generate.exe` with the following argument template:
 
