@@ -1,4 +1,6 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/c0j6dgh786i1voh1?svg=true)](https://ci.appveyor.com/project/greenhouse/diego-windows-release)
+## **DEPRECATION NOTICE**
+
+This repository is no longer being supported.
 
 # diego-windows-release
 
